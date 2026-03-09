@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Airfoil Optimization — Pradyota Phaneesh</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+
+  <nav class="navbar scrolled" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">PP</a>
+      <ul class="nav-links">
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#skills">Skills</a></li>
+        <li><a href="../index.html#projects">Projects</a></li>
+        <li><a href="../index.html#experience">Experience</a></li>
+        <li><a href="../index.html#publications">Research</a></li>
+        <li><a href="../index.html#contact" class="nav-cta">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html#about"      class="mobile-link">About</a>
+    <a href="../index.html#skills"     class="mobile-link">Skills</a>
+    <a href="../index.html#projects"   class="mobile-link">Projects</a>
+    <a href="../index.html#experience" class="mobile-link">Experience</a>
+    <a href="../index.html#contact"    class="mobile-link">Contact</a>
+  </div>
+
+
+  <!-- ════ PROJECT HERO ════ -->
+  <div class="proj-page-hero">
+    <div class="container">
+      <a href="../index.html#projects" class="proj-hero-back">Back to Projects</a>
+
+      <p class="proj-hero-tag">Python · Aerospace · Computational Engineering</p>
+
+      <h1 class="proj-hero-title">
+        Airfoil Shape<br /><em>Optimization Tool</em>
+      </h1>
+
+      <p class="proj-hero-summary">
+        Built a Python tool that automates the generation and aerodynamic
+        evaluation of NACA airfoil profiles — sweeping geometric parameters
+        (camber, thickness, chord ratio) to expose high-performance design
+        regions that manual iteration would miss. Visualized performance
+        surfaces with Matplotlib to communicate trade-offs clearly.
+      </p>
+
+      <div class="proj-hero-stats">
+        <div class="proj-stat">
+          <span class="ps-val">Python</span>
+          <span class="ps-lbl">Language</span>
+        </div>
+        <div class="proj-stat">
+          <span class="ps-val">NACA</span>
+          <span class="ps-lbl">Airfoil Series</span>
+        </div>
+        <div class="proj-stat">
+          <span class="ps-val">Auto</span>
+          <span class="ps-lbl">Parameter Sweep</span>
+        </div>
+        <div class="proj-stat">
+          <span class="ps-val">L/D</span>
+          <span class="ps-lbl">Optimization Target</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════ SECTION 1: THE PROBLEM ════ -->
+  <div class="proj-section">
+    <div class="container">
+
+      <div class="proj-section-head reveal">
+        <span class="psh-num">01</span>
+        <h2 class="psh-title">The Problem</h2>
+      </div>
+
+      <div class="proj-two-col">
+        <div class="proj-text reveal">
+          <p>
+            Airfoil selection for low-speed aerospace applications is typically
+            done by manually consulting NACA tables, picking a few candidate
+            profiles, and running analysis individually. This approach is slow,
+            labor-intensive, and systematically biased — engineers pick candidates
+            near profiles they already know, leaving large regions of the design
+            space unexplored.
+          </p>
+          <p>
+            The nonlinearity of aerodynamic performance with respect to geometric
+            parameters makes intuition unreliable. Small changes in camber can
+            produce disproportionately large changes in lift-to-drag ratio at
+            specific operating conditions — and these effects are only visible
+            when you sweep the full parameter space computationally.
+          </p>
+          <p>
+            The goal: build a tool that eliminates the manual iteration bottleneck,
+            explores the full NACA parameter space systematically, and surfaces
+            high-performance geometries that human intuition alone would miss.
+          </p>
+        </div>
+
+        <div class="reveal">
+          <div class="proj-callout">
+            <span class="callout-label">Core Insight</span>
+            <p>"Small changes in camber produce nonlinear lift effects. Automation
+            exposes high-performance design regions that intuition alone would never
+            find — and never even look for."</p>
+          </div>
+
+          <div class="proj-tools-row" style="margin-top:1.5rem;">
+            <span>Python</span>
+            <span>NumPy</span>
+            <span>Matplotlib</span>
+            <span>SciPy</span>
+            <span>Aerodynamics</span>
+            <span>Optimization</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════ SECTION 2: ENGINEERING APPROACH ════ -->
+  <div class="proj-section proj-section-alt">
+    <div class="container">
+
+      <div class="proj-section-head reveal">
+        <span class="psh-num">02</span>
+        <h2 class="psh-title">Engineering Approach</h2>
+      </div>
+
+      <div class="proc-steps reveal">
+
+        <div class="proc-step">
+          <div class="proc-num">1</div>
+          <div class="proc-content">
+            <h4>NACA Airfoil Geometry Generation</h4>
+            <p>Implemented the NACA 4-digit airfoil parameterization in Python.
+            Given any camber (m), maximum camber position (p), and thickness (t)
+            values, the code generates the full upper and lower surface geometry
+            as coordinate arrays — ready for aerodynamic analysis.</p>
+          </div>
+        </div>
+
+        <div class="proc-step">
+          <div class="proc-num">2</div>
+          <div class="proc-content">
+            <h4>Automated Parameter Sweep</h4>
+            <p>Built a sweep engine that iterates across a grid of camber, camber
+            position, and thickness values. For each combination, generates the
+            geometry and computes aerodynamic performance metrics. This replaces
+            manual trial-and-error with systematic design space exploration.</p>
+          </div>
+        </div>
+
+        <div class="proc-step">
+          <div class="proc-num">3</div>
+          <div class="proc-content">
+            <h4>Aerodynamic Performance Evaluation</h4>
+            <p>For each generated geometry, computed key aerodynamic coefficients
+            including lift coefficient (Cl), drag coefficient (Cd), and lift-to-drag
+            ratio (L/D) across a range of angles of attack. This provides a
+            complete performance map for each geometry candidate.</p>
+          </div>
+        </div>
+
+        <div class="proc-step">
+          <div class="proc-num">4</div>
+          <div class="proc-content">
+            <h4>Performance Surface Visualization (Matplotlib)</h4>
+            <p>Plotted L/D ratio as a function of camber and thickness parameter
+            space. Surface plots and contour maps allow engineers to visually
+            identify high-performance regions, understand trade-off gradients,
+            and select optimal candidates based on target operating conditions.</p>
+          </div>
+        </div>
+
+        <div class="proc-step">
+          <div class="proc-num">5</div>
+          <div class="proc-content">
+            <h4>Optimal Candidate Extraction</h4>
+            <p>Tool automatically identifies and ranks the top-performing geometries
+            for a given set of operating conditions (target angle of attack, speed
+            regime, etc.). Outputs include the optimal NACA designation, geometry
+            coordinates, and predicted performance metrics.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════ SECTION 3: IMAGE GALLERY ════ -->
+  <!--
+    HOW TO ADD YOUR IMAGES:
+    1. Create folder: Images/airfoil/ inside your portfolio folder
+    2. Add screenshots of your Python tool output, plots, results
+    3. Copy a <figure class="gal-item"> block and change the src
+  -->
+  <div class="proj-gallery">
+    <div class="container">
+
+      <div class="proj-section-head reveal">
+        <span class="psh-num">03</span>
+        <h2 class="psh-title">Gallery</h2>
+      </div>
+
+      <div class="gallery-grid reveal">
+
+        <!-- ⚠️ IMAGE 1: Add your performance surface plot at Images/airfoil/img1.jpg -->
+        <figure class="gal-item gal-item-wide">
+          <img
+            src="../Images/airfoil/img1.jpg"
+            alt="Airfoil L/D performance surface plot"
+            class="gal-img"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+          <div class="gal-placeholder">
+            <div class="gal-placeholder-icon">◈</div>
+            <span>L/D Performance Surface</span>
+            <span>Add: Images/airfoil/img1.jpg</span>
+          </div>
+          <div class="gal-overlay"><div class="gal-zoom">⤢</div></div>
+          <figcaption class="gal-caption">Lift-to-drag performance surface across NACA parameter space</figcaption>
+        </figure>
+
+        <!-- ⚠️ IMAGE 2: Add your airfoil geometry plot at Images/airfoil/img2.jpg -->
+        <figure class="gal-item">
+          <img
+            src="../Images/airfoil/img2.jpg"
+            alt="Generated airfoil geometry overlay comparison"
+            class="gal-img"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+          <div class="gal-placeholder">
+            <div class="gal-placeholder-icon">⟁</div>
+            <span>Airfoil Geometry</span>
+            <span>Add: Images/airfoil/img2.jpg</span>
+          </div>
+          <div class="gal-overlay"><div class="gal-zoom">⤢</div></div>
+          <figcaption class="gal-caption">Generated NACA airfoil geometries — parameter comparison</figcaption>
+        </figure>
+
+        <!-- ⚠️ IMAGE 3: Add your sweep results plot at Images/airfoil/img3.jpg -->
+        <figure class="gal-item">
+          <img
+            src="../Images/airfoil/img3.jpg"
+            alt="Parameter sweep results and top candidates"
+            class="gal-img"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+          <div class="gal-placeholder">
+            <div class="gal-placeholder-icon">✦</div>
+            <span>Sweep Results</span>
+            <span>Add: Images/airfoil/img3.jpg</span>
+          </div>
+          <div class="gal-overlay"><div class="gal-zoom">⤢</div></div>
+          <figcaption class="gal-caption">Top-performing geometries identified from parameter sweep</figcaption>
+        </figure>
+
+        <!-- ⚠️ IMAGE 4: Add your code screenshot at Images/airfoil/img4.jpg -->
+        <figure class="gal-item gal-item-wide">
+          <img
+            src="../Images/airfoil/img4.jpg"
+            alt="Python tool code and output"
+            class="gal-img"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+          <div class="gal-placeholder">
+            <div class="gal-placeholder-icon">◉</div>
+            <span>Python Tool Output</span>
+            <span>Add: Images/airfoil/img4.jpg</span>
+          </div>
+          <div class="gal-overlay"><div class="gal-zoom">⤢</div></div>
+          <figcaption class="gal-caption">Python tool — automated parameter sweep and visualization output</figcaption>
+        </figure>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════ SECTION 4: RESULTS ════ -->
+  <div class="proj-section proj-section-alt">
+    <div class="container">
+
+      <div class="proj-section-head reveal">
+        <span class="psh-num">04</span>
+        <h2 class="psh-title">Results &amp; Key Insights</h2>
+      </div>
+
+      <div class="results-list reveal">
+
+        <div class="result-item">
+          <div class="result-icon">🚀</div>
+          <p><strong>Automated parameter sweep</strong> across the full NACA 4-digit
+          geometric parameter space — replacing hours of manual iteration with
+          seconds of computation.</p>
+        </div>
+
+        <div class="result-item">
+          <div class="result-icon">📊</div>
+          <p><strong>Nonlinear lift effects exposed:</strong> small changes in camber
+          (sometimes &lt; 1% variation) produced disproportionately large L/D changes
+          at target operating angles — effects completely invisible to manual
+          trial-and-error selection.</p>
+        </div>
+
+        <div class="result-item">
+          <div class="result-icon">🔍</div>
+          <p><strong>High-performance regions identified</strong> that no manual
+          search strategy would have found — demonstrating that design space
+          exploration beats engineering intuition for nonlinear aerodynamic problems.</p>
+        </div>
+
+        <div class="result-item">
+          <div class="result-icon">💡</div>
+          <p><strong>Transferable methodology:</strong> the same computational
+          approach — parametric sweep, FEA or physics solver, surface visualization,
+          optimal extraction — applies directly to structural optimization, thermal
+          management, and fluid system design problems.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p class="footer-name">Pradyota Phaneesh</p>
+      <p class="footer-meta">B.S. Mechanical Engineering · UT Austin · Dec 2027</p>
+      <p class="footer-copy">© 2025 · <a href="../index.html#projects" style="color:rgba(255,255,255,0.4)">← Back to Projects</a></p>
+    </div>
+  </footer>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" id="lbClose" aria-label="Close">✕</button>
+    <button class="lb-prev"  id="lbPrev"  aria-label="Previous">‹</button>
+    <div class="lb-img-wrap"><img src="" alt="" id="lbImg" class="lb-img" /></div>
+    <button class="lb-next"  id="lbNext"  aria-label="Next">›</button>
+    <p class="lb-caption" id="lbCaption"></p>
+  </div>
+
+  <script src="../script.js"></script>
+</body>
+</html>

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ECLAIR Combat Robotics — Pradyota Phaneesh</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+
+  <nav class="navbar scrolled" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">PP</a>
+      <ul class="nav-links">
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#skills">Skills</a></li>
+        <li><a href="../index.html#projects">Projects</a></li>
+        <li><a href="../index.html#experience">Experience</a></li>
+        <li><a href="../index.html#publications">Research</a></li>
+        <li><a href="../index.html#contact" class="nav-cta">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html#about"      class="mobile-link">About</a>
+    <a href="../index.html#skills"     class="mobile-link">Skills</a>
+    <a href="../index.html#projects"   class="mobile-link">Projects</a>
+    <a href="../index.html#experience" class="mobile-link">Experience</a>
+    <a href="../index.html#contact"    class="mobile-link">Contact</a>
+  </div>
+
+  <!-- ════ HERO ════ -->
+  <div class="proj-page-hero">
+    <div class="container">
+      <a href="../index.html#projects" class="proj-hero-back">Back to Projects</a>
+      <p class="proj-hero-tag">OnShape · Robotics · Design for Impact · ECLAIR Competition</p>
+      <h1 class="proj-hero-title">ECLAIR Combat<br /><em>Robotics — Drum Spinner</em></h1>
+      <p class="proj-hero-summary">
+        Designed and manufactured a competitive combat robot featuring a high-kinetic-energy
+        drum-spinner weapon for the ECLAIR Battle Bots competition. The project centered on
+        three engineering objectives: maximizing the kinetic energy stored in the rotating
+        drum at competition weight limits, integrating all drive and weapon electronics inside
+        a chassis designed to survive high-impact collisions, and optimizing component
+        placement to protect sensitive electronics from shock and debris.
+      </p>
+      <div class="proj-hero-stats">
+        <div class="proj-stat"><span class="ps-val">Drum</span><span class="ps-lbl">Spinner Weapon</span></div>
+        <div class="proj-stat"><span class="ps-val">High-RPM</span><span class="ps-lbl">Weapon System</span></div>
+        <div class="proj-stat"><span class="ps-val">Competed</span><span class="ps-lbl">ECLAIR Tournament</span></div>
+        <div class="proj-stat"><span class="ps-val">OnShape</span><span class="ps-lbl">Cloud CAD</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ THE PROBLEM ════ -->
+  <div class="proj-section">
+    <div class="container">
+      <div class="proj-section-head reveal">
+        <span class="psh-num">01</span>
+        <h2 class="psh-title">The Problem</h2>
+      </div>
+      <div class="proj-two-col">
+        <div class="proj-text reveal">
+          <p>
+            Combat robotics imposes a unique multi-objective design challenge: the
+            robot must simultaneously deliver maximum kinetic energy to an opponent
+            on offense, survive high-impact collisions on defense, protect sensitive
+            electronic components inside the chassis, and stay within strict competition
+            weight limits — all in the smallest possible physical envelope.
+          </p>
+          <p>
+            Drum-spinner weapons amplify these tensions. A heavier drum stores more
+            kinetic energy but reduces chassis mass budget for armor and structure.
+            Higher RPM increases impact energy but introduces gyroscopic effects that
+            impair maneuverability. Weapon housing must transmit impact loads without
+            deforming into the drivetrain or electronics bay.
+          </p>
+          <p>
+            The design strategy: prioritize weapon energy density over chassis weight,
+            accept aggressive weight limits on armor, and compensate through intelligent
+            internal geometry that positions drivetrain and electronics in naturally
+            protected locations relative to anticipated impact vectors.
+          </p>
+        </div>
+        <div class="reveal">
+          <div class="proj-callout">
+            <span class="callout-label">Design Philosophy</span>
+            <p>"Design for survival under worst-case impact — not average impact.
+            Position every critical component assuming the worst hit comes from the
+            most exposed direction."</p>
+          </div>
+          <div class="proj-tools-row" style="margin-top:1.5rem;">
+            <span>OnShape</span><span>Robotics</span><span>Drivetrain Design</span>
+            <span>Weapon Systems</span><span>Electronics Integration</span><span>Design for Impact</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ DESIGN PROCESS ════ -->
+  <div class="proj-section proj-section-alt">
+    <div class="container">
+      <div class="proj-section-head reveal">
+        <span class="psh-num">02</span>
+        <h2 class="psh-title">Design Process</h2>
+      </div>
+      <div class="proc-steps reveal">
+
+        <div class="proc-step">
+          <div class="proc-num">1</div>
+          <div class="proc-content">
+            <h4>Weapon Energy Optimization</h4>
+            <p>Calculated kinetic energy stored in the drum as a function of geometry,
+            material, and RPM under competition weight constraints. Optimized drum mass
+            distribution to maximize moment of inertia at the outer radius — concentrating
+            mass at the impact teeth — for maximum energy transfer upon contact.
+            Balanced weapon energy budget against chassis mass requirements.</p>
+          </div>
+        </div>
+
+        <div class="proc-step">
+          <div class="proc-num">2</div>
+          <div class="proc-content">
+            <h4>Drum Geometry &amp; Gyroscopic Analysis</h4>
+            <p>Engineered the drum geometry for maximum energy-per-unit-mass while
+            minimizing gyroscopic precession effects during maneuvers. Evaluated
+            angular momentum magnitude and direction to predict handling characteristics
+            during competition driving. Designed the drum bearing mounts to handle
+            combined radial and axial loads from both spinning inertia and impact events.</p>
+          </div>
+        </div>
+
+        <div class="proc-step">
+          <div class="proc-num">3</div>
+          <div class="proc-content">
+            <h4>Chassis Design in OnShape</h4>
+            <p>Designed the full chassis assembly in OnShape for cloud-based collaborative
+            modeling, enabling precise tolerances for weapon housing and drive assembly interfaces.
+            Optimized component placement to position ESCs and receivers in structurally
+            shielded locations behind the drivetrain assembly, protected from both frontal
+            impacts and debris ejection from the weapon zone.</p>
+          </div>
+        </div>
+
+        <div class="proc-step">
+          <div class="proc-num">4</div>
+          <div class="proc-content">
+            <h4>Drive System &amp; Electronics Integration</h4>
+            <p>Selected and integrated the drive motor, weapon motor, ESCs, and receiver
+            within the chassis constraints. Routed motor leads to minimize debris exposure
+            and designed cable management to prevent cable entanglement during impact events.
+            Designed weapon motor mounting for easy field replacement between rounds.</p>
+          </div>
+        </div>
+
+        <div class="proc-step">
+          <div class="proc-num">5</div>
+          <div class="proc-content">
+            <h4>Fabrication &amp; Competition Validation</h4>
+            <p>Manufactured chassis components using available fabrication equipment.
+            Assembled and tested the complete robot through multiple test runs — validating
+            weapon spin-up time, drivetrain response, and gyroscopic handling behavior.
+            Competed in the ECLAIR Battle Bots tournament, validating drive system
+            durability and weapon efficacy under real competition conditions.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ GALLERY ════ -->
+  <div class="proj-gallery">
+    <div class="container">
+      <div class="proj-section-head reveal">
+        <span class="psh-num">03</span>
+        <h2 class="psh-title">Gallery</h2>
+      </div>
+      <div class="gallery-grid reveal">
+
+        <!-- ⚠️ IMAGE 1 (wide): Add Images/eclair/img1.jpg -->
+        <figure class="gal-item gal-item-wide">
+          <img src="../Images/eclair/img1.jpg" alt="ECLAIR combat robot full assembly" class="gal-img"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="gal-placeholder"><div class="gal-placeholder-icon">◈</div><span>Full Assembly</span><span>Add: Images/eclair/img1.jpg</span></div>
+          <div class="gal-overlay"><div class="gal-zoom">⤢</div></div>
+          <figcaption class="gal-caption">ECLAIR drum-spinner combat robot — complete assembly</figcaption>
+        </figure>
+
+        <!-- ⚠️ IMAGE 2: Add Images/eclair/img2.jpg -->
+        <figure class="gal-item">
+          <img src="../Images/eclair/img2.jpg" alt="Drum spinner weapon detail" class="gal-img"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="gal-placeholder"><div class="gal-placeholder-icon">⟁</div><span>Weapon Detail</span><span>Add: Images/eclair/img2.jpg</span></div>
+          <div class="gal-overlay"><div class="gal-zoom">⤢</div></div>
+          <figcaption class="gal-caption">High-RPM drum spinner — weapon and bearing assembly</figcaption>
+        </figure>
+
+        <!-- ⚠️ IMAGE 3: Add Images/eclair/img3.jpg -->
+        <figure class="gal-item">
+          <img src="../Images/eclair/img3.jpg" alt="OnShape CAD model interior layout" class="gal-img"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="gal-placeholder"><div class="gal-placeholder-icon">✦</div><span>OnShape CAD</span><span>Add: Images/eclair/img3.jpg</span></div>
+          <div class="gal-overlay"><div class="gal-zoom">⤢</div></div>
+          <figcaption class="gal-caption">OnShape chassis model — electronics placement and component routing</figcaption>
+        </figure>
+
+        <!-- ⚠️ IMAGE 4 (wide): Add Images/eclair/img4.jpg -->
+        <figure class="gal-item gal-item-wide">
+          <img src="../Images/eclair/img4.jpg" alt="ECLAIR competition match" class="gal-img"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="gal-placeholder"><div class="gal-placeholder-icon">◉</div><span>Competition Match</span><span>Add: Images/eclair/img4.jpg</span></div>
+          <div class="gal-overlay"><div class="gal-zoom">⤢</div></div>
+          <figcaption class="gal-caption">ECLAIR Battle Bots tournament — competition match</figcaption>
+        </figure>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ RESULTS ════ -->
+  <div class="proj-section proj-section-alt">
+    <div class="container">
+      <div class="proj-section-head reveal">
+        <span class="psh-num">04</span>
+        <h2 class="psh-title">Results</h2>
+      </div>
+      <div class="results-list reveal">
+        <div class="result-item">
+          <div class="result-icon">⚡</div>
+          <p><strong>High-RPM drum weapon</strong> successfully spun up to operating speed
+          within competition time limits and delivered measurable kinetic energy transfer
+          on contact in competition matches.</p>
+        </div>
+        <div class="result-item">
+          <div class="result-icon">🛡</div>
+          <p><strong>Drive system survived competition impact loading</strong> — the
+          electronics shielding geometry kept ESCs and receivers intact through multiple
+          high-energy collision events that would have destroyed less intentionally placed components.</p>
+        </div>
+        <div class="result-item">
+          <div class="result-icon">🔍</div>
+          <p><strong>Key learning — gyroscopic effects are a first-order concern</strong>
+          at competition RPMs. Handling behavior was noticeably affected by precession
+          during sharp turns, informing future drum axis orientation and mass distribution
+          decisions.</p>
+        </div>
+        <div class="result-item">
+          <div class="result-icon">🤝</div>
+          <p><strong>OnShape cloud CAD enabled real-time team collaboration</strong> —
+          multiple contributors could work on chassis sub-assemblies simultaneously
+          with live interference checking across the full assembly model.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p class="footer-name">Pradyota Phaneesh</p>
+      <p class="footer-meta">B.S. Mechanical Engineering · UT Austin · Dec 2027</p>
+      <p class="footer-copy">© 2025 · <a href="../index.html#projects" style="color:rgba(255,255,255,0.4)">← Back to Projects</a></p>
+    </div>
+  </footer>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" id="lbClose" aria-label="Close">✕</button>
+    <button class="lb-prev"  id="lbPrev"  aria-label="Previous">‹</button>
+    <div class="lb-img-wrap"><img src="" alt="" id="lbImg" class="lb-img" /></div>
+    <button class="lb-next"  id="lbNext"  aria-label="Next">›</button>
+    <p class="lb-caption" id="lbCaption"></p>
+  </div>
+  <script src="../script.js"></script>
+</body>
+</html>

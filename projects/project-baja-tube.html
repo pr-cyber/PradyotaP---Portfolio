@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Baja SAE Tube Optimization — Pradyota Phaneesh</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+
+  <nav class="navbar scrolled" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">PP</a>
+      <ul class="nav-links">
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#skills">Skills</a></li>
+        <li><a href="../index.html#projects">Projects</a></li>
+        <li><a href="../index.html#experience">Experience</a></li>
+        <li><a href="../index.html#publications">Research</a></li>
+        <li><a href="../index.html#contact" class="nav-cta">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html#about"      class="mobile-link">About</a>
+    <a href="../index.html#skills"     class="mobile-link">Skills</a>
+    <a href="../index.html#projects"   class="mobile-link">Projects</a>
+    <a href="../index.html#experience" class="mobile-link">Experience</a>
+    <a href="../index.html#contact"    class="mobile-link">Contact</a>
+  </div>
+
+  <!-- ════ HERO ════ -->
+  <div class="proj-page-hero">
+    <div class="container">
+      <a href="../index.html#projects" class="proj-hero-back">Back to Projects</a>
+      <p class="proj-hero-tag">MATLAB · FEA · Structural Optimization · Aug 2025 – Present</p>
+      <h1 class="proj-hero-title">Baja SAE Chassis<br /><em>Tube Optimization</em></h1>
+      <p class="proj-hero-summary">
+        Developed an end-to-end analytical and computational framework in MATLAB
+        to optimize a Baja SAE tubular chassis for strength, stiffness, weight, and cost.
+        The tool performs a full parametric sweep of tube outer diameter and wall thickness
+        across multiple steel alloys — evaluating bending stiffness, Euler buckling,
+        torsional rigidity, mass, and material cost — then runs a custom 3D space-frame
+        FEA model with color-mapped deformation visualization to validate Pareto-optimal
+        design candidates.
+      </p>
+      <div class="proj-hero-stats">
+        <div class="proj-stat"><span class="ps-val">3</span><span class="ps-lbl">Steel Alloys Swept</span></div>
+        <div class="proj-stat"><span class="ps-val">1,000+</span><span class="ps-lbl">Configurations Evaluated</span></div>
+        <div class="proj-stat"><span class="ps-val">Pareto</span><span class="ps-lbl">Trade-Study Method</span></div>
+        <div class="proj-stat"><span class="ps-val">3D FEA</span><span class="ps-lbl">Deformation Overlay</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ THE PROBLEM ════ -->
+  <div class="proj-section">
+    <div class="container">
+      <div class="proj-section-head reveal">
+        <span class="psh-num">01</span>
+        <h2 class="psh-title">The Problem</h2>
+      </div>
+      <div class="proj-two-col">
+        <div class="proj-text reveal">
+          <p>
+            For a Baja SAE chassis, tube selection is one of the highest-leverage
+            design decisions: the same geometry enforced by the SAE rulebook must
+            survive frontal impacts, rollover loads, and torsional twist — while
+            staying as light and inexpensive as possible. No single tube specification
+            optimizes all four dimensions simultaneously.
+          </p>
+          <p>
+            Manual selection from material datasheets produces locally reasonable
+            choices but misses the interaction effects between diameter, wall
+            thickness, alloy choice, and load case. A team starting from scratch
+            also has no institutional knowledge to draw on, making a principled,
+            data-driven selection method essential.
+          </p>
+          <p>
+            The goal: build a MATLAB framework that automates the full analytical
+            sweep, filters by safety-factor constraints, identifies the Pareto front
+            across mass and cost, and validates finalist candidates with 3D beam FEA —
+            all exportable to CSV for downstream documentation.
+          </p>
+        </div>
+        <div class="reveal">
+          <div class="proj-callout">
+            <span class="callout-label">Engineering Problem</span>
+            <p>"Tube selection for a competition chassis is a multi-objective trade-off
+            across four dimensions — strength, stiffness, weight, and cost — that
+            manual iteration cannot reliably resolve."</p>
+          </div>
+          <div class="proj-tools-row" style="margin-top:1.5rem;">
+            <span>MATLAB</span><span>FEA (Beam Elements)</span><span>Euler–Bernoulli</span>
+            <span>Pareto Optimization</span><span>AISI 1018</span><span>AISI 4130</span><span>Docol R8</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ METHODOLOGY ════ -->
+  <div class="proj-section proj-section-alt">
+    <div class="container">
+      <div class="proj-section-head reveal">
+        <span class="psh-num">02</span>
+        <h2 class="psh-title">Methodology</h2>
+      </div>
+      <div class="proc-steps reveal">
+
+        <div class="proc-step">
+          <div class="proc-num">1</div>
+          <div class="proc-content">
+            <h4>Full Parametric Sweep — Geometry × Material</h4>
+            <p>Swept tube outer diameter (1.0″–2.5″) and wall thickness (0.049″–0.134″) across
+            AISI 1018, AISI 4130, and Docol R8 steel. For each combination, computed bending
+            stiffness (EI), bending strength, Euler buckling load, torsional rigidity (GJ),
+            section mass per meter, total chassis mass, and total material cost.</p>
+          </div>
+        </div>
+
+        <div class="proc-step">
+          <div class="proc-num">2</div>
+          <div class="proc-content">
+            <h4>Safety-Factor Filtering</h4>
+            <p>Applied rule-based thresholds enforcing minimum bending stiffness (Kb ≥ 2620 N·m²),
+            minimum bending strength (Sb ≥ 374 N·m), safety factor ≥ 1.5, and a maximum
+            wall-to-diameter ratio of 0.15. Filtered the full candidate set down to only
+            rule-compliant configurations before Pareto analysis.</p>
+          </div>
+        </div>
+
+        <div class="proc-step">
+          <div class="proc-num">3</div>
+          <div class="proc-content">
+            <h4>Pareto Front Identification (Mass vs. Cost)</h4>
+            <p>Computed the Pareto-optimal front across total chassis mass and total material cost
+            for each alloy. Pareto candidates represent designs where no other option is better on
+            both metrics simultaneously — the engineering-efficient boundary of the feasible design
+            space. Up to 6 Pareto candidates per alloy were selected for FEA validation.</p>
+          </div>
+        </div>
+
+        <div class="proc-step">
+          <div class="proc-num">4</div>
+          <div class="proc-content">
+            <h4>3D Space-Frame FEA — Euler–Bernoulli Beam Elements</h4>
+            <p>Built a custom 3D beam FEA solver in MATLAB using 12-DOF Euler–Bernoulli frame
+            elements. Chassis node coordinates were approximated from the SolidWorks CAD model.
+            Applied representative combined loading: driver weight (800 N distributed across seat
+            nodes) and lateral roll load (2,500 N at roll-hoop nodes). Solved for nodal
+            displacements and computed element midpoint displacement magnitudes.</p>
+          </div>
+        </div>
+
+        <div class="proc-step">
+          <div class="proc-num">5</div>
+          <div class="proc-content">
+            <h4>Color-Mapped Deformation Overlay Visualization</h4>
+            <p>Plotted undeformed chassis geometry (black wireframe) overlaid with deformed
+            configurations for all Pareto candidates, color-mapped by element displacement
+            magnitude using the jet colormap. Scale factor set so maximum displacement
+            corresponds to ~8% of chassis diagonal for readability. Results exported to CSV
+            for downstream design review and manufacturing documentation.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ GALLERY ════ -->
+  <!--
+    HOW TO ADD YOUR IMAGES:
+    1. Create folder: Images/baja-tube/ inside your portfolio folder
+    2. Add screenshots of MATLAB output, Pareto plots, deformation overlays
+    3. Copy a <figure class="gal-item"> block and change the src
+  -->
+  <div class="proj-gallery">
+    <div class="container">
+      <div class="proj-section-head reveal">
+        <span class="psh-num">03</span>
+        <h2 class="psh-title">Gallery</h2>
+      </div>
+      <div class="gallery-grid reveal">
+
+        <!-- ⚠️ IMAGE 1 (wide): Add Images/baja-tube/img1.jpg -->
+        <figure class="gal-item gal-item-wide">
+          <img src="../Images/baja-tube/img1.jpg" alt="3D FEA deformation overlay all Pareto candidates" class="gal-img"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="gal-placeholder"><div class="gal-placeholder-icon">◈</div><span>3D Deformation Overlay</span><span>Add: Images/baja-tube/img1.jpg</span></div>
+          <div class="gal-overlay"><div class="gal-zoom">⤢</div></div>
+          <figcaption class="gal-caption">Undeformed chassis (black) with Pareto candidate deformations — color-mapped by displacement magnitude</figcaption>
+        </figure>
+
+        <!-- ⚠️ IMAGE 2: Add Images/baja-tube/img2.jpg -->
+        <figure class="gal-item">
+          <img src="../Images/baja-tube/img2.jpg" alt="Pareto front — cost vs mass trade-off" class="gal-img"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="gal-placeholder"><div class="gal-placeholder-icon">⟁</div><span>Pareto Front</span><span>Add: Images/baja-tube/img2.jpg</span></div>
+          <div class="gal-overlay"><div class="gal-zoom">⤢</div></div>
+          <figcaption class="gal-caption">Cost vs. mass Pareto front — three steel alloys compared</figcaption>
+        </figure>
+
+        <!-- ⚠️ IMAGE 3: Add Images/baja-tube/img3.jpg -->
+        <figure class="gal-item">
+          <img src="../Images/baja-tube/img3.jpg" alt="Valid tube geometries scatter plot" class="gal-img"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="gal-placeholder"><div class="gal-placeholder-icon">✦</div><span>Valid Geometries</span><span>Add: Images/baja-tube/img3.jpg</span></div>
+          <div class="gal-overlay"><div class="gal-zoom">⤢</div></div>
+          <figcaption class="gal-caption">Valid tube geometries passing all safety-factor constraints</figcaption>
+        </figure>
+
+        <!-- ⚠️ IMAGE 4: Add Images/baja-tube/img4.jpg -->
+        <figure class="gal-item">
+          <img src="../Images/baja-tube/img4.jpg" alt="Specific stiffness vs specific strength" class="gal-img"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="gal-placeholder"><div class="gal-placeholder-icon">◉</div><span>Stiffness vs Strength</span><span>Add: Images/baja-tube/img4.jpg</span></div>
+          <div class="gal-overlay"><div class="gal-zoom">⤢</div></div>
+          <figcaption class="gal-caption">Specific stiffness vs. specific strength — material comparison</figcaption>
+        </figure>
+
+        <!-- ⚠️ IMAGE 5 (wide): Add Images/baja-tube/img5.jpg -->
+        <figure class="gal-item gal-item-wide">
+          <img src="../Images/baja-tube/img5.jpg" alt="MATLAB code output and summary table" class="gal-img"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="gal-placeholder"><div class="gal-placeholder-icon">⬡</div><span>MATLAB Output</span><span>Add: Images/baja-tube/img5.jpg</span></div>
+          <div class="gal-overlay"><div class="gal-zoom">⤢</div></div>
+          <figcaption class="gal-caption">MATLAB console output — optimal candidates per material with mass, cost, and safety factor</figcaption>
+        </figure>
+
+        <!--
+          ╔════════════════════════════════════════╗
+          ║  TO ADD MORE IMAGES:                   ║
+          ║  Copy a <figure> block above,          ║
+          ║  change the src path and alt text.     ║
+          ╚════════════════════════════════════════╝
+        -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ RESULTS ════ -->
+  <div class="proj-section proj-section-alt">
+    <div class="container">
+      <div class="proj-section-head reveal">
+        <span class="psh-num">04</span>
+        <h2 class="psh-title">Key Results &amp; Insights</h2>
+      </div>
+      <div class="results-list reveal">
+        <div class="result-item">
+          <div class="result-icon">📐</div>
+          <p><strong>1,000+ tube configurations evaluated</strong> in seconds vs. days of manual
+          calculation — covering the full feasible design space across three alloys.</p>
+        </div>
+        <div class="result-item">
+          <div class="result-icon">📊</div>
+          <p><strong>Pareto-optimal candidates identified per alloy:</strong> AISI 4130 dominated the
+          mass-cost frontier at mid-range wall thicknesses. Docol R8's high yield strength
+          enabled thinner walls but at significantly higher material cost and lower weldability.</p>
+        </div>
+        <div class="result-item">
+          <div class="result-icon">🔍</div>
+          <p><strong>FEA revealed load path asymmetry</strong> not visible in the 1D analytic sweep:
+          the rear roll-hoop nodes carried disproportionate displacement under combined loading,
+          informing targeted reinforcement decisions in the physical chassis design.</p>
+        </div>
+        <div class="result-item">
+          <div class="result-icon">📋</div>
+          <p><strong>Results exported to CSV</strong> for team documentation, including OD, wall
+          thickness, total mass, total cost, safety factors, and predicted max displacement per candidate.</p>
+        </div>
+        <div class="result-item">
+          <div class="result-icon">🔗</div>
+          <p><strong>Framework is fully reusable:</strong> swap in new node coordinates from updated
+          CAD models, change material properties, or adjust load cases — the entire sweep
+          and visualization regenerates automatically.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p class="footer-name">Pradyota Phaneesh</p>
+      <p class="footer-meta">B.S. Mechanical Engineering · UT Austin · Dec 2027</p>
+      <p class="footer-copy">© 2025 · <a href="../index.html#projects" style="color:rgba(255,255,255,0.4)">← Back to Projects</a></p>
+    </div>
+  </footer>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" id="lbClose" aria-label="Close">✕</button>
+    <button class="lb-prev"  id="lbPrev"  aria-label="Previous">‹</button>
+    <div class="lb-img-wrap"><img src="" alt="" id="lbImg" class="lb-img" /></div>
+    <button class="lb-next"  id="lbNext"  aria-label="Next">›</button>
+    <p class="lb-caption" id="lbCaption"></p>
+  </div>
+  <script src="../script.js"></script>
+</body>
+</html>

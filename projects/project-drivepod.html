@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Robot Drivepod Redesign — Pradyota Phaneesh</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+
+  <nav class="navbar scrolled" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">PP</a>
+      <ul class="nav-links">
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#skills">Skills</a></li>
+        <li><a href="../index.html#projects">Projects</a></li>
+        <li><a href="../index.html#experience">Experience</a></li>
+        <li><a href="../index.html#publications">Research</a></li>
+        <li><a href="../index.html#contact" class="nav-cta">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html#about"      class="mobile-link">About</a>
+    <a href="../index.html#skills"     class="mobile-link">Skills</a>
+    <a href="../index.html#projects"   class="mobile-link">Projects</a>
+    <a href="../index.html#experience" class="mobile-link">Experience</a>
+    <a href="../index.html#contact"    class="mobile-link">Contact</a>
+  </div>
+
+  <!-- ════ HERO ════ -->
+  <div class="proj-page-hero">
+    <div class="container">
+      <a href="../index.html#projects" class="proj-hero-back">Back to Projects</a>
+      <p class="proj-hero-tag">SolidWorks · FEA · Robotics · Mechanical Design · Jan 2025 – Present</p>
+      <h1 class="proj-hero-title">Robot<br /><em>Drivepod Redesign</em></h1>
+      <p class="proj-hero-summary">
+        Redesigned the drive pods of a competition robot from the ground up using
+        SolidWorks — achieving 50% improved shock absorption efficiency while
+        maintaining the exact same external package dimensions as the previous year's design.
+        The project involved completely rethinking the internal geometry, spring-damper
+        system architecture, and load path through the hub assembly to absorb impact energy
+        more efficiently without increasing weight or envelope.
+      </p>
+      <div class="proj-hero-stats">
+        <div class="proj-stat"><span class="ps-val">50%</span><span class="ps-lbl">Better Shock Absorption</span></div>
+        <div class="proj-stat"><span class="ps-val">Same</span><span class="ps-lbl">Package Size</span></div>
+        <div class="proj-stat"><span class="ps-val">FEA</span><span class="ps-lbl">Validated</span></div>
+        <div class="proj-stat"><span class="ps-val">SolidWorks</span><span class="ps-lbl">Full Assembly</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ THE PROBLEM ════ -->
+  <div class="proj-section">
+    <div class="container">
+      <div class="proj-section-head reveal">
+        <span class="psh-num">01</span>
+        <h2 class="psh-title">The Problem</h2>
+      </div>
+      <div class="proj-two-col">
+        <div class="proj-text reveal">
+          <p>
+            The previous year's drivepod design had a fundamental limitation: the
+            shock absorbers were not well-integrated into the load path between the
+            wheel hub and the drivetrain. Impact loads from floor contact were being
+            transmitted directly through the drivetrain structure rather than
+            dissipated by the damping elements — causing premature component wear
+            and power loss during competition.
+          </p>
+          <p>
+            Critically, the robot's overall chassis geometry was fixed — any redesign
+            had to maintain the exact external footprint of the drivepod assembly.
+            This made the challenge a constrained internal redesign problem rather
+            than a clean-sheet design, requiring creative packaging within a hard
+            dimensional envelope.
+          </p>
+          <p>
+            The goal: redesign the internal geometry to route impact loads through
+            the spring-damper elements, increase the effective spring travel, and
+            improve the damper attachment geometry — without changing any external
+            interface dimensions.
+          </p>
+        </div>
+        <div class="reveal">
+          <div class="proj-callout">
+            <span class="callout-label">Design Constraint</span>
+            <p>"Achieve 50% better shock absorption by redesigning internal geometry
+            only — zero change to external dimensions or drivetrain interface points."</p>
+          </div>
+          <div class="proj-tools-row" style="margin-top:1.5rem;">
+            <span>SolidWorks</span><span>FEA</span><span>Machine Shop</span>
+            <span>Spring-Damper Design</span><span>DFM</span><span>Tolerance Analysis</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ DESIGN PROCESS ════ -->
+  <div class="proj-section proj-section-alt">
+    <div class="container">
+      <div class="proj-section-head reveal">
+        <span class="psh-num">02</span>
+        <h2 class="psh-title">Design Process</h2>
+      </div>
+      <div class="proc-steps reveal">
+
+        <div class="proc-step">
+          <div class="proc-num">1</div>
+          <div class="proc-content">
+            <h4>Failure Mode Analysis of Existing Design</h4>
+            <p>Documented the load path through the current drivepod assembly. Identified
+            where impact energy was being transmitted through rigid structure vs. the
+            damping elements. Mapped each component's contribution to the shock
+            absorption function to determine which elements were effective and which
+            were bypassed by the impact load path.</p>
+          </div>
+        </div>
+
+        <div class="proc-step">
+          <div class="proc-num">2</div>
+          <div class="proc-content">
+            <h4>Internal Geometry Redesign in SolidWorks</h4>
+            <p>Redesigned the hub carrier, shock mount brackets, and spring preload
+            adjustment mechanism while holding all external interface dimensions fixed.
+            Used SolidWorks parametric modeling to efficiently explore internal layout
+            configurations and evaluate packaging feasibility. Designed new shock
+            absorber attachment geometry to maximize effective spring travel within
+            the fixed envelope.</p>
+          </div>
+        </div>
+
+        <div class="proc-step">
+          <div class="proc-num">3</div>
+          <div class="proc-content">
+            <h4>FEA Load Path Validation</h4>
+            <p>Ran FEA on the redesigned hub carrier and shock mount brackets under
+            representative impact loading. Verified that the redesigned load path
+            routed a significantly higher fraction of impact energy through the damping
+            elements rather than directly through the structural members. Checked
+            stress concentrations at critical mounting features.</p>
+          </div>
+        </div>
+
+        <div class="proc-step">
+          <div class="proc-num">4</div>
+          <div class="proc-content">
+            <h4>Machine Shop Fabrication</h4>
+            <p>Machined and assembled multiple iterations of the redesigned drivepod.
+            Applied DFM principles to ensure the parts were manufacturable on available
+            machine shop equipment — designing features with appropriate tolerances,
+            accessible tool paths, and straightforward fixturing.</p>
+          </div>
+        </div>
+
+        <div class="proc-step">
+          <div class="proc-num">5</div>
+          <div class="proc-content">
+            <h4>Comparative Testing vs. Previous Design</h4>
+            <p>Tested shock absorption performance directly against the previous year's
+            design using controlled drop tests and drivetrain impact measurements.
+            Quantified the improvement in impact energy absorbed by the spring-damper
+            elements vs. transmitted directly to drivetrain components, confirming
+            the 50% improvement in shock absorption efficiency.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ GALLERY ════ -->
+  <div class="proj-gallery">
+    <div class="container">
+      <div class="proj-section-head reveal">
+        <span class="psh-num">03</span>
+        <h2 class="psh-title">Gallery</h2>
+      </div>
+      <div class="gallery-grid reveal">
+
+        <!-- ⚠️ IMAGE 1 (wide): Add Images/drivepod/img1.jpg -->
+        <figure class="gal-item gal-item-wide">
+          <img src="../Images/drivepod/img1.jpg" alt="Robot drivepod SolidWorks assembly model" class="gal-img"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="gal-placeholder"><div class="gal-placeholder-icon">◈</div><span>SolidWorks Assembly</span><span>Add: Images/drivepod/img1.jpg</span></div>
+          <div class="gal-overlay"><div class="gal-zoom">⤢</div></div>
+          <figcaption class="gal-caption">Redesigned drivepod assembly — SolidWorks full model</figcaption>
+        </figure>
+
+        <!-- ⚠️ IMAGE 2: Add Images/drivepod/img2.jpg -->
+        <figure class="gal-item">
+          <img src="../Images/drivepod/img2.jpg" alt="FEA stress analysis on hub carrier" class="gal-img"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="gal-placeholder"><div class="gal-placeholder-icon">⟁</div><span>FEA Stress Analysis</span><span>Add: Images/drivepod/img2.jpg</span></div>
+          <div class="gal-overlay"><div class="gal-zoom">⤢</div></div>
+          <figcaption class="gal-caption">FEA stress analysis on redesigned hub carrier — impact load case</figcaption>
+        </figure>
+
+        <!-- ⚠️ IMAGE 3: Add Images/drivepod/img3.jpg -->
+        <figure class="gal-item">
+          <img src="../Images/drivepod/img3.jpg" alt="Machined drivepod components" class="gal-img"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="gal-placeholder"><div class="gal-placeholder-icon">⬡</div><span>Machined Parts</span><span>Add: Images/drivepod/img3.jpg</span></div>
+          <div class="gal-overlay"><div class="gal-zoom">⤢</div></div>
+          <figcaption class="gal-caption">Machined hub carrier and shock mount brackets</figcaption>
+        </figure>
+
+        <!-- ⚠️ IMAGE 4 (wide): Add Images/drivepod/img4.jpg -->
+        <figure class="gal-item gal-item-wide">
+          <img src="../Images/drivepod/img4.jpg" alt="New vs old drivepod comparison" class="gal-img"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="gal-placeholder"><div class="gal-placeholder-icon">◉</div><span>New vs Old Comparison</span><span>Add: Images/drivepod/img4.jpg</span></div>
+          <div class="gal-overlay"><div class="gal-zoom">⤢</div></div>
+          <figcaption class="gal-caption">Redesigned (left) vs. previous year (right) — same external dimensions, improved internals</figcaption>
+        </figure>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ RESULTS ════ -->
+  <div class="proj-section proj-section-alt">
+    <div class="container">
+      <div class="proj-section-head reveal">
+        <span class="psh-num">04</span>
+        <h2 class="psh-title">Results</h2>
+      </div>
+      <div class="results-list reveal">
+        <div class="result-item">
+          <div class="result-icon">🏎</div>
+          <p><strong>50% improvement in shock absorption efficiency</strong> — measured by
+          comparing impact energy absorbed by damping elements vs. transmitted to drivetrain
+          components under identical test conditions.</p>
+        </div>
+        <div class="result-item">
+          <div class="result-icon">📐</div>
+          <p><strong>Zero external dimension changes</strong> — the redesigned assembly
+          drops in as a direct replacement for the previous year's drivepod with no chassis
+          or drivetrain modifications required.</p>
+        </div>
+        <div class="result-item">
+          <div class="result-icon">🔍</div>
+          <p><strong>Root cause confirmed:</strong> the original design's shock absorbers
+          were geometrically constrained in a way that prevented them from reaching their
+          rated stroke — the redesign corrected the mounting geometry to utilize full
+          available damper travel.</p>
+        </div>
+        <div class="result-item">
+          <div class="result-icon">⚙</div>
+          <p><strong>Machined and assembled in the campus machine shop</strong> — developing
+          practical experience in translating a SolidWorks model into a manufactured part
+          with controlled tolerances and functional assembly interfaces.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p class="footer-name">Pradyota Phaneesh</p>
+      <p class="footer-meta">B.S. Mechanical Engineering · UT Austin · Dec 2027</p>
+      <p class="footer-copy">© 2025 · <a href="../index.html#projects" style="color:rgba(255,255,255,0.4)">← Back to Projects</a></p>
+    </div>
+  </footer>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" id="lbClose" aria-label="Close">✕</button>
+    <button class="lb-prev"  id="lbPrev"  aria-label="Previous">‹</button>
+    <div class="lb-img-wrap"><img src="" alt="" id="lbImg" class="lb-img" /></div>
+    <button class="lb-next"  id="lbNext"  aria-label="Next">›</button>
+    <p class="lb-caption" id="lbCaption"></p>
+  </div>
+  <script src="../script.js"></script>
+</body>
+</html>

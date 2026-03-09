@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Baja SAE Chassis — Pradyota Phaneesh</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Note: "../style.css" goes UP one folder level to find the stylesheet -->
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+
+  <!-- NAVBAR (same as index.html) -->
+  <nav class="navbar scrolled" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo" aria-label="Home">PP</a>
+      <ul class="nav-links">
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#skills">Skills</a></li>
+        <li><a href="../index.html#projects">Projects</a></li>
+        <li><a href="../index.html#experience">Experience</a></li>
+        <li><a href="../index.html#publications">Research</a></li>
+        <li><a href="../index.html#contact" class="nav-cta">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html#about"      class="mobile-link">About</a>
+    <a href="../index.html#skills"     class="mobile-link">Skills</a>
+    <a href="../index.html#projects"   class="mobile-link">Projects</a>
+    <a href="../index.html#experience" class="mobile-link">Experience</a>
+    <a href="../index.html#contact"    class="mobile-link">Contact</a>
+  </div>
+
+
+  <!-- ════ PROJECT HERO ════ -->
+  <div class="proj-page-hero">
+    <div class="container">
+
+      <!-- Back to portfolio link -->
+      <a href="../index.html#projects" class="proj-hero-back">Back to Projects</a>
+
+      <p class="proj-hero-tag">Structural Design · FEA · SAE Competition</p>
+
+      <h1 class="proj-hero-title">
+        Baja SAE<br /><em>Competition Chassis</em>
+      </h1>
+
+      <p class="proj-hero-summary">
+        Designed, analyzed, and fabricated UT Austin's inaugural Baja SAE
+        competition chassis from scratch — owning the full system from first
+        sketch to final welded frame. 12 design iterations, ANSYS and MATLAB
+        FEA, and a chassis that came in ~50% smaller than the initial concept
+        while meeting Factor of Safety ≥ 2 across all load cases.
+      </p>
+
+      <!-- Quick stats -->
+      <div class="proj-hero-stats">
+        <div class="proj-stat">
+          <span class="ps-val">12</span>
+          <span class="ps-lbl">Design Iterations</span>
+        </div>
+        <div class="proj-stat">
+          <span class="ps-val">~50%</span>
+          <span class="ps-lbl">Size Reduction</span>
+        </div>
+        <div class="proj-stat">
+          <span class="ps-val">≥ 2.0</span>
+          <span class="ps-lbl">Factor of Safety</span>
+        </div>
+        <div class="proj-stat">
+          <span class="ps-val">FEA</span>
+          <span class="ps-lbl">Validated</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ════ SECTION 1: THE PROBLEM ════ -->
+  <div class="proj-section">
+    <div class="container">
+
+      <div class="proj-section-head reveal">
+        <span class="psh-num">01</span>
+        <h2 class="psh-title">The Problem</h2>
+      </div>
+
+      <div class="proj-two-col">
+        <div class="proj-text reveal">
+          <p>
+            UT Austin's Baja SAE team was building their first competition
+            vehicle from zero — no legacy design to reference, no historical
+            data, no existing team infrastructure. Every decision had to be
+            justified from engineering fundamentals rather than prior practice.
+          </p>
+          <p>
+            The chassis is the most critical system on the vehicle. It must
+            simultaneously protect the driver, interface with every other
+            subsystem, survive unpredictable off-road impacts, and comply
+            with SAE's strict ruleset. Getting it wrong doesn't just lose
+            points — it fails safety.
+          </p>
+          <p>
+            The additional challenge: the initial concept was significantly
+            oversized. The team needed to hit competitive mass targets without
+            sacrificing structural integrity or rule compliance.
+          </p>
+        </div>
+
+        <div class="reveal">
+          <div class="proj-callout">
+            <span class="callout-label">Engineering Challenge</span>
+            <p>"Design a first-principles competition chassis with no reference
+            baseline — then iterate aggressively to cut mass while keeping every
+            load case above a Factor of Safety of 2."</p>
+          </div>
+
+          <div class="proj-tools-row" style="margin-top: 1.5rem;">
+            <span>SolidWorks</span>
+            <span>ANSYS (FEA)</span>
+            <span>MATLAB</span>
+            <span>Welding</span>
+            <span>SAE Rulebook</span>
+            <span>Structural Analysis</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════ SECTION 2: DESIGN PROCESS ════ -->
+  <div class="proj-section proj-section-alt">
+    <div class="container">
+
+      <div class="proj-section-head reveal">
+        <span class="psh-num">02</span>
+        <h2 class="psh-title">Design Process</h2>
+      </div>
+
+      <div class="proc-steps reveal">
+
+        <div class="proc-step">
+          <div class="proc-num">1</div>
+          <div class="proc-content">
+            <h4>Requirements &amp; Rulebook Analysis</h4>
+            <p>Translated SAE Baja rulebook requirements into structural design constraints.
+            Defined minimum tube sizing, required rollover protection geometry, driver
+            egress clearances, and interface points for powertrain, suspension, and steering.</p>
+          </div>
+        </div>
+
+        <div class="proc-step">
+          <div class="proc-num">2</div>
+          <div class="proc-content">
+            <h4>Initial Concept Modeling (SolidWorks)</h4>
+            <p>Built the first full chassis model in SolidWorks. Established the primary tube
+            layout, node geometry, and key dimensions. Used parametric modeling so dimensions
+            could be efficiently updated across iterations without rebuilding from scratch.</p>
+          </div>
+        </div>
+
+        <div class="proc-step">
+          <div class="proc-num">3</div>
+          <div class="proc-content">
+            <h4>FEA Load Case Analysis (ANSYS + MATLAB)</h4>
+            <p>Ran structural FEA in ANSYS across all critical load cases: frontal impact,
+            rollover, torsion, side loading, and combined-load scenarios. Used MATLAB to
+            automate parametric sweeps across tube wall thickness, diameter, and node angles
+            to evaluate mass vs. FoS trade-offs across hundreds of configurations.</p>
+          </div>
+        </div>
+
+        <div class="proc-step">
+          <div class="proc-num">4</div>
+          <div class="proc-content">
+            <h4>12 Iterations — Converging on Optimal Design</h4>
+            <p>Each iteration used FEA results to drive targeted geometry changes. The binding
+            constraint that emerged was torsional rigidity — not peak stress. Redesigning
+            node geometry to optimize torsional stiffness-to-mass drove the largest reductions.
+            The final chassis was ~50% smaller than the initial concept.</p>
+          </div>
+        </div>
+
+        <div class="proc-step">
+          <div class="proc-num">5</div>
+          <div class="proc-content">
+            <h4>Fabrication &amp; Manufacturing Process Development</h4>
+            <p>Welded and assembled multiple frames. Developed repeatable jig setups and
+            welding sequences to ensure dimensional accuracy across builds. Established
+            manufacturing standards for the new team so future builds could be executed
+            consistently without depending on a single person's experience.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════ SECTION 3: IMAGE GALLERY ════ -->
+  <!--
+    HOW TO ADD YOUR IMAGES:
+    1. Create folder: Images/baja/ inside your portfolio folder
+    2. Add photos: img1.jpg, img2.jpg, img3.jpg etc.
+    3. Copy a <figure class="gal-item"> block and change the src
+
+    TIP: Name your images descriptively (e.g., "chassis-fea.jpg")
+         so the alt text makes sense.
+  -->
+  <div class="proj-gallery">
+    <div class="container">
+
+      <div class="proj-section-head reveal">
+        <span class="psh-num">03</span>
+        <h2 class="psh-title">Gallery</h2>
+      </div>
+
+      <div class="gallery-grid reveal">
+
+        <!-- ⚠️ IMAGE 1 (wide): Replace Images/baja/img1.jpg with your photo -->
+        <figure class="gal-item gal-item-wide">
+          <img
+            src="../Images/baja/img1.jpg"
+            alt="Full Baja SAE chassis SolidWorks render"
+            class="gal-img"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+          <div class="gal-placeholder">
+            <div class="gal-placeholder-icon">◈</div>
+            <span>Full Chassis Render</span>
+            <span>Add: Images/baja/img1.jpg</span>
+          </div>
+          <div class="gal-overlay"><div class="gal-zoom">⤢</div></div>
+          <figcaption class="gal-caption">Full chassis model — SolidWorks</figcaption>
+        </figure>
+
+        <!-- ⚠️ IMAGE 2: Replace Images/baja/img2.jpg with your photo -->
+        <figure class="gal-item">
+          <img
+            src="../Images/baja/img2.jpg"
+            alt="ANSYS FEA stress analysis on chassis"
+            class="gal-img"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+          <div class="gal-placeholder">
+            <div class="gal-placeholder-icon">⟁</div>
+            <span>FEA Stress Map</span>
+            <span>Add: Images/baja/img2.jpg</span>
+          </div>
+          <div class="gal-overlay"><div class="gal-zoom">⤢</div></div>
+          <figcaption class="gal-caption">ANSYS stress analysis — frontal impact load case</figcaption>
+        </figure>
+
+        <!-- ⚠️ IMAGE 3: Replace Images/baja/img3.jpg with your photo -->
+        <figure class="gal-item">
+          <img
+            src="../Images/baja/img3.jpg"
+            alt="Fabricated Baja SAE chassis frame"
+            class="gal-img"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+          <div class="gal-placeholder">
+            <div class="gal-placeholder-icon">⬡</div>
+            <span>Welded Frame</span>
+            <span>Add: Images/baja/img3.jpg</span>
+          </div>
+          <div class="gal-overlay"><div class="gal-zoom">⤢</div></div>
+          <figcaption class="gal-caption">Final welded frame — fabrication</figcaption>
+        </figure>
+
+        <!-- ⚠️ IMAGE 4: Replace Images/baja/img4.jpg with your photo -->
+        <figure class="gal-item">
+          <img
+            src="../Images/baja/img4.jpg"
+            alt="Design iteration comparison"
+            class="gal-img"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+          <div class="gal-placeholder">
+            <div class="gal-placeholder-icon">◉</div>
+            <span>Iteration Comparison</span>
+            <span>Add: Images/baja/img4.jpg</span>
+          </div>
+          <div class="gal-overlay"><div class="gal-zoom">⤢</div></div>
+          <figcaption class="gal-caption">Iteration 1 vs. final design overlay</figcaption>
+        </figure>
+
+        <!-- ⚠️ IMAGE 5 (wide): Replace Images/baja/img5.jpg with your photo -->
+        <figure class="gal-item gal-item-wide">
+          <img
+            src="../Images/baja/img5.jpg"
+            alt="Torsional rigidity FEA analysis"
+            class="gal-img"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+          <div class="gal-placeholder">
+            <div class="gal-placeholder-icon">✦</div>
+            <span>Torsional Analysis</span>
+            <span>Add: Images/baja/img5.jpg</span>
+          </div>
+          <div class="gal-overlay"><div class="gal-zoom">⤢</div></div>
+          <figcaption class="gal-caption">Torsional rigidity analysis — binding design constraint</figcaption>
+        </figure>
+
+        <!--
+          ╔═══════════════════════════════════════════╗
+          ║  TO ADD MORE IMAGES:                      ║
+          ║  1. Copy one <figure class="gal-item">    ║
+          ║     block above                           ║
+          ║  2. Paste it here                         ║
+          ║  3. Change the src to your new image file ║
+          ║  4. Change the alt text description       ║
+          ╚═══════════════════════════════════════════╝
+        -->
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════ SECTION 4: KEY RESULTS ════ -->
+  <div class="proj-section proj-section-alt">
+    <div class="container">
+
+      <div class="proj-section-head reveal">
+        <span class="psh-num">04</span>
+        <h2 class="psh-title">Key Results &amp; Insights</h2>
+      </div>
+
+      <div class="results-list reveal">
+
+        <div class="result-item">
+          <div class="result-icon">📐</div>
+          <p><strong>~50% size reduction</strong> from initial concept to final design,
+          achieved through 12 full FEA-driven design iterations.</p>
+        </div>
+
+        <div class="result-item">
+          <div class="result-icon">✓</div>
+          <p><strong>Factor of Safety ≥ 2</strong> maintained across all load cases —
+          frontal impact, rollover, side load, torsion, and combined scenarios.</p>
+        </div>
+
+        <div class="result-item">
+          <div class="result-icon">🔍</div>
+          <p><strong>Torsional rigidity — not peak stress — was the binding constraint.</strong>
+          This was only visible through parametric FEA sweeps. Redesigning node geometry
+          to optimize torsional stiffness-per-unit-mass unlocked the largest mass savings.</p>
+        </div>
+
+        <div class="result-item">
+          <div class="result-icon">⚙</div>
+          <p><strong>Established repeatable manufacturing processes</strong> for the team:
+          jig setups, weld sequences, and tube preparation standards that future builds
+          can follow without depending on institutional knowledge from a single person.</p>
+        </div>
+
+        <div class="result-item">
+          <div class="result-icon">📋</div>
+          <p><strong>Full SAE rulebook compliance</strong> achieved, including rollover
+          protection geometry, driver egress clearances, and minimum tube sizing requirements.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p class="footer-name">Pradyota Phaneesh</p>
+      <p class="footer-meta">B.S. Mechanical Engineering · UT Austin · Dec 2027</p>
+      <p class="footer-copy">© 2025 · <a href="../index.html#projects" style="color:rgba(255,255,255,0.4)">← Back to Projects</a></p>
+    </div>
+  </footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" id="lbClose" aria-label="Close">✕</button>
+    <button class="lb-prev"  id="lbPrev"  aria-label="Previous">‹</button>
+    <div class="lb-img-wrap"><img src="" alt="" id="lbImg" class="lb-img" /></div>
+    <button class="lb-next"  id="lbNext"  aria-label="Next">›</button>
+    <p class="lb-caption" id="lbCaption"></p>
+  </div>
+
+  <!-- Note: "../script.js" goes UP one folder to find the script -->
+  <script src="../script.js"></script>
+</body>
+</html>

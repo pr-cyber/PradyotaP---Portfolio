@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Heat Sink Optimizer — Pradyota Phaneesh</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+
+  <nav class="navbar scrolled" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">PP</a>
+      <ul class="nav-links">
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#skills">Skills</a></li>
+        <li><a href="../index.html#projects">Projects</a></li>
+        <li><a href="../index.html#experience">Experience</a></li>
+        <li><a href="../index.html#publications">Research</a></li>
+        <li><a href="../index.html#contact" class="nav-cta">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html#about"      class="mobile-link">About</a>
+    <a href="../index.html#skills"     class="mobile-link">Skills</a>
+    <a href="../index.html#projects"   class="mobile-link">Projects</a>
+    <a href="../index.html#experience" class="mobile-link">Experience</a>
+    <a href="../index.html#contact"    class="mobile-link">Contact</a>
+  </div>
+
+  <!-- ════ HERO ════ -->
+  <div class="proj-page-hero">
+    <div class="container">
+      <a href="../index.html#projects" class="proj-hero-back">Back to Projects</a>
+      <p class="proj-hero-tag">Python · Thermal Engineering · Parametric Optimization</p>
+      <h1 class="proj-hero-title">Heat Sink<br /><em>Geometry Optimizer</em></h1>
+      <p class="proj-hero-summary">
+        Built a Python tool that automates the thermal performance evaluation of
+        rectangular fin heat sinks by sweeping fin geometry parameters — fin height,
+        fin thickness, fin spacing, and base thickness — across both forced and natural
+        convection heat transfer models. Performance surfaces are visualized with
+        Matplotlib, and Pareto-optimal designs are extracted across thermal resistance
+        and total mass, surfacing high-performance configurations invisible to
+        manual hand-calculation.
+      </p>
+      <div class="proj-hero-stats">
+        <div class="proj-stat"><span class="ps-val">Python</span><span class="ps-lbl">Language</span></div>
+        <div class="proj-stat"><span class="ps-val">4</span><span class="ps-lbl">Geometric Parameters</span></div>
+        <div class="proj-stat"><span class="ps-val">2</span><span class="ps-lbl">Convection Models</span></div>
+        <div class="proj-stat"><span class="ps-val">Pareto</span><span class="ps-lbl">Optimal Extraction</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ THE PROBLEM ════ -->
+  <div class="proj-section">
+    <div class="container">
+      <div class="proj-section-head reveal">
+        <span class="psh-num">01</span>
+        <h2 class="psh-title">The Problem</h2>
+      </div>
+      <div class="proj-two-col">
+        <div class="proj-text reveal">
+          <p>
+            Heat sink design is a multi-variable optimization problem with strong
+            parameter interactions. Increasing fin height increases surface area but
+            also increases fin resistance; decreasing fin spacing enhances convection
+            but eventually causes boundary layer merging that degrades heat transfer;
+            thicker fins add mass and material cost while only marginally reducing
+            conduction resistance. No single parameter can be tuned in isolation.
+          </p>
+          <p>
+            Conventional heat sink selection relies on manufacturer catalogs and
+            simplified correlations applied to one geometry at a time. This approach
+            misses the interaction effects between geometry, airflow conditions,
+            and thermal boundary conditions — and produces designs that are often
+            significantly over- or under-designed for their actual application.
+          </p>
+          <p>
+            The goal: build a Python tool that numerically evaluates the full
+            geometric parameter space, applies convection correlations for both
+            forced and natural flow, identifies the thermal resistance vs. mass
+            Pareto front, and outputs ranked candidate geometries for any given
+            thermal load and airflow condition.
+          </p>
+        </div>
+        <div class="reveal">
+          <div class="proj-callout">
+            <span class="callout-label">Core Insight</span>
+            <p>"Fin geometry interactions are nonlinear and multi-directional.
+            Only a full parameter sweep reveals the true Pareto boundary between
+            thermal resistance and heat sink mass."</p>
+          </div>
+          <div class="proj-tools-row" style="margin-top:1.5rem;">
+            <span>Python</span><span>NumPy</span><span>Matplotlib</span><span>SciPy</span>
+            <span>Heat Transfer</span><span>Convection Correlations</span><span>Pareto Analysis</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ ENGINEERING APPROACH ════ -->
+  <div class="proj-section proj-section-alt">
+    <div class="container">
+      <div class="proj-section-head reveal">
+        <span class="psh-num">02</span>
+        <h2 class="psh-title">Engineering Approach</h2>
+      </div>
+      <div class="proc-steps reveal">
+
+        <div class="proc-step">
+          <div class="proc-num">1</div>
+          <div class="proc-content">
+            <h4>Fin Geometry Parameterization</h4>
+            <p>Defined the heat sink geometry by four independent parameters: fin height H,
+            fin thickness t, fin-to-fin spacing s, and base plate thickness t_b. Number of
+            fins was computed from base width and fin pitch. Total surface area, fin efficiency
+            (using analytical fin theory), and overall surface efficiency were derived from
+            geometry for each candidate.</p>
+          </div>
+        </div>
+
+        <div class="proc-step">
+          <div class="proc-num">2</div>
+          <div class="proc-content">
+            <h4>Convection Modeling — Forced &amp; Natural</h4>
+            <p>For forced convection, applied channel flow Nusselt number correlations
+            (Dittus–Boelter and developing-flow corrections) as a function of fin channel
+            hydraulic diameter, airflow velocity, and fluid properties. For natural convection,
+            applied vertical plate and channel correlations. Both models returned heat transfer
+            coefficient h as a function of geometry and operating conditions.</p>
+          </div>
+        </div>
+
+        <div class="proc-step">
+          <div class="proc-num">3</div>
+          <div class="proc-content">
+            <h4>Thermal Resistance Calculation</h4>
+            <p>Computed total thermal resistance R_th = R_conduction + R_convection for each
+            geometry candidate. R_conduction computed from base thickness and material conductivity.
+            R_convection computed from h, total effective surface area, and overall surface efficiency.
+            This gave a single performance metric (°C/W) comparable across all candidate geometries.</p>
+          </div>
+        </div>
+
+        <div class="proc-step">
+          <div class="proc-num">4</div>
+          <div class="proc-content">
+            <h4>Full Parameter Sweep &amp; Pareto Analysis</h4>
+            <p>Swept all four geometric parameters across defined ranges and evaluated thermal
+            resistance and total mass for each combination — generating thousands of candidates
+            per operating condition. Applied Pareto analysis to identify designs that simultaneously
+            minimize both thermal resistance and heat sink mass, extracting the efficiency frontier
+            of the design space.</p>
+          </div>
+        </div>
+
+        <div class="proc-step">
+          <div class="proc-num">5</div>
+          <div class="proc-content">
+            <h4>Performance Surface Visualization</h4>
+            <p>Generated 3D surface plots and 2D contour maps of thermal resistance as a function
+            of fin height and spacing at fixed thickness values, revealing nonlinear interaction
+            regions. Plotted Pareto fronts per airflow condition with candidate annotations for
+            fin count, height, and spacing to enable direct engineering selection.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ GALLERY ════ -->
+  <!--
+    HOW TO ADD IMAGES:
+    1. Create folder: Images/heatsink/ in portfolio folder
+    2. Add screenshots: performance surfaces, Pareto plots, code output
+    3. Copy a <figure class="gal-item"> block, change src + alt
+  -->
+  <div class="proj-gallery">
+    <div class="container">
+      <div class="proj-section-head reveal">
+        <span class="psh-num">03</span>
+        <h2 class="psh-title">Gallery</h2>
+      </div>
+      <div class="gallery-grid reveal">
+
+        <!-- ⚠️ IMAGE 1 (wide): Add Images/heatsink/img1.jpg -->
+        <figure class="gal-item gal-item-wide">
+          <img src="../Images/heatsink/img1.jpg" alt="Thermal resistance performance surface — fin height vs spacing" class="gal-img"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="gal-placeholder"><div class="gal-placeholder-icon">◈</div><span>R_th Performance Surface</span><span>Add: Images/heatsink/img1.jpg</span></div>
+          <div class="gal-overlay"><div class="gal-zoom">⤢</div></div>
+          <figcaption class="gal-caption">Thermal resistance surface — fin height vs. spacing at constant airflow velocity</figcaption>
+        </figure>
+
+        <!-- ⚠️ IMAGE 2: Add Images/heatsink/img2.jpg -->
+        <figure class="gal-item">
+          <img src="../Images/heatsink/img2.jpg" alt="Pareto front thermal resistance vs mass" class="gal-img"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="gal-placeholder"><div class="gal-placeholder-icon">⟁</div><span>Pareto Front</span><span>Add: Images/heatsink/img2.jpg</span></div>
+          <div class="gal-overlay"><div class="gal-zoom">⤢</div></div>
+          <figcaption class="gal-caption">Pareto front — thermal resistance vs. total heat sink mass</figcaption>
+        </figure>
+
+        <!-- ⚠️ IMAGE 3: Add Images/heatsink/img3.jpg -->
+        <figure class="gal-item">
+          <img src="../Images/heatsink/img3.jpg" alt="Forced vs natural convection comparison" class="gal-img"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="gal-placeholder"><div class="gal-placeholder-icon">✦</div><span>Forced vs Natural</span><span>Add: Images/heatsink/img3.jpg</span></div>
+          <div class="gal-overlay"><div class="gal-zoom">⤢</div></div>
+          <figcaption class="gal-caption">Forced vs. natural convection Pareto comparison — same geometry candidates</figcaption>
+        </figure>
+
+        <!-- ⚠️ IMAGE 4 (wide): Add Images/heatsink/img4.jpg -->
+        <figure class="gal-item gal-item-wide">
+          <img src="../Images/heatsink/img4.jpg" alt="Contour map thermal resistance with optimal region" class="gal-img"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="gal-placeholder"><div class="gal-placeholder-icon">◉</div><span>Optimal Region Contour</span><span>Add: Images/heatsink/img4.jpg</span></div>
+          <div class="gal-overlay"><div class="gal-zoom">⤢</div></div>
+          <figcaption class="gal-caption">Thermal resistance contour map — optimal fin geometry region highlighted</figcaption>
+        </figure>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ RESULTS ════ -->
+  <div class="proj-section proj-section-alt">
+    <div class="container">
+      <div class="proj-section-head reveal">
+        <span class="psh-num">04</span>
+        <h2 class="psh-title">Results &amp; Key Insights</h2>
+      </div>
+      <div class="results-list reveal">
+        <div class="result-item">
+          <div class="result-icon">🌡</div>
+          <p><strong>Nonlinear thermal resistance minimum</strong> identified at intermediate
+          fin heights — taller fins past a threshold increased convective resistance rather
+          than reducing it, due to fin efficiency degradation and boundary layer effects.</p>
+        </div>
+        <div class="result-item">
+          <div class="result-icon">📊</div>
+          <p><strong>Optimal fin spacing is flow-regime dependent:</strong> forced convection
+          favored tighter spacing (more fins, higher surface area); natural convection favored
+          wider spacing (improved buoyancy-driven airflow). Designs optimized for one regime
+          performed poorly in the other.</p>
+        </div>
+        <div class="result-item">
+          <div class="result-icon">🏆</div>
+          <p><strong>Pareto analysis exposed a 30–40% mass reduction opportunity</strong>
+          on conventional catalog heat sinks — designs at the Pareto frontier achieved
+          equivalent thermal resistance at significantly lower mass than typical commercially
+          available solutions for comparable power dissipation targets.</p>
+        </div>
+        <div class="result-item">
+          <div class="result-icon">🔁</div>
+          <p><strong>Fully reusable tool:</strong> input any heat load (W), base dimensions,
+          material (Al 6061, Cu, Al 1100), and airflow condition — the tool regenerates the
+          full sweep, Pareto front, and ranked candidate list automatically.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p class="footer-name">Pradyota Phaneesh</p>
+      <p class="footer-meta">B.S. Mechanical Engineering · UT Austin · Dec 2027</p>
+      <p class="footer-copy">© 2025 · <a href="../index.html#projects" style="color:rgba(255,255,255,0.4)">← Back to Projects</a></p>
+    </div>
+  </footer>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" id="lbClose" aria-label="Close">✕</button>
+    <button class="lb-prev"  id="lbPrev"  aria-label="Previous">‹</button>
+    <div class="lb-img-wrap"><img src="" alt="" id="lbImg" class="lb-img" /></div>
+    <button class="lb-next"  id="lbNext"  aria-label="Next">›</button>
+    <p class="lb-caption" id="lbCaption"></p>
+  </div>
+  <script src="../script.js"></script>
+</body>
+</html>

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OBEL Research — Pradyota Phaneesh</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+
+  <nav class="navbar scrolled" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">PP</a>
+      <ul class="nav-links">
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#skills">Skills</a></li>
+        <li><a href="../index.html#projects">Projects</a></li>
+        <li><a href="../index.html#experience">Experience</a></li>
+        <li><a href="../index.html#publications">Research</a></li>
+        <li><a href="../index.html#contact" class="nav-cta">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html#about"      class="mobile-link">About</a>
+    <a href="../index.html#skills"     class="mobile-link">Skills</a>
+    <a href="../index.html#projects"   class="mobile-link">Projects</a>
+    <a href="../index.html#experience" class="mobile-link">Experience</a>
+    <a href="../index.html#contact"    class="mobile-link">Contact</a>
+  </div>
+
+
+  <!-- ════ PROJECT HERO ════ -->
+  <div class="proj-page-hero">
+    <div class="container">
+      <a href="../index.html#projects" class="proj-hero-back">Back to Projects</a>
+
+      <p class="proj-hero-tag">Research · Nanomanufacturing · SPIE Publication</p>
+
+      <h1 class="proj-hero-title">
+        Optothermal Bubble<br /><em>Etch Lithography</em>
+      </h1>
+
+      <p class="proj-hero-summary">
+        A 1.5-year experimental research program developing Optothermal Bubble
+        Etch Lithography (OBEL) — a sustainable, maskless nanomanufacturing
+        technique using laser-induced microbubbles on gold thin films. Achieved
+        sub-micron feature resolution (~450 nm) at ultralow etchant concentrations.
+        Co-authored and presented at SPIE's Optical Trapping &amp; Micromanipulation XXII.
+      </p>
+
+      <div class="proj-hero-stats">
+        <div class="proj-stat">
+          <span class="ps-val">200+</span>
+          <span class="ps-lbl">Experiments</span>
+        </div>
+        <div class="proj-stat">
+          <span class="ps-val">1,000+</span>
+          <span class="ps-lbl">Data Points</span>
+        </div>
+        <div class="proj-stat">
+          <span class="ps-val">~450 nm</span>
+          <span class="ps-lbl">Feature Resolution</span>
+        </div>
+        <div class="proj-stat">
+          <span class="ps-val">SPIE</span>
+          <span class="ps-lbl">Published</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════ SECTION 1: THE PROBLEM ════ -->
+  <div class="proj-section">
+    <div class="container">
+
+      <div class="proj-section-head reveal">
+        <span class="psh-num">01</span>
+        <h2 class="psh-title">The Problem</h2>
+      </div>
+
+      <div class="proj-two-col">
+        <div class="proj-text reveal">
+          <p>
+            Conventional photolithography for nanoscale device fabrication requires
+            expensive photomasks, high chemical consumption, vacuum environments, and
+            produces significant thermal damage to substrates. These constraints make
+            nanofabrication inaccessible, chemically wasteful, and poorly suited to
+            on-demand or low-volume precision work.
+          </p>
+          <p>
+            A maskless, spatially selective alternative would dramatically reduce
+            material cost, chemical waste, and process complexity — while enabling
+            fabrication patterns that would be difficult or impossible with
+            conventional mask-based lithography.
+          </p>
+          <p>
+            The research question: can laser-induced microbubble formation on gold
+            thin films enable localized, high-precision etching at the sub-micron
+            scale with minimal chemical and thermal damage?
+          </p>
+        </div>
+
+        <div class="reveal">
+          <div class="proj-callout">
+            <span class="callout-label">Research Question</span>
+            <p>"Can solutal Marangoni convection around a laser-induced microbubble
+            enable sub-micron feature resolution without the masks, chemicals, and
+            thermal damage of conventional lithography?"</p>
+          </div>
+
+          <div class="proj-tools-row" style="margin-top:1.5rem;">
+            <span>LabVIEW</span>
+            <span>NIS Software</span>
+            <span>Python</span>
+            <span>Optical Systems</span>
+            <span>Gold Thin Films</span>
+            <span>Data Analysis</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════ SECTION 2: METHODOLOGY ════ -->
+  <div class="proj-section proj-section-alt">
+    <div class="container">
+
+      <div class="proj-section-head reveal">
+        <span class="psh-num">02</span>
+        <h2 class="psh-title">Experimental Approach</h2>
+      </div>
+
+      <div class="proc-steps reveal">
+
+        <div class="proc-step">
+          <div class="proc-num">1</div>
+          <div class="proc-content">
+            <h4>Laser-Induced Microbubble Formation</h4>
+            <p>Focused a laser on a gold thin film submerged in etchant solution.
+            Localized heating creates a microbubble at the film surface. The bubble
+            acts as a spatially selective reaction site — etchant is concentrated
+            at the bubble boundary, etching the gold film in a defined location.</p>
+          </div>
+        </div>
+
+        <div class="proc-step">
+          <div class="proc-num">2</div>
+          <div class="proc-content">
+            <h4>Marangoni Convection for Byproduct Removal</h4>
+            <p>Solutal Marangoni convection — driven by concentration gradients at
+            the bubble surface — actively removes reaction byproducts and clears
+            the etch site. This produces sharply defined feature edges rather than
+            the diffuse, smeared boundaries seen without convective removal.</p>
+          </div>
+        </div>
+
+        <div class="proc-step">
+          <div class="proc-num">3</div>
+          <div class="proc-content">
+            <h4>Parameter Optimization (200+ Experiments)</h4>
+            <p>Systematically varied laser power, etchant concentration, scan speed,
+            and bubble residence time. Collected 1,000+ data points via LabVIEW
+            and NIS imaging software. Identified the narrow parameter window that
+            produces sub-micron features without thermal damage to surrounding film.</p>
+          </div>
+        </div>
+
+        <div class="proc-step">
+          <div class="proc-num">4</div>
+          <div class="proc-content">
+            <h4>Feature Characterization &amp; Validation</h4>
+            <p>Characterized resulting features using optical and electron microscopy.
+            Measured feature widths, edge definition, and etch depth. Achieved
+            ~450 nm feature resolution at etchant concentrations far below those
+            required by conventional etching processes.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════ SECTION 3: IMAGE GALLERY ════ -->
+  <!--
+    HOW TO ADD YOUR IMAGES:
+    1. Create folder: Images/obel/ inside your portfolio folder
+    2. Add your lab photos, microscopy images, data plots
+    3. Copy a <figure class="gal-item"> block and change the src
+  -->
+  <div class="proj-gallery">
+    <div class="container">
+
+      <div class="proj-section-head reveal">
+        <span class="psh-num">03</span>
+        <h2 class="psh-title">Gallery</h2>
+      </div>
+
+      <div class="gallery-grid reveal">
+
+        <!-- ⚠️ IMAGE 1: Add your microscopy image at Images/obel/img1.jpg -->
+        <figure class="gal-item gal-item-wide">
+          <img
+            src="../Images/obel/img1.jpg"
+            alt="Microscopy image of OBEL etched features on gold film"
+            class="gal-img"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+          <div class="gal-placeholder">
+            <div class="gal-placeholder-icon">◈</div>
+            <span>Microscopy — Etched Features</span>
+            <span>Add: Images/obel/img1.jpg</span>
+          </div>
+          <div class="gal-overlay"><div class="gal-zoom">⤢</div></div>
+          <figcaption class="gal-caption">Sub-micron features etched via OBEL on gold thin film</figcaption>
+        </figure>
+
+        <!-- ⚠️ IMAGE 2: Add your lab setup image at Images/obel/img2.jpg -->
+        <figure class="gal-item">
+          <img
+            src="../Images/obel/img2.jpg"
+            alt="Optical setup for laser-induced microbubble etching"
+            class="gal-img"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+          <div class="gal-placeholder">
+            <div class="gal-placeholder-icon">⟁</div>
+            <span>Optical Setup</span>
+            <span>Add: Images/obel/img2.jpg</span>
+          </div>
+          <div class="gal-overlay"><div class="gal-zoom">⤢</div></div>
+          <figcaption class="gal-caption">Laser and optics experimental setup</figcaption>
+        </figure>
+
+        <!-- ⚠️ IMAGE 3: Add your data plot image at Images/obel/img3.jpg -->
+        <figure class="gal-item">
+          <img
+            src="../Images/obel/img3.jpg"
+            alt="Feature size vs laser power parameter sweep data"
+            class="gal-img"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+          <div class="gal-placeholder">
+            <div class="gal-placeholder-icon">✦</div>
+            <span>Parameter Sweep Data</span>
+            <span>Add: Images/obel/img3.jpg</span>
+          </div>
+          <div class="gal-overlay"><div class="gal-zoom">⤢</div></div>
+          <figcaption class="gal-caption">Feature size vs. laser power — parameter sweep results</figcaption>
+        </figure>
+
+        <!-- ⚠️ IMAGE 4: Add your SPIE presentation image at Images/obel/img4.jpg -->
+        <figure class="gal-item gal-item-wide">
+          <img
+            src="../Images/obel/img4.jpg"
+            alt="SPIE conference presentation on OBEL"
+            class="gal-img"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+          <div class="gal-placeholder">
+            <div class="gal-placeholder-icon">◉</div>
+            <span>SPIE Presentation</span>
+            <span>Add: Images/obel/img4.jpg</span>
+          </div>
+          <div class="gal-overlay"><div class="gal-zoom">⤢</div></div>
+          <figcaption class="gal-caption">Presenting at Optical Trapping &amp; Micromanipulation XXII — SPIE</figcaption>
+        </figure>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════ SECTION 4: RESULTS ════ -->
+  <div class="proj-section proj-section-alt">
+    <div class="container">
+
+      <div class="proj-section-head reveal">
+        <span class="psh-num">04</span>
+        <h2 class="psh-title">Results &amp; Publication</h2>
+      </div>
+
+      <div class="results-list reveal">
+
+        <div class="result-item">
+          <div class="result-icon">🔬</div>
+          <p><strong>~450 nm feature resolution</strong> achieved — sub-micron
+          precision at etchant concentrations far below those required by
+          conventional etch processes.</p>
+        </div>
+
+        <div class="result-item">
+          <div class="result-icon">⚗</div>
+          <p><strong>Ultralow etchant concentrations</strong> required, demonstrating
+          an environmentally sustainable alternative to chemical-intensive
+          conventional nanolithography.</p>
+        </div>
+
+        <div class="result-item">
+          <div class="result-icon">📊</div>
+          <p><strong>Laser power and etchant concentration interact nonlinearly.</strong>
+          A narrow operating window produces clean sub-micron features while avoiding
+          thermal damage — making systematic parameter optimization essential.</p>
+        </div>
+
+        <div class="result-item">
+          <div class="result-icon">📄</div>
+          <p><strong>Co-authored and presented</strong> at Optical Trapping and Optical
+          Micromanipulation XXII (SPIE). DOI:
+          <a href="https://doi.org/10.1117/12.3061570" target="_blank" rel="noopener"
+             style="color:var(--accent); font-family:var(--f-mono); font-size:0.85em;">
+            10.1117/12.3061570 ↗
+          </a>
+        </p>
+        </div>
+
+        <div class="result-item">
+          <div class="result-icon">🔗</div>
+          <p><strong>Third publication in preparation</strong> — extending the OBEL
+          characterization across additional substrate geometries and scan path strategies.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p class="footer-name">Pradyota Phaneesh</p>
+      <p class="footer-meta">B.S. Mechanical Engineering · UT Austin · Dec 2027</p>
+      <p class="footer-copy">© 2025 · <a href="../index.html#projects" style="color:rgba(255,255,255,0.4)">← Back to Projects</a></p>
+    </div>
+  </footer>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" id="lbClose" aria-label="Close">✕</button>
+    <button class="lb-prev"  id="lbPrev"  aria-label="Previous">‹</button>
+    <div class="lb-img-wrap"><img src="" alt="" id="lbImg" class="lb-img" /></div>
+    <button class="lb-next"  id="lbNext"  aria-label="Next">›</button>
+    <p class="lb-caption" id="lbCaption"></p>
+  </div>
+
+  <script src="../script.js"></script>
+</body>
+</html>
