@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Urban Resilience Model — Pradyota Phaneesh</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+
+  <nav class="navbar scrolled" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">PP</a>
+      <ul class="nav-links">
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#projects">Projects</a></li>
+        <li><a href="../index.html#skills">Skills</a></li>
+        <li><a href="../index.html#experience">Experience</a></li>
+        <li><a href="../index.html#publications">Research</a></li>
+        <li><a href="../index.html#contact" class="nav-cta">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html#about"      class="mobile-link">About</a>
+    <a href="../index.html#projects"   class="mobile-link">Projects</a>
+    <a href="../index.html#experience" class="mobile-link">Experience</a>
+    <a href="../index.html#contact"    class="mobile-link">Contact</a>
+  </div>
+
+  <!-- ════ HERO ════ -->
+  <div class="proj-page-hero">
+    <div class="container">
+      <a href="../index.html#projects" class="proj-hero-back">Back to Projects</a>
+      <p class="proj-hero-tag">Python · Agent-Based Modeling · Data Science · Policy Analysis</p>
+      <h1 class="proj-hero-title">Urban<br /><em>Resilience Model</em></h1>
+      <p class="proj-hero-summary">
+        Developed an Agent-Based Model (ABM) in Python to simulate the complex, emergent
+        dynamics between housing availability, economic instability, and homelessness
+        in Seattle, WA. The model stress-tests urban resilience against "Black Swan" events
+        — natural disasters, economic recessions, and sudden demographic shifts — and
+        serves as a customizable policy sandbox for evaluating which interventions most
+        effectively reduce long-term homelessness.
+      </p>
+      <div class="proj-hero-stats">
+        <div class="proj-stat"><span class="ps-val">200</span><span class="ps-lbl">High-Fidelity Agents</span></div>
+        <div class="proj-stat"><span class="ps-val">3</span><span class="ps-lbl">Black Swan Scenarios</span></div>
+        <div class="proj-stat"><span class="ps-val">50</span><span class="ps-lbl">Year Simulation Horizon</span></div>
+        <div class="proj-stat"><span class="ps-val">Agentpy</span><span class="ps-lbl">Framework</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ THE PROBLEM ════ -->
+  <div class="proj-section">
+    <div class="container">
+      <div class="proj-section-head reveal">
+        <span class="psh-num">01</span>
+        <h2 class="psh-title">The Problem</h2>
+      </div>
+      <div class="proj-two-col">
+        <div class="proj-text reveal">
+          <p>
+            Homelessness in cities like Seattle is not a static, linear problem — it's
+            a dynamic system with nonlinear thresholds. Small changes in income, housing
+            supply, or unemployment can push individual citizens past a point of no return,
+            while large aggregate interventions sometimes produce surprisingly small effects.
+            Traditional policy analysis based on macro-level statistics misses these
+            threshold dynamics entirely.
+          </p>
+          <p>
+            Agent-Based Modeling addresses this gap by simulating individual citizens
+            ("agents") with unique, realistic attributes — income progression, age-based
+            savings behavior, probabilistic unemployment risk, and housing purchase decisions.
+            Emergent macro-level patterns (homelessness rates, housing market tightness)
+            arise from thousands of individual agent decisions rather than being imposed
+            by top-down equations.
+          </p>
+          <p>
+            The goal: build a validated ABM for Seattle's housing market that can stress-test
+            "what if" scenarios, identify critical economic thresholds, and rank policy
+            interventions by their long-run impact on homelessness outcomes.
+          </p>
+        </div>
+        <div class="reveal">
+          <div class="proj-callout">
+            <span class="callout-label">Key Insight</span>
+            <p>"Reducing unemployment rates via job market expansion outperformed housing
+            supply expansion and direct income transfers in long-term homelessness reduction
+            — a counterintuitive result that only emerged through agent-level simulation."</p>
+          </div>
+          <div class="proj-tools-row" style="margin-top:1.5rem;">
+            <span>Python</span><span>Agentpy</span><span>NumPy</span><span>Pandas</span>
+            <span>Matplotlib</span><span>Regression Analysis</span><span>Stochastic Modeling</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ METHODOLOGY ════ -->
+  <div class="proj-section proj-section-alt">
+    <div class="container">
+      <div class="proj-section-head reveal">
+        <span class="psh-num">02</span>
+        <h2 class="psh-title">Model Architecture</h2>
+      </div>
+      <div class="proc-steps reveal">
+
+        <div class="proc-step">
+          <div class="proc-num">1</div>
+          <div class="proc-content">
+            <h4>Agent Design — Buyer/Seller Citizens</h4>
+            <p>Each agent is initialized with a random age (20–70), income ($39k–$170k
+            drawn from Seattle income distributions), and savings proportional to
+            age × income × 0.1 (the 20% savings rule scaled by working years). Agents
+            begin as buyers (93.2%) or sellers (7.8%) matching real Seattle housing market
+            turnover rates. Unemployment probability is calibrated to historical unemployment
+            curves via quadratic regression on real-world data.</p>
+          </div>
+        </div>
+
+        <div class="proc-step">
+          <div class="proc-num">2</div>
+          <div class="proc-content">
+            <h4>Economic Data Calibration</h4>
+            <p>Synthesized real-world datasets from Gusto (income distributions), Mathworks
+            (housing price trajectories), and historical Seattle unemployment data spanning
+            2000–2022. Applied quadratic polynomial regression to extract time-varying
+            functions for median income, unemployment rate, and house price — used to update
+            agent parameters each simulation year rather than using fixed values.</p>
+          </div>
+        </div>
+
+        <div class="proc-step">
+          <div class="proc-num">3</div>
+          <div class="proc-content">
+            <h4>Housing Market Mechanics</h4>
+            <p>Each simulation step, buyer agents scan the available seller pool for
+            properties within their budget. Successful transactions remove the seller
+            from the pool and transfer the house. Agents who lose housing (unemployment,
+            aging out, budget depletion) become sellers. Agents without housing face
+            a probabilistic homelessness trigger (45–80% depending on housing supply
+            tightness). Population grows at Seattle's historical 1.024% annual rate
+            to maintain demographic realism.</p>
+          </div>
+        </div>
+
+        <div class="proc-step">
+          <div class="proc-num">4</div>
+          <div class="proc-content">
+            <h4>Stochastic "Black Swan" Shock — The 20-Year Pulse</h4>
+            <p>Based on historical frequency data (4–5 major disruptions per century),
+            the model injects a stochastic shock at simulation year 20 (2042).
+            Three shock types were implemented: (1) Natural Disaster — housing prices
+            drop $100k, income falls, population declines 1%/year as the area
+            becomes less desirable; (2) Economic Recession — unemployment rises,
+            house prices spike, income falls simultaneously; (3) Migrant Influx —
+            population grows 3%/year, housing demand surges, wages compress from
+            labor market competition. All scenarios implement exponential recovery
+            curves calibrated to historical post-disaster economic data.</p>
+          </div>
+        </div>
+
+        <div class="proc-step">
+          <div class="proc-num">5</div>
+          <div class="proc-content">
+            <h4>Policy Sensitivity Analysis</h4>
+            <p>Systematically varied unemployment rate, housing supply, and income floor
+            parameters to rank intervention types by their impact on long-run homelessness
+            rates across all three Black Swan scenarios. Compared job creation programs,
+            housing supply expansion, and direct income transfer interventions using
+            the model as a controlled sandbox — holding all other parameters constant
+            while varying the intervention magnitude.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ GALLERY ════ -->
+  <!--
+    HOW TO ADD YOUR IMAGES:
+    1. Create folder: Images/urban/  in your portfolio folder
+    2. Add simulation output screenshots, charts, model diagrams
+    3. Copy a <figure class="gal-item"> block, update src + alt
+  -->
+  <div class="proj-gallery">
+    <div class="container">
+      <div class="proj-section-head reveal">
+        <span class="psh-num">03</span>
+        <h2 class="psh-title">Gallery</h2>
+      </div>
+      <div class="gallery-grid reveal">
+
+        <!-- ⚠️ IMAGE 1 (wide): Add Images/urban/img1.jpg -->
+        <figure class="gal-item gal-item-wide">
+          <img src="../Images/urban/img1.jpg" alt="Homelessness rate simulation output — baseline vs Black Swan scenarios" class="gal-img"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="gal-placeholder"><div class="gal-placeholder-icon">◈</div><span>Simulation Output</span><span>Add: Images/urban/img1.jpg</span></div>
+          <div class="gal-overlay"><div class="gal-zoom">⤢</div></div>
+          <figcaption class="gal-caption">Homelessness rate over time — baseline vs. Natural Disaster, Recession, and Migrant Influx scenarios</figcaption>
+        </figure>
+
+        <!-- ⚠️ IMAGE 2: Add Images/urban/img2.jpg -->
+        <figure class="gal-item">
+          <img src="../Images/urban/img2.jpg" alt="Agent state distribution at year 50" class="gal-img"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="gal-placeholder"><div class="gal-placeholder-icon">⟁</div><span>Agent Distribution</span><span>Add: Images/urban/img2.jpg</span></div>
+          <div class="gal-overlay"><div class="gal-zoom">⤢</div></div>
+          <figcaption class="gal-caption">Agent buyer/seller/homeless distribution — year 50 simulation state</figcaption>
+        </figure>
+
+        <!-- ⚠️ IMAGE 3: Add Images/urban/img3.jpg -->
+        <figure class="gal-item">
+          <img src="../Images/urban/img3.jpg" alt="Housing price and income trajectory regression" class="gal-img"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="gal-placeholder"><div class="gal-placeholder-icon">✦</div><span>Regression Fits</span><span>Add: Images/urban/img3.jpg</span></div>
+          <div class="gal-overlay"><div class="gal-zoom">⤢</div></div>
+          <figcaption class="gal-caption">Quadratic regression fits for income, unemployment, and house prices — calibrated to real Seattle data</figcaption>
+        </figure>
+
+        <!-- ⚠️ IMAGE 4 (wide): Add Images/urban/img4.jpg -->
+        <figure class="gal-item gal-item-wide">
+          <img src="../Images/urban/img4.jpg" alt="Policy intervention sensitivity analysis" class="gal-img"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="gal-placeholder"><div class="gal-placeholder-icon">◉</div><span>Policy Sensitivity</span><span>Add: Images/urban/img4.jpg</span></div>
+          <div class="gal-overlay"><div class="gal-zoom">⤢</div></div>
+          <figcaption class="gal-caption">Policy sensitivity analysis — unemployment reduction outperforms housing supply and income transfers</figcaption>
+        </figure>
+
+        <!-- ⚠️ IMAGE 5: Add Images/urban/img5.jpg -->
+        <figure class="gal-item">
+          <img src="../Images/urban/img5.jpg" alt="Natural disaster recovery curve" class="gal-img"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="gal-placeholder"><div class="gal-placeholder-icon">⬡</div><span>Recovery Curve</span><span>Add: Images/urban/img5.jpg</span></div>
+          <div class="gal-overlay"><div class="gal-zoom">⤢</div></div>
+          <figcaption class="gal-caption">Post-disaster economic recovery trajectory — housing prices, income, and unemployment rebound curves</figcaption>
+        </figure>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ RESULTS ════ -->
+  <div class="proj-section proj-section-alt">
+    <div class="container">
+      <div class="proj-section-head reveal">
+        <span class="psh-num">04</span>
+        <h2 class="psh-title">Key Findings &amp; Insights</h2>
+      </div>
+      <div class="results-list reveal">
+        <div class="result-item">
+          <div class="result-icon">📊</div>
+          <p><strong>Job creation dominated all other interventions</strong> in long-term
+          homelessness reduction across all three Black Swan scenarios. Reducing unemployment
+          rates outperformed direct housing supply expansion and income transfer programs
+          by a significant margin in every simulation run.</p>
+        </div>
+        <div class="result-item">
+          <div class="result-icon">⚡</div>
+          <p><strong>Threshold dynamics identified:</strong> a savings depletion "Abyss"
+          threshold exists below which agents cannot recover without external intervention.
+          Once agents cross this line — triggered by unemployment, aging, or disaster —
+          they enter a self-reinforcing homelessness loop even as the economy recovers
+          around them.</p>
+        </div>
+        <div class="result-item">
+          <div class="result-icon">🌊</div>
+          <p><strong>Migrant Influx was the most damaging Black Swan scenario</strong>
+          for existing residents — housing prices jumped fastest (to $600k), income
+          compression from labor market competition was most severe, and the unemployed
+          homeless probability rose to 80% due to reduced housing availability.</p>
+        </div>
+        <div class="result-item">
+          <div class="result-icon">🔍</div>
+          <p><strong>Natural Disaster caused the fastest short-term housing instability</strong>
+          but the least permanent damage — property value drops and population decline
+          actually reduced housing competition for surviving residents over the long run.</p>
+        </div>
+        <div class="result-item">
+          <div class="result-icon">📐</div>
+          <p><strong>Computational scalability documented:</strong> 200 high-fidelity
+          agents on standard hardware. Model architecture is linearly scalable to Seattle's
+          full population (~750k) via cloud-based HPC — with modular code structure
+          designed for future "Quality of Housing" (gentrification/decay) extensions.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p class="footer-name">Pradyota Phaneesh</p>
+      <p class="footer-meta">B.S. Mechanical Engineering · UT Austin · Dec 2027</p>
+      <p class="footer-copy">© 2025 · <a href="../index.html#projects" style="color:rgba(255,255,255,0.4)">← Back to Projects</a></p>
+    </div>
+  </footer>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" id="lbClose" aria-label="Close">✕</button>
+    <button class="lb-prev"  id="lbPrev"  aria-label="Previous">‹</button>
+    <div class="lb-img-wrap"><img src="" alt="" id="lbImg" class="lb-img" /></div>
+    <button class="lb-next"  id="lbNext"  aria-label="Next">›</button>
+    <p class="lb-caption" id="lbCaption"></p>
+  </div>
+  <script src="../script.js"></script>
+</body>
+</html>
