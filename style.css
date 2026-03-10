@@ -86,7 +86,7 @@ section { padding: var(--sp-2xl) 0; }
 
 /* ════ 3. NAVIGATION ════ */
 .navbar {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9000;
   padding: 1.1rem var(--sp-lg);
   transition: background 0.4s var(--ease), box-shadow 0.4s var(--ease);
 }
@@ -116,7 +116,7 @@ section { padding: var(--sp-2xl) 0; }
 .nav-cta:hover { background: var(--accent) !important; }
 .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
 .hamburger span { display: block; width: 22px; height: 2px; background: var(--ink); border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
-.mobile-menu { display: none; flex-direction: column; position: fixed; top: 60px; left: 0; right: 0; background: var(--white); border-bottom: 1px solid var(--border); z-index: 999; box-shadow: var(--sh-md); }
+.mobile-menu { display: none; flex-direction: column; position: fixed; top: 0; left: 0; right: 0; background: var(--white); border-bottom: 1px solid var(--border); z-index: 8999; box-shadow: var(--sh-md); padding-top: 70px; }
 .mobile-menu.open { display: flex; }
 .mobile-link { font-family: var(--f-body); font-size: 0.88rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink); padding: 0.9rem var(--sp-lg); border-bottom: 1px solid var(--border); transition: color 0.2s; }
 .mobile-link:hover { color: var(--accent); }
@@ -290,7 +290,7 @@ section { padding: var(--sp-2xl) 0; }
 .pc-tag { font-family: var(--f-body); font-size: 0.58rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
 .pc-title { font-family: var(--f-display); font-size: 1.3rem; font-weight: 400; color: var(--ink); line-height: 1.2; }
 .pc-blurb { font-size: 0.84rem; line-height: 1.65; color: var(--ink-2); flex: 1; }
-.pc-btn { margin-top: var(--sp-sm); align-self: flex-start; pointer-events: none; /* card is the clickable element */ }
+.pc-btn { margin-top: var(--sp-sm); align-self: flex-start; pointer-events: auto; position: relative; z-index: 2; }
 
 /* Highlight the button visually when card is hovered */
 .proj-card:hover .pc-btn { background: var(--accent-dk); border-color: var(--accent-dk); }

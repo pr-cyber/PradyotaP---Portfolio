@@ -10,38 +10,31 @@
   <style>
     /* ═══════════════════════════════════════════════
        PHOTOGRAPHY PAGE — detective board aesthetic
-       No white frames, no borders. Scattered raw photos
-       with pushpins, overlapping freely.
+       No white frames. Raw photos, scattered freely,
+       pinned with colored pushpins.
     ═══════════════════════════════════════════════ */
-
     :root {
-      --ink:    #0F0F0F;
       --accent: #0050D8;
       --f-body: 'Outfit', sans-serif;
       --f-display: 'Cormorant Garamond', serif;
       --f-mono: 'JetBrains Mono', monospace;
     }
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { height: 100%; }
+    html { height: 100%; }
 
     body {
       background: #111;
       font-family: var(--f-body);
       -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
+      min-height: 100vh;
     }
 
-    /* ── Top bar ── */
+    /* ── Top nav ── */
     .photo-nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 200;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1rem 2.5rem;
-      background: rgba(10,10,10,0.85);
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(10,10,10,0.88);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid rgba(255,255,255,0.07);
@@ -52,479 +45,464 @@
       width: 36px; height: 36px; border-radius: 8px;
       display: flex; align-items: center; justify-content: center;
       text-decoration: none; flex-shrink: 0;
+      transition: background 0.2s;
     }
+    .photo-nav-logo:hover { background: #003db0; }
     .photo-nav-title {
-      font-family: var(--f-display);
-      font-size: 1.1rem;
-      font-style: italic;
-      color: rgba(255,255,255,0.75);
-      letter-spacing: 0.02em;
+      font-family: var(--f-display); font-size: 1.1rem; font-style: italic;
+      color: rgba(255,255,255,0.7); letter-spacing: 0.02em;
     }
     .photo-nav-back {
       font-family: var(--f-body); font-size: 0.7rem; font-weight: 600;
       letter-spacing: 0.1em; text-transform: uppercase;
-      color: rgba(255,255,255,0.45);
-      text-decoration: none;
-      transition: color 0.2s;
+      color: rgba(255,255,255,0.4); text-decoration: none;
       display: flex; align-items: center; gap: 0.4rem;
+      transition: color 0.2s;
     }
     .photo-nav-back:hover { color: #fff; }
-    .photo-nav-back::before { content: '←'; }
+    .photo-nav-back::before { content: '←'; font-size: 0.9rem; }
 
-    /* ── Add-photo hint ── */
-    .photo-hint {
-      position: fixed;
-      bottom: 1.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      font-family: var(--f-mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.18);
-      text-align: center;
-      pointer-events: none;
-      z-index: 10;
-    }
-
-    /* ── Board: the full viewport canvas ── */
-    .board {
-      position: relative;
-      width: 100%;
-      /* Tall enough for all scattered photos — adjust if you add more */
+    /* ── Outer wrapper: fills viewport, centers the board ── */
+    .board-outer {
       min-height: 100vh;
-      padding: 100px 60px 120px;
-      /* Subtle texture: dark linen */
-      background:
-        repeating-linear-gradient(
-          0deg,
-          transparent,
-          transparent 40px,
-          rgba(255,255,255,0.013) 40px,
-          rgba(255,255,255,0.013) 41px
-        ),
-        repeating-linear-gradient(
-          90deg,
-          transparent,
-          transparent 40px,
-          rgba(255,255,255,0.013) 40px,
-          rgba(255,255,255,0.013) 41px
-        ),
-        #141414;
+      padding: 90px 20px 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     /*
-      ── Each photo ──
-      .photo is the click target.
-      No border, no frame — just the raw image,
-      a pushpin, and a drop shadow.
+      ── The board canvas ──
+      Fixed width of 1020px — all photo positions are
+      designed within this width.
+      On smaller screens we scale it down with transform.
+      overflow: visible so photos that "lean" out slightly
+      aren't hard-clipped, but the outer wrapper clips them.
+    */
+    .board {
+      position: relative;
+      width: 1020px;
+      /* Height is set by JS to fit all photos */
+      min-height: 820px;
+      flex-shrink: 0;
 
-      Photos use absolute positioning relative to .board.
-      Each has an individual top/left/rotation set below.
+      /* Dark linen texture */
+      background:
+        repeating-linear-gradient(
+          0deg, transparent, transparent 38px,
+          rgba(255,255,255,0.012) 38px, rgba(255,255,255,0.012) 39px
+        ),
+        repeating-linear-gradient(
+          90deg, transparent, transparent 38px,
+          rgba(255,255,255,0.012) 38px, rgba(255,255,255,0.012) 39px
+        ),
+        #181818;
+      border-radius: 4px;
+      /* scale() is applied by JS based on viewport width */
+      transform-origin: top center;
+    }
+
+    /* ── Each pinned photo ── */
+    /*
+      .photo  = outer clickable container
+      No white frame, no border — just raw image + shadow + pin.
 
       HOW TO ADD PHOTOS:
-      1. Add your images at Images/photography/photo-N.jpg
-      2. Copy a <figure class="photo"> block
-      3. Add a matching position rule: .p-N { top: Xpx; left: Xpx; --rot: Ydeg; width: Zpx; }
-         (width controls the photo size; height is auto)
+      1. Add files at  Images/photography/photo-N.jpg
+      2. Copy a <figure class="photo p-N"> block
+      3. Add a CSS rule:  .p-N { --rot: Xdeg; --z: Y; top: Zpx; left: Wpx; width: Vpx; }
+         (all positions within 0–1020px width, 0–820px height)
     */
     .photo {
       position: absolute;
       transform: rotate(var(--rot, 0deg));
+      z-index: var(--z, 1);
       cursor: zoom-in;
+      /* No border, no background — minimalist */
       transition: transform 0.22s cubic-bezier(0.16,1,0.3,1),
                   box-shadow 0.22s,
                   z-index 0s;
-      z-index: var(--z, 1);
-      border-radius: 2px;
-      overflow: visible; /* let pushpin poke out */
     }
     .photo:hover {
-      transform: rotate(0deg) scale(1.06);
+      transform: rotate(0deg) scale(1.07) !important;
       z-index: 50 !important;
-      box-shadow: 0 24px 80px rgba(0,0,0,0.85) !important;
+      box-shadow: 0 28px 90px rgba(0,0,0,0.9) !important;
     }
 
-    /* The image itself — no frame */
     .photo img {
       display: block;
       width: 100%;
       height: auto;
-      border-radius: 2px;
-      box-shadow: 3px 6px 28px rgba(0,0,0,0.65);
-      /* If photo missing, show placeholder area */
-      min-height: 80px;
-      background: #2a2a2a;
-    }
-    /* Fallback placeholder when image is missing */
-    .photo img.missing {
-      display: none;
-    }
-    .photo-placeholder {
-      display: none;
-      width: 100%;
-      min-height: 120px;
-      background: linear-gradient(135deg, #2a2a2a, #1e1e1e);
-      border-radius: 2px;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: 0.5rem;
-      box-shadow: 3px 6px 28px rgba(0,0,0,0.65);
-    }
-    .photo-placeholder .ph-icon { font-size: 1.6rem; opacity: 0.35; }
-    .photo-placeholder .ph-label {
-      font-family: var(--f-mono);
-      font-size: 0.55rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.22);
+      min-height: 60px;
+      background: #222;
+      /* Crisp shadow — makes photos "pop" off the dark board */
+      box-shadow: 3px 7px 32px rgba(0,0,0,0.7), 0 1px 4px rgba(0,0,0,0.5);
+      border-radius: 1px;
     }
 
-    /* Hover zoom overlay */
+    /* Placeholder when image missing */
+    .photo img.missing { display: none !important; }
+    .photo-placeholder {
+      display: none;
+      width: 100%; min-height: 100px;
+      background: linear-gradient(135deg, #252525, #1a1a1a);
+      border-radius: 1px;
+      box-shadow: 3px 7px 32px rgba(0,0,0,0.7);
+      flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem;
+    }
+    .photo-placeholder .ph-icon { font-size: 1.5rem; opacity: 0.25; }
+    .photo-placeholder .ph-label {
+      font-family: var(--f-mono); font-size: 0.52rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(255,255,255,0.18);
+    }
+
+    /* Zoom icon on hover */
     .photo-overlay {
-      position: absolute;
-      inset: 0;
-      border-radius: 2px;
-      background: rgba(0,0,0,0.35);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.2s;
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0.38);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity 0.2s; border-radius: 1px;
     }
     .photo:hover .photo-overlay { opacity: 1; }
     .zoom-icon {
-      width: 44px; height: 44px;
-      background: rgba(255,255,255,0.92);
-      border-radius: 50%;
+      width: 42px; height: 42px;
+      background: rgba(255,255,255,0.92); border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem;
-      color: #111;
+      font-size: 1rem; color: #111;
     }
 
-    /* Pushpin — sits at top-center of photo */
+    /* Pushpins */
     .pin {
-      position: absolute;
-      top: -10px;
-      left: 50%;
+      position: absolute; top: -9px; left: 50%;
       transform: translateX(-50%);
-      width: 13px; height: 13px;
-      border-radius: 50%;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.6), inset 0 -1px 3px rgba(0,0,0,0.35);
+      width: 13px; height: 13px; border-radius: 50%;
+      box-shadow: 0 2px 7px rgba(0,0,0,0.65), inset 0 -1px 3px rgba(0,0,0,0.3);
       z-index: 2;
     }
-    .pin-r { background: radial-gradient(circle at 38% 32%, #ff7c7c, #c0392b); }
-    .pin-b { background: radial-gradient(circle at 38% 32%, #60aee0, #1a6fa8); }
-    .pin-y { background: radial-gradient(circle at 38% 32%, #ffe05a, #c8960a); }
-    .pin-g { background: radial-gradient(circle at 38% 32%, #62d68a, #1e7a43); }
-    .pin-w { background: radial-gradient(circle at 38% 32%, #f0f0f0, #a0a0a0); }
+    .pin-r { background: radial-gradient(circle at 38% 32%, #ff7a7a, #c0392b); }
+    .pin-b { background: radial-gradient(circle at 38% 32%, #60b0e2, #1a6fa8); }
+    .pin-y { background: radial-gradient(circle at 38% 32%, #ffe066, #c89800); }
+    .pin-g { background: radial-gradient(circle at 38% 32%, #62d88c, #1e7a43); }
+    .pin-w { background: radial-gradient(circle at 38% 32%, #f0f0f0, #9a9a9a); }
 
     /*
       ══ PHOTO POSITIONS ══
-      Coordinates are within the .board padding box.
-      Negative left values let photos bleed to the left edge.
-      z-index layering creates depth (higher = in front).
+      All coordinates designed for 1020px-wide board.
+      Height ~820px. Mix of portrait and landscape.
+      Genuinely scattered — overlapping, not grid-like.
 
-      Layout intent: genuinely messy, not symmetrical.
-      Large + small photos mixed. Clusters + lone photos.
+      Positive --rot = tilted clockwise
+      --z controls stacking order
     */
 
-    /* Cluster 1 — upper left */
-    .p-1  { --rot: -6deg;   --z: 4;  top: 60px;  left: 40px;  width: 280px; }
-    .p-2  { --rot:  11deg;  --z: 6;  top: 20px;  left: 260px; width: 200px; }
+    /* ─ Upper-left cluster ─ */
+    .p-1  { --rot: -5deg;  --z: 4;  top: 28px;  left: 22px;  width: 230px; }
+    .p-2  { --rot:  9deg;  --z: 6;  top: 14px;  left: 225px; width: 180px; }
 
-    /* Center-top */
-    .p-3  { --rot: -3deg;   --z: 3;  top: 80px;  left: 500px; width: 340px; }
+    /* ─ Top center (large focal piece) ─ */
+    .p-3  { --rot: -2deg;  --z: 3;  top: 40px;  left: 420px; width: 285px; }
 
-    /* Upper right */
-    .p-4  { --rot:  8deg;   --z: 5;  top: 30px;  left: 870px; width: 220px; }
-    .p-5  { --rot: -12deg;  --z: 2;  top: 160px; left: 1040px;width: 180px; }
+    /* ─ Upper right ─ */
+    .p-4  { --rot:  8deg;  --z: 5;  top: 18px;  left: 724px; width: 200px; }
+    .p-5  { --rot:-11deg;  --z: 2;  top: 155px; left: 850px; width: 155px; }
 
-    /* Middle band — overlapping cluster */
-    .p-6  { --rot:  5deg;   --z: 8;  top: 310px; left: 80px;  width: 260px; }
-    .p-7  { --rot: -9deg;   --z: 7;  top: 270px; left: 310px; width: 310px; }
-    .p-8  { --rot:  4deg;   --z: 9;  top: 340px; left: 580px; width: 240px; }
-    .p-9  { --rot: -7deg;   --z: 5;  top: 280px; left: 850px; width: 290px; }
+    /* ─ Middle cluster (densest overlap) ─ */
+    .p-6  { --rot:  6deg;  --z: 8;  top: 280px; left: 45px;  width: 250px; }
+    .p-7  { --rot: -8deg;  --z: 7;  top: 248px; left: 268px; width: 295px; }
+    .p-8  { --rot:  3deg;  --z: 9;  top: 295px; left: 536px; width: 235px; }
+    .p-9  { --rot: -6deg;  --z: 5;  top: 255px; left: 782px; width: 220px; }
 
-    /* Bottom scatter */
-    .p-10 { --rot:  13deg;  --z: 6;  top: 600px; left: 20px;  width: 200px; }
-    .p-11 { --rot: -4deg;   --z: 4;  top: 560px; left: 260px; width: 280px; }
-    .p-12 { --rot:  7deg;   --z: 7;  top: 620px; left: 590px; width: 230px; }
-    .p-13 { --rot: -10deg;  --z: 3;  top: 580px; left: 870px; width: 260px; }
+    /* ─ Bottom scatter ─ */
+    .p-10 { --rot: 12deg;  --z: 6;  top: 558px; left: 15px;  width: 190px; }
+    .p-11 { --rot: -4deg;  --z: 4;  top: 530px; left: 232px; width: 265px; }
+    .p-12 { --rot:  7deg;  --z: 7;  top: 570px; left: 538px; width: 220px; }
+    .p-13 { --rot: -9deg;  --z: 3;  top: 545px; left: 778px; width: 230px; }
+
+
+    /* ── HINT ── */
+    .photo-hint {
+      margin-top: 2rem;
+      font-family: var(--f-mono); font-size: 0.58rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: rgba(255,255,255,0.16);
+      text-align: center;
+    }
 
 
     /* ── LIGHTBOX ── */
     .lb {
-      display: none;
-      position: fixed; inset: 0;
-      background: rgba(5,5,5,0.97);
-      z-index: 1000;
-      align-items: center;
-      justify-content: center;
-      padding: 2.5rem;
+      display: none; position: fixed; inset: 0;
+      background: rgba(5,5,5,0.97); z-index: 1000;
+      align-items: center; justify-content: center; padding: 2.5rem;
     }
     .lb.open { display: flex; }
-    .lb-wrap {
-      max-width: 92vw;
-      max-height: 86vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .lb-wrap img {
-      max-width: 100%;
-      max-height: 86vh;
-      border-radius: 3px;
-      box-shadow: 0 30px 100px rgba(0,0,0,0.9);
-      object-fit: contain;
-    }
+    .lb-wrap { max-width: 92vw; max-height: 86vh; display: flex; align-items: center; justify-content: center; }
+    .lb-wrap img { max-width: 100%; max-height: 86vh; border-radius: 2px; box-shadow: 0 30px 100px rgba(0,0,0,0.92); object-fit: contain; }
     .lb-close {
       position: fixed; top: 1.2rem; right: 1.4rem;
       background: rgba(255,255,255,0.1); border: none; color: #fff;
-      font-size: 1.2rem; width: 44px; height: 44px; border-radius: 50%;
+      font-size: 1.2rem; width: 46px; height: 46px; border-radius: 50%;
       cursor: pointer; display: flex; align-items: center; justify-content: center;
-      transition: background 0.2s;
+      transition: background 0.2s; z-index: 10;
     }
     .lb-close:hover { background: rgba(255,255,255,0.22); }
     .lb-prev, .lb-next {
       position: fixed; top: 50%; transform: translateY(-50%);
-      background: rgba(255,255,255,0.08); border: none; color: #fff;
-      font-size: 2rem; padding: 0.75rem 1rem; border-radius: 10px;
-      cursor: pointer; transition: background 0.2s;
+      background: rgba(255,255,255,0.09); border: none; color: #fff;
+      font-size: 2rem; padding: 0.75rem 1.1rem; border-radius: 10px;
+      cursor: pointer; transition: background 0.2s; z-index: 10;
     }
     .lb-prev { left: 1.2rem; }
     .lb-next { right: 1.2rem; }
-    .lb-prev:hover, .lb-next:hover { background: rgba(255,255,255,0.18); }
+    .lb-prev:hover, .lb-next:hover { background: rgba(255,255,255,0.2); }
     .lb-counter {
       position: fixed; bottom: 1.4rem; left: 50%; transform: translateX(-50%);
       font-family: var(--f-mono); font-size: 0.62rem; letter-spacing: 0.12em;
-      text-transform: uppercase; color: rgba(255,255,255,0.35);
+      text-transform: uppercase; color: rgba(255,255,255,0.3);
     }
   </style>
 </head>
 <body>
 
-  <!-- ── Top nav ── -->
   <nav class="photo-nav">
     <a href="index.html" class="photo-nav-logo" aria-label="Home">PP</a>
     <span class="photo-nav-title">Photography</span>
     <a href="index.html" class="photo-nav-back">Back to Portfolio</a>
   </nav>
 
-  <!-- ── Board ── -->
-  <!--
-    HOW TO ADD YOUR PHOTOS
-    ══════════════════════════════
-    1. Create folder: Images/photography/ in your portfolio folder
-    2. Add photos named photo-1.jpg through photo-13.jpg (or more)
-    3. Each <figure class="photo p-N"> corresponds to one image slot
-    4. Photos show a subtle placeholder camera icon until you add the image
-    5. To add more: copy a <figure> block, assign class p-14, p-15, etc.
-       Add matching CSS rule: .p-14 { --rot: Xdeg; --z: Y; top: Zpx; left: Wpx; width: Vpx; }
-  -->
-  <div class="board" id="board">
+  <div class="board-outer">
 
-    <figure class="photo p-1" data-index="0">
-      <div class="pin pin-r"></div>
-      <img src="Images/photography/photo-1.jpg" alt="Photo 1"
-        onerror="this.classList.add('missing'); this.nextElementSibling.style.display='flex';" />
-      <div class="photo-placeholder"><div class="ph-icon">📷</div><div class="ph-label">photo-1.jpg</div></div>
-      <div class="photo-overlay"><div class="zoom-icon">⤢</div></div>
-    </figure>
+    <!--
+      ════════════════════════════════════════
+      BOARD — how to add your photos:
+      1. Create folder: Images/photography/
+      2. Add photos named photo-1.jpg through photo-13.jpg
+      3. Each <figure class="photo p-N"> is one slot
+      4. Add more slots: copy a <figure>, give it class "p-14" etc.,
+         then add CSS:  .p-14 { --rot: Xdeg; --z:Y; top:Zpx; left:Wpx; width:Vpx; }
+         Keep all positions within the 1020px × 820px board.
+      ════════════════════════════════════════
+    -->
+    <div class="board" id="board">
 
-    <figure class="photo p-2" data-index="1">
-      <div class="pin pin-b"></div>
-      <img src="Images/photography/photo-2.jpg" alt="Photo 2"
-        onerror="this.classList.add('missing'); this.nextElementSibling.style.display='flex';" />
-      <div class="photo-placeholder"><div class="ph-icon">📷</div><div class="ph-label">photo-2.jpg</div></div>
-      <div class="photo-overlay"><div class="zoom-icon">⤢</div></div>
-    </figure>
+      <figure class="photo p-1" data-idx="0">
+        <div class="pin pin-r"></div>
+        <img src="Images/photography/photo-1.jpg" alt="Photo 1"
+          onerror="this.classList.add('missing');this.nextElementSibling.style.display='flex';" />
+        <div class="photo-placeholder"><div class="ph-icon">📷</div><div class="ph-label">photo-1.jpg</div></div>
+        <div class="photo-overlay"><div class="zoom-icon">⤢</div></div>
+      </figure>
 
-    <figure class="photo p-3" data-index="2">
-      <div class="pin pin-y"></div>
-      <img src="Images/photography/photo-3.jpg" alt="Photo 3"
-        onerror="this.classList.add('missing'); this.nextElementSibling.style.display='flex';" />
-      <div class="photo-placeholder"><div class="ph-icon">📷</div><div class="ph-label">photo-3.jpg</div></div>
-      <div class="photo-overlay"><div class="zoom-icon">⤢</div></div>
-    </figure>
+      <figure class="photo p-2" data-idx="1">
+        <div class="pin pin-b"></div>
+        <img src="Images/photography/photo-2.jpg" alt="Photo 2"
+          onerror="this.classList.add('missing');this.nextElementSibling.style.display='flex';" />
+        <div class="photo-placeholder"><div class="ph-icon">📷</div><div class="ph-label">photo-2.jpg</div></div>
+        <div class="photo-overlay"><div class="zoom-icon">⤢</div></div>
+      </figure>
 
-    <figure class="photo p-4" data-index="3">
-      <div class="pin pin-g"></div>
-      <img src="Images/photography/photo-4.jpg" alt="Photo 4"
-        onerror="this.classList.add('missing'); this.nextElementSibling.style.display='flex';" />
-      <div class="photo-placeholder"><div class="ph-icon">📷</div><div class="ph-label">photo-4.jpg</div></div>
-      <div class="photo-overlay"><div class="zoom-icon">⤢</div></div>
-    </figure>
+      <figure class="photo p-3" data-idx="2">
+        <div class="pin pin-y"></div>
+        <img src="Images/photography/photo-3.jpg" alt="Photo 3"
+          onerror="this.classList.add('missing');this.nextElementSibling.style.display='flex';" />
+        <div class="photo-placeholder"><div class="ph-icon">📷</div><div class="ph-label">photo-3.jpg</div></div>
+        <div class="photo-overlay"><div class="zoom-icon">⤢</div></div>
+      </figure>
 
-    <figure class="photo p-5" data-index="4">
-      <div class="pin pin-r"></div>
-      <img src="Images/photography/photo-5.jpg" alt="Photo 5"
-        onerror="this.classList.add('missing'); this.nextElementSibling.style.display='flex';" />
-      <div class="photo-placeholder"><div class="ph-icon">📷</div><div class="ph-label">photo-5.jpg</div></div>
-      <div class="photo-overlay"><div class="zoom-icon">⤢</div></div>
-    </figure>
+      <figure class="photo p-4" data-idx="3">
+        <div class="pin pin-g"></div>
+        <img src="Images/photography/photo-4.jpg" alt="Photo 4"
+          onerror="this.classList.add('missing');this.nextElementSibling.style.display='flex';" />
+        <div class="photo-placeholder"><div class="ph-icon">📷</div><div class="ph-label">photo-4.jpg</div></div>
+        <div class="photo-overlay"><div class="zoom-icon">⤢</div></div>
+      </figure>
 
-    <figure class="photo p-6" data-index="5">
-      <div class="pin pin-w"></div>
-      <img src="Images/photography/photo-6.jpg" alt="Photo 6"
-        onerror="this.classList.add('missing'); this.nextElementSibling.style.display='flex';" />
-      <div class="photo-placeholder"><div class="ph-icon">📷</div><div class="ph-label">photo-6.jpg</div></div>
-      <div class="photo-overlay"><div class="zoom-icon">⤢</div></div>
-    </figure>
+      <figure class="photo p-5" data-idx="4">
+        <div class="pin pin-r"></div>
+        <img src="Images/photography/photo-5.jpg" alt="Photo 5"
+          onerror="this.classList.add('missing');this.nextElementSibling.style.display='flex';" />
+        <div class="photo-placeholder"><div class="ph-icon">📷</div><div class="ph-label">photo-5.jpg</div></div>
+        <div class="photo-overlay"><div class="zoom-icon">⤢</div></div>
+      </figure>
 
-    <figure class="photo p-7" data-index="6">
-      <div class="pin pin-b"></div>
-      <img src="Images/photography/photo-7.jpg" alt="Photo 7"
-        onerror="this.classList.add('missing'); this.nextElementSibling.style.display='flex';" />
-      <div class="photo-placeholder"><div class="ph-icon">📷</div><div class="ph-label">photo-7.jpg</div></div>
-      <div class="photo-overlay"><div class="zoom-icon">⤢</div></div>
-    </figure>
+      <figure class="photo p-6" data-idx="5">
+        <div class="pin pin-w"></div>
+        <img src="Images/photography/photo-6.jpg" alt="Photo 6"
+          onerror="this.classList.add('missing');this.nextElementSibling.style.display='flex';" />
+        <div class="photo-placeholder"><div class="ph-icon">📷</div><div class="ph-label">photo-6.jpg</div></div>
+        <div class="photo-overlay"><div class="zoom-icon">⤢</div></div>
+      </figure>
 
-    <figure class="photo p-8" data-index="7">
-      <div class="pin pin-y"></div>
-      <img src="Images/photography/photo-8.jpg" alt="Photo 8"
-        onerror="this.classList.add('missing'); this.nextElementSibling.style.display='flex';" />
-      <div class="photo-placeholder"><div class="ph-icon">📷</div><div class="ph-label">photo-8.jpg</div></div>
-      <div class="photo-overlay"><div class="zoom-icon">⤢</div></div>
-    </figure>
+      <figure class="photo p-7" data-idx="6">
+        <div class="pin pin-b"></div>
+        <img src="Images/photography/photo-7.jpg" alt="Photo 7"
+          onerror="this.classList.add('missing');this.nextElementSibling.style.display='flex';" />
+        <div class="photo-placeholder"><div class="ph-icon">📷</div><div class="ph-label">photo-7.jpg</div></div>
+        <div class="photo-overlay"><div class="zoom-icon">⤢</div></div>
+      </figure>
 
-    <figure class="photo p-9" data-index="8">
-      <div class="pin pin-r"></div>
-      <img src="Images/photography/photo-9.jpg" alt="Photo 9"
-        onerror="this.classList.add('missing'); this.nextElementSibling.style.display='flex';" />
-      <div class="photo-placeholder"><div class="ph-icon">📷</div><div class="ph-label">photo-9.jpg</div></div>
-      <div class="photo-overlay"><div class="zoom-icon">⤢</div></div>
-    </figure>
+      <figure class="photo p-8" data-idx="7">
+        <div class="pin pin-y"></div>
+        <img src="Images/photography/photo-8.jpg" alt="Photo 8"
+          onerror="this.classList.add('missing');this.nextElementSibling.style.display='flex';" />
+        <div class="photo-placeholder"><div class="ph-icon">📷</div><div class="ph-label">photo-8.jpg</div></div>
+        <div class="photo-overlay"><div class="zoom-icon">⤢</div></div>
+      </figure>
 
-    <figure class="photo p-10" data-index="9">
-      <div class="pin pin-g"></div>
-      <img src="Images/photography/photo-10.jpg" alt="Photo 10"
-        onerror="this.classList.add('missing'); this.nextElementSibling.style.display='flex';" />
-      <div class="photo-placeholder"><div class="ph-icon">📷</div><div class="ph-label">photo-10.jpg</div></div>
-      <div class="photo-overlay"><div class="zoom-icon">⤢</div></div>
-    </figure>
+      <figure class="photo p-9" data-idx="8">
+        <div class="pin pin-r"></div>
+        <img src="Images/photography/photo-9.jpg" alt="Photo 9"
+          onerror="this.classList.add('missing');this.nextElementSibling.style.display='flex';" />
+        <div class="photo-placeholder"><div class="ph-icon">📷</div><div class="ph-label">photo-9.jpg</div></div>
+        <div class="photo-overlay"><div class="zoom-icon">⤢</div></div>
+      </figure>
 
-    <figure class="photo p-11" data-index="10">
-      <div class="pin pin-b"></div>
-      <img src="Images/photography/photo-11.jpg" alt="Photo 11"
-        onerror="this.classList.add('missing'); this.nextElementSibling.style.display='flex';" />
-      <div class="photo-placeholder"><div class="ph-icon">📷</div><div class="ph-label">photo-11.jpg</div></div>
-      <div class="photo-overlay"><div class="zoom-icon">⤢</div></div>
-    </figure>
+      <figure class="photo p-10" data-idx="9">
+        <div class="pin pin-g"></div>
+        <img src="Images/photography/photo-10.jpg" alt="Photo 10"
+          onerror="this.classList.add('missing');this.nextElementSibling.style.display='flex';" />
+        <div class="photo-placeholder"><div class="ph-icon">📷</div><div class="ph-label">photo-10.jpg</div></div>
+        <div class="photo-overlay"><div class="zoom-icon">⤢</div></div>
+      </figure>
 
-    <figure class="photo p-12" data-index="11">
-      <div class="pin pin-r"></div>
-      <img src="Images/photography/photo-12.jpg" alt="Photo 12"
-        onerror="this.classList.add('missing'); this.nextElementSibling.style.display='flex';" />
-      <div class="photo-placeholder"><div class="ph-icon">📷</div><div class="ph-label">photo-12.jpg</div></div>
-      <div class="photo-overlay"><div class="zoom-icon">⤢</div></div>
-    </figure>
+      <figure class="photo p-11" data-idx="10">
+        <div class="pin pin-b"></div>
+        <img src="Images/photography/photo-11.jpg" alt="Photo 11"
+          onerror="this.classList.add('missing');this.nextElementSibling.style.display='flex';" />
+        <div class="photo-placeholder"><div class="ph-icon">📷</div><div class="ph-label">photo-11.jpg</div></div>
+        <div class="photo-overlay"><div class="zoom-icon">⤢</div></div>
+      </figure>
 
-    <figure class="photo p-13" data-index="12">
-      <div class="pin pin-y"></div>
-      <img src="Images/photography/photo-13.jpg" alt="Photo 13"
-        onerror="this.classList.add('missing'); this.nextElementSibling.style.display='flex';" />
-      <div class="photo-placeholder"><div class="ph-icon">📷</div><div class="ph-label">photo-13.jpg</div></div>
-      <div class="photo-overlay"><div class="zoom-icon">⤢</div></div>
-    </figure>
+      <figure class="photo p-12" data-idx="11">
+        <div class="pin pin-r"></div>
+        <img src="Images/photography/photo-12.jpg" alt="Photo 12"
+          onerror="this.classList.add('missing');this.nextElementSibling.style.display='flex';" />
+        <div class="photo-placeholder"><div class="ph-icon">📷</div><div class="ph-label">photo-12.jpg</div></div>
+        <div class="photo-overlay"><div class="zoom-icon">⤢</div></div>
+      </figure>
 
-  </div><!-- end .board -->
+      <figure class="photo p-13" data-idx="12">
+        <div class="pin pin-y"></div>
+        <img src="Images/photography/photo-13.jpg" alt="Photo 13"
+          onerror="this.classList.add('missing');this.nextElementSibling.style.display='flex';" />
+        <div class="photo-placeholder"><div class="ph-icon">📷</div><div class="ph-label">photo-13.jpg</div></div>
+        <div class="photo-overlay"><div class="zoom-icon">⤢</div></div>
+      </figure>
 
-  <p class="photo-hint">Add photos at Images/photography/photo-1.jpg · · · Click any photo to expand · Esc to close</p>
+    </div><!-- end .board -->
+
+    <p class="photo-hint">Add photos at Images/photography/photo-1.jpg — photo-13.jpg &nbsp;·&nbsp; Click any photo to expand &nbsp;·&nbsp; Esc to close</p>
+
+  </div><!-- end .board-outer -->
+
 
   <!-- Lightbox -->
   <div class="lb" id="lb">
-    <button class="lb-close" id="lbClose">✕</button>
-    <button class="lb-prev"  id="lbPrev">‹</button>
+    <button class="lb-close" id="lbClose" aria-label="Close lightbox">✕</button>
+    <button class="lb-prev"  id="lbPrev"  aria-label="Previous photo">‹</button>
     <div class="lb-wrap"><img src="" alt="" id="lbImg" /></div>
-    <button class="lb-next"  id="lbNext">›</button>
+    <button class="lb-next"  id="lbNext"  aria-label="Next photo">›</button>
     <p class="lb-counter" id="lbCounter"></p>
   </div>
 
   <script>
-    // ── Lightbox ──
-    const photos = Array.from(document.querySelectorAll('.photo'));
-    const lb         = document.getElementById('lb');
-    const lbImg      = document.getElementById('lbImg');
-    const lbCounter  = document.getElementById('lbCounter');
-    const lbClose    = document.getElementById('lbClose');
-    const lbPrev     = document.getElementById('lbPrev');
-    const lbNext     = document.getElementById('lbNext');
-    let current = 0;
+    /* ── Scale board to fit viewport ── */
+    var BOARD_W = 1020;
+    var BOARD_PAD = 40; // 20px each side of .board-outer
 
-    function getSrc(p) {
-      const img = p.querySelector('img');
-      return (img && !img.classList.contains('missing')) ? img.src : null;
+    function scaleBoard() {
+      var board = document.getElementById('board');
+      if (!board) return;
+      var avail = window.innerWidth - BOARD_PAD;
+      if (avail < BOARD_W) {
+        var scale = avail / BOARD_W;
+        board.style.transform = 'scale(' + scale + ')';
+        // Shrink the outer container height to match scaled height
+        var scaledH = board.offsetHeight * scale;
+        board.parentElement.style.alignItems = 'flex-start';
+      } else {
+        board.style.transform = '';
+      }
     }
 
-    function open(idx) {
-      // find nearest photo with a real image
-      let tries = 0;
-      while (tries < photos.length) {
-        const src = getSrc(photos[idx]);
-        if (src) {
-          current = idx;
-          lbImg.src = src;
-          lbImg.alt = photos[idx].querySelector('img').alt;
-          lbCounter.textContent = (idx + 1) + ' / ' + photos.length;
-          lb.classList.add('open');
-          document.body.style.overflow = 'hidden';
-          return;
-        }
-        idx = (idx + 1) % photos.length;
-        tries++;
-      }
-      // all placeholders — still open with placeholder
-      current = parseInt(photos[idx].dataset.index);
+    /* ── Auto-size board height to contain all photos ── */
+    function sizeBoard() {
+      var board = document.getElementById('board');
+      if (!board) return;
+      // Reset transform temporarily to measure true positions
+      var prev = board.style.transform;
+      board.style.transform = '';
+
+      var maxBottom = 0;
+      Array.from(board.querySelectorAll('.photo')).forEach(function(p) {
+        var bottom = p.offsetTop + p.offsetHeight + 60;
+        if (bottom > maxBottom) maxBottom = bottom;
+      });
+      if (maxBottom > 820) board.style.minHeight = (maxBottom + 40) + 'px';
+
+      board.style.transform = prev;
+      scaleBoard();
+    }
+
+    window.addEventListener('load', sizeBoard);
+    window.addEventListener('resize', scaleBoard);
+
+
+    /* ── Lightbox ── */
+    var photos  = Array.from(document.querySelectorAll('.photo'));
+    var lb      = document.getElementById('lb');
+    var lbImg   = document.getElementById('lbImg');
+    var lbCtr   = document.getElementById('lbCounter');
+    var lbClose = document.getElementById('lbClose');
+    var lbPrev  = document.getElementById('lbPrev');
+    var lbNext  = document.getElementById('lbNext');
+    var current = 0;
+
+    function getSrc(p) {
+      var img = p.querySelector('img');
+      return (img && !img.classList.contains('missing')) ? img.src : null;
+    }
+    function getAlt(p) {
+      var img = p.querySelector('img');
+      return img ? (img.alt || '') : '';
+    }
+
+    function openLb(idx) {
+      var src = getSrc(photos[idx]);
+      if (!src) return;
+      current = idx;
+      lbImg.src = src;
+      lbImg.alt = getAlt(photos[idx]);
+      if (lbCtr) lbCtr.textContent = (idx + 1) + ' / ' + photos.length;
       lb.classList.add('open');
       document.body.style.overflow = 'hidden';
     }
 
-    function close() {
+    function closeLb() {
       lb.classList.remove('open');
       document.body.style.overflow = '';
-      lbImg.src = '';
+      setTimeout(function() { lbImg.src = ''; }, 300);
     }
 
-    function prev() { open((current - 1 + photos.length) % photos.length); }
-    function next() { open((current + 1) % photos.length); }
+    function prevLb() { openLb((current - 1 + photos.length) % photos.length); }
+    function nextLb() { openLb((current + 1) % photos.length); }
 
     photos.forEach(function(p) {
       p.addEventListener('click', function() {
-        open(parseInt(p.dataset.index));
+        openLb(parseInt(p.getAttribute('data-idx')) || 0);
       });
     });
 
-    lbClose.addEventListener('click', close);
-    lbPrev.addEventListener('click', prev);
-    lbNext.addEventListener('click', next);
-    lb.addEventListener('click', function(e) { if (e.target === lb) close(); });
+    if (lbClose) lbClose.addEventListener('click', closeLb);
+    if (lbPrev)  lbPrev.addEventListener('click', prevLb);
+    if (lbNext)  lbNext.addEventListener('click', nextLb);
+    lb.addEventListener('click', function(e) { if (e.target === lb) closeLb(); });
 
     document.addEventListener('keydown', function(e) {
       if (!lb.classList.contains('open')) return;
-      if (e.key === 'ArrowLeft')  prev();
-      if (e.key === 'ArrowRight') next();
-      if (e.key === 'Escape')     close();
+      if (e.key === 'ArrowLeft')  prevLb();
+      if (e.key === 'ArrowRight') nextLb();
+      if (e.key === 'Escape')     closeLb();
     });
-
-    // ── Make board height accommodate all scattered photos ──
-    // (auto-size so nothing clips off the bottom)
-    function sizeBoard() {
-      const board = document.getElementById('board');
-      let maxBottom = 0;
-      photos.forEach(function(p) {
-        const r = p.getBoundingClientRect();
-        const boardTop = board.getBoundingClientRect().top;
-        const bottom = p.offsetTop + p.offsetHeight + 120;
-        if (bottom > maxBottom) maxBottom = bottom;
-      });
-      if (maxBottom > board.clientHeight) {
-        board.style.minHeight = maxBottom + 'px';
-      }
-    }
-    window.addEventListener('load', sizeBoard);
-    window.addEventListener('resize', sizeBoard);
   </script>
 </body>
 </html>

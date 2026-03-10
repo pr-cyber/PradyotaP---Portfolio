@@ -1,236 +1,267 @@
 /* ════════════════════════════════════════════════
-   PRADYOTA PHANEESH — PORTFOLIO JAVASCRIPT v4
+   PRADYOTA PHANEESH — PORTFOLIO JAVASCRIPT v5
    
    1. Navbar scroll background
-   2. Scroll-reveal animations
+   2. Scroll-reveal animations  (progressive enhancement + hard fallback)
    3. Mobile hamburger menu
    4. Active nav link highlight
    5. Clickable project cards (data-href)
-   6. Image lightbox (gallery + photography)
+   6. Image lightbox (gallery pages)
 ════════════════════════════════════════════════ */
 
-
 /* ─────────────────────────────────────────────
-   1. NAVBAR
+   SAFE QUERY HELPERS
+   All DOM queries go through these so a missing
+   element never throws and breaks the whole script.
 ───────────────────────────────────────────── */
-const navbar = document.getElementById('navbar');
-function handleNavScroll() {
-  navbar.classList.toggle('scrolled', window.scrollY > 40);
-}
-window.addEventListener('scroll', handleNavScroll, { passive: true });
-handleNavScroll();
+function $(id)   { return document.getElementById(id); }
+function $$(sel) { return Array.from(document.querySelectorAll(sel)); }
 
 
 /* ─────────────────────────────────────────────
-   2. SCROLL REVEAL
-   Adds body.js-reveal-ready so the CSS animation
-   activates. Hard fallback: if observer never fires
-   within 2s (e.g. local file, slow browser), all
-   elements are forced visible.
+   1. NAVBAR — frosted glass on scroll
 ───────────────────────────────────────────── */
+(function initNavbar() {
+  var navbar = $('navbar');
+  if (!navbar) return;
+  function onScroll() { navbar.classList.toggle('scrolled', window.scrollY > 40); }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
 
-// Opt into the animation NOW (before observing)
-document.body.classList.add('js-reveal-ready');
 
-const revealEls = document.querySelectorAll('.reveal');
+/* ─────────────────────────────────────────────
+   2. SCROLL REVEAL  —  progressive enhancement
+   CSS default: opacity:1 (always visible).
+   Adding body.js-reveal-ready opts into animation.
+   Hard timeout at 1.5s ensures nothing stays hidden.
+───────────────────────────────────────────── */
+(function initReveal() {
+  document.body.classList.add('js-reveal-ready');
 
-const revealObserver = new IntersectionObserver(
-  function(entries) {
+  var els = $$('.reveal');
+  if (!els.length || !window.IntersectionObserver) {
+    // No observer support → show everything immediately
+    els.forEach(function(el) { el.classList.add('visible'); });
+    return;
+  }
+
+  var observer = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
-        revealObserver.unobserve(entry.target);
+        observer.unobserve(entry.target);
       }
     });
-  },
-  { threshold: 0.05, rootMargin: '0px 0px -30px 0px' }
-);
+  }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
 
-revealEls.forEach(function(el) { revealObserver.observe(el); });
+  els.forEach(function(el) { observer.observe(el); });
 
-// Hard fallback: if anything is still hidden after 2s, force show it
-setTimeout(function() {
-  document.querySelectorAll('.reveal:not(.visible)').forEach(function(el) {
-    el.classList.add('visible');
+  // Hard fallback — nothing stays hidden after 1.5s
+  setTimeout(function() {
+    $$('.reveal:not(.visible)').forEach(function(el) { el.classList.add('visible'); });
+  }, 1500);
+})();
+
+
+/* ─────────────────────────────────────────────
+   3. MOBILE HAMBURGER MENU
+───────────────────────────────────────────── */
+(function initHamburger() {
+  var hamburger  = $('hamburger');
+  var mobileMenu = $('mobileMenu');
+  if (!hamburger || !mobileMenu) return;
+
+  var open = false;
+
+  function openMenu() {
+    open = true;
+    mobileMenu.classList.add('open');
+    hamburger.setAttribute('aria-expanded', 'true');
+    var bars = hamburger.querySelectorAll('span');
+    if (bars[0]) bars[0].style.transform = 'translateY(7px) rotate(45deg)';
+    if (bars[1]) bars[1].style.opacity   = '0';
+    if (bars[2]) bars[2].style.transform = 'translateY(-7px) rotate(-45deg)';
+  }
+
+  function closeMenu() {
+    open = false;
+    mobileMenu.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    var bars = hamburger.querySelectorAll('span');
+    if (bars[0]) bars[0].style.transform = '';
+    if (bars[1]) bars[1].style.opacity   = '';
+    if (bars[2]) bars[2].style.transform = '';
+  }
+
+  hamburger.addEventListener('click', function(e) {
+    e.stopPropagation();
+    open ? closeMenu() : openMenu();
   });
-}, 2000);
 
+  // Close when a menu link is clicked
+  $$('.mobile-link').forEach(function(link) {
+    link.addEventListener('click', function() { closeMenu(); });
+  });
 
-/* ─────────────────────────────────────────────
-   3. MOBILE HAMBURGER
-───────────────────────────────────────────── */
-const hamburger  = document.getElementById('hamburger');
-const mobileMenu = document.getElementById('mobileMenu');
-let menuOpen = false;
-
-function openMenu() {
-  menuOpen = true;
-  mobileMenu.classList.add('open');
-  hamburger.setAttribute('aria-expanded', 'true');
-  const bars = hamburger.querySelectorAll('span');
-  bars[0].style.transform = 'translateY(7px) rotate(45deg)';
-  bars[1].style.opacity   = '0';
-  bars[2].style.transform = 'translateY(-7px) rotate(-45deg)';
-}
-function closeMenu() {
-  menuOpen = false;
-  mobileMenu.classList.remove('open');
-  hamburger.setAttribute('aria-expanded', 'false');
-  const bars = hamburger.querySelectorAll('span');
-  bars[0].style.transform = '';
-  bars[1].style.opacity   = '';
-  bars[2].style.transform = '';
-}
-
-hamburger.addEventListener('click', function() { menuOpen ? closeMenu() : openMenu(); });
-document.querySelectorAll('.mobile-link').forEach(function(link) { link.addEventListener('click', closeMenu); });
-document.addEventListener('click', function(e) {
-  if (menuOpen && !hamburger.contains(e.target) && !mobileMenu.contains(e.target)) closeMenu();
-});
-window.addEventListener('resize', function() { if (window.innerWidth > 900 && menuOpen) closeMenu(); });
-
-
-/* ─────────────────────────────────────────────
-   4. ACTIVE NAV LINK
-───────────────────────────────────────────── */
-const allSections = document.querySelectorAll('section[id]');
-const navLinks    = document.querySelectorAll('.nav-links a[href^="#"]');
-
-function updateActiveLink() {
-  let currentId = '';
-  allSections.forEach(function(section) {
-    const rect = section.getBoundingClientRect();
-    if (rect.top <= window.innerHeight * 0.45 && rect.bottom >= 0) {
-      currentId = section.getAttribute('id');
+  // Close on outside click
+  document.addEventListener('click', function(e) {
+    if (!open) return;
+    if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+      closeMenu();
     }
   });
-  navLinks.forEach(function(a) {
-    a.classList.remove('active');
-    if (a.getAttribute('href') === '#' + currentId) a.classList.add('active');
+
+  // Close if resized to desktop width
+  window.addEventListener('resize', function() {
+    if (window.innerWidth > 980 && open) closeMenu();
   });
-}
-window.addEventListener('scroll', updateActiveLink, { passive: true });
-updateActiveLink();
+})();
+
+
+/* ─────────────────────────────────────────────
+   4. ACTIVE NAV LINK  —  highlights current section
+───────────────────────────────────────────── */
+(function initActiveNav() {
+  var sections = $$('section[id]');
+  var links    = $$('.nav-links a[href^="#"]');
+  if (!sections.length || !links.length) return;
+
+  function update() {
+    var currentId = '';
+    sections.forEach(function(s) {
+      var r = s.getBoundingClientRect();
+      if (r.top <= window.innerHeight * 0.45 && r.bottom >= 0) {
+        currentId = s.id;
+      }
+    });
+    links.forEach(function(a) {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + currentId);
+    });
+  }
+
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
 
 
 /* ─────────────────────────────────────────────
    5. CLICKABLE PROJECT CARDS
    
-   Any element with class "clickable-card" and
-   data-href="path/to/page.html" becomes fully
-   clickable. The inner <a> button still works
-   for keyboard users.
+   Each .proj-card[data-href] is fully clickable.
+   Clicking the "View Project →" <a> button navigates
+   via its own href (normal anchor behaviour).
+   Clicking anywhere else on the card navigates via
+   the card's data-href attribute.
    
-   Shift/Ctrl/Cmd + click opens in a new tab.
+   Ctrl/Cmd + click opens in a new tab.
 ───────────────────────────────────────────── */
-document.querySelectorAll('.clickable-card[data-href]').forEach(function(card) {
-  card.addEventListener('click', function(e) {
-    // Don't intercept actual anchor clicks (let them navigate normally)
-    if (e.target.closest('a')) return;
+(function initClickableCards() {
+  $$('.clickable-card[data-href]').forEach(function(card) {
+    card.addEventListener('click', function(e) {
+      // If the click target is inside an <a>, let the anchor handle it naturally
+      if (e.target.closest('a[href]')) return;
 
-    const href = card.getAttribute('data-href');
-    if (!href) return;
+      var href = card.getAttribute('data-href');
+      if (!href) return;
 
-    // Ctrl / Cmd / middle-click → open in new tab
-    if (e.ctrlKey || e.metaKey || e.button === 1) {
-      window.open(href, '_blank');
-    } else {
-      window.location.href = href;
-    }
+      if (e.ctrlKey || e.metaKey) {
+        window.open(href, '_blank');
+      } else {
+        window.location.href = href;
+      }
+    });
+
+    // Middle-click → open in new tab
+    card.addEventListener('mousedown', function(e) {
+      if (e.button === 1) {
+        e.preventDefault();
+        var href = card.getAttribute('data-href');
+        if (href) window.open(href, '_blank');
+      }
+    });
   });
-
-  // Middle-click
-  card.addEventListener('mousedown', function(e) {
-    if (e.button === 1) {
-      e.preventDefault();
-      const href = card.getAttribute('data-href');
-      if (href) window.open(href, '_blank');
-    }
-  });
-});
+})();
 
 
 /* ─────────────────────────────────────────────
-   6. LIGHTBOX
+   6. IMAGE LIGHTBOX
    
-   Works for:
-   • Project page gallery images  (.gal-item with .gal-img)
-   • Photography corkboard         (.pin-photo with .cork-img)
-   
-   All elements with class .gal-item are collected.
-   Click any to open, arrow keys / buttons to navigate.
+   Picks up all .gal-item elements on the page.
+   Click → open fullscreen.  ←→ Esc to navigate.
 ───────────────────────────────────────────── */
-const lightbox  = document.getElementById('lightbox');
-const lbImg     = document.getElementById('lbImg');
-const lbCaption = document.getElementById('lbCaption');
-const lbClose   = document.getElementById('lbClose');
-const lbPrev    = document.getElementById('lbPrev');
-const lbNext    = document.getElementById('lbNext');
+(function initLightbox() {
+  var lightbox  = $('lightbox');
+  var lbImg     = $('lbImg');
+  var lbCaption = $('lbCaption');
+  var lbClose   = $('lbClose');
+  var lbPrev    = $('lbPrev');
+  var lbNext    = $('lbNext');
 
-if (lightbox && lbImg) {
-  const galleryItems = Array.from(document.querySelectorAll('.gal-item'));
-  let currentIndex = 0;
+  if (!lightbox || !lbImg) return;
 
-  function openLightbox(index) {
-    const item = galleryItems[index];
-    // Support both regular gallery images and cork-board polaroid images
-    const img = item.querySelector('.gal-img, .cork-img');
+  var items   = $$('.gal-item');
+  var current = 0;
+
+  if (!items.length) return;
+
+  function getImg(item) {
+    return item.querySelector('img.gal-img, img.cork-img, img');
+  }
+
+  function openAt(idx) {
+    var item = items[idx];
+    if (!item) return;
+    var img = getImg(item);
     if (!img || img.style.display === 'none') return;
 
-    currentIndex = index;
+    current = idx;
     lbImg.src = img.src;
-    lbImg.alt = img.alt;
-
-    const caption = item.querySelector('.gal-caption, figcaption');
-    lbCaption.textContent = caption ? caption.textContent : (img.alt || '');
-
+    lbImg.alt = img.alt || '';
+    var cap = item.querySelector('.gal-caption, figcaption');
+    if (lbCaption) lbCaption.textContent = cap ? cap.textContent.trim() : '';
     lightbox.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
 
-  function closeLightbox() {
+  function close() {
     lightbox.classList.remove('open');
     document.body.style.overflow = '';
-    lbImg.src = '';
+    setTimeout(function() { lbImg.src = ''; }, 300);
   }
 
-  function showPrev() {
-    // Find previous item that has a visible image
-    let idx = (currentIndex - 1 + galleryItems.length) % galleryItems.length;
-    openLightbox(idx);
-  }
-  function showNext() {
-    let idx = (currentIndex + 1) % galleryItems.length;
-    openLightbox(idx);
-  }
+  function prev() { openAt((current - 1 + items.length) % items.length); }
+  function next() { openAt((current + 1) % items.length); }
 
-  galleryItems.forEach(function(item, i) {
-    item.addEventListener('click', function(e) {
-      // Prevent card-click handler from firing when inside a clickable card
-      e.stopPropagation();
-      openLightbox(i);
-    });
+  items.forEach(function(item, i) {
+    item.style.cursor = 'zoom-in';
     item.setAttribute('tabindex', '0');
+    item.addEventListener('click', function(e) {
+      e.stopPropagation(); // Don't trigger card navigation
+      openAt(i);
+    });
     item.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(i); }
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openAt(i); }
     });
   });
 
-  if (lbClose) lbClose.addEventListener('click', closeLightbox);
-  if (lbPrev)  lbPrev.addEventListener('click', showPrev);
-  if (lbNext)  lbNext.addEventListener('click', showNext);
+  if (lbClose) lbClose.addEventListener('click', close);
+  if (lbPrev)  lbPrev.addEventListener('click', prev);
+  if (lbNext)  lbNext.addEventListener('click', next);
 
-  lightbox.addEventListener('click', function(e) { if (e.target === lightbox) closeLightbox(); });
+  lightbox.addEventListener('click', function(e) {
+    if (e.target === lightbox) close();
+  });
 
   document.addEventListener('keydown', function(e) {
     if (!lightbox.classList.contains('open')) return;
-    if (e.key === 'ArrowLeft')  showPrev();
-    if (e.key === 'ArrowRight') showNext();
-    if (e.key === 'Escape')     closeLightbox();
+    if (e.key === 'ArrowLeft')  prev();
+    if (e.key === 'ArrowRight') next();
+    if (e.key === 'Escape')     close();
   });
-}
+})();
 
 
-/* ─── Dev Easter Egg ─── */
+/* ─── Console Easter Egg ─── */
 console.log('%c✦ Pradyota Phaneesh — Engineering Portfolio', 'font-family:Georgia,serif;font-size:14px;color:#0050D8;font-style:italic;');
 console.log('%c  B.S. Mechanical Engineering · UT Austin · GPA 3.93', 'font-family:monospace;font-size:11px;color:#888;');
