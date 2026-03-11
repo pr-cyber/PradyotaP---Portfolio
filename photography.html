@@ -6,502 +6,413 @@
   <title>Photography — Pradyota Phaneesh</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Outfit:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
-    /* ═══════════════════════════════════════════════
-       PHOTOGRAPHY PAGE — detective board aesthetic
-       No white frames. Raw photos, scattered freely,
-       pinned with colored pushpins.
-    ═══════════════════════════════════════════════ */
     :root {
-      --accent: #0050D8;
-      --f-body: 'Outfit', sans-serif;
-      --f-display: 'Cormorant Garamond', serif;
-      --f-mono: 'JetBrains Mono', monospace;
+      --accent:  #0050D8;
+      --bg:      #0e0e0e;
+      --nav-h:   60px;
+      --gap:     10px;
+      --f-body:  'Outfit', sans-serif;
+      --f-disp:  'Cormorant Garamond', serif;
+      --f-mono:  'JetBrains Mono', monospace;
+      --ease:    cubic-bezier(0.16, 1, 0.3, 1);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { height: 100%; }
-
+    html { scroll-behavior: smooth; }
     body {
-      background: #111;
+      background: var(--bg);
+      color: rgba(255,255,255,0.8);
       font-family: var(--f-body);
       -webkit-font-smoothing: antialiased;
       min-height: 100vh;
     }
 
-    /* ── Top nav ── */
-    .photo-nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    /* ════ NAV ════ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      z-index: 400;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 1rem 2rem;
-      background: rgba(10,10,10,0.88);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255,255,255,0.07);
+      padding: 0 2.5rem;
+      background: rgba(14,14,14,0.94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
     }
-    .photo-nav-logo {
-      font-family: var(--f-body); font-weight: 700; font-size: 0.82rem;
+    .nav-logo {
+      font-family: var(--f-body); font-weight: 700; font-size: 0.8rem;
       color: #fff; background: var(--accent);
-      width: 36px; height: 36px; border-radius: 8px;
+      width: 34px; height: 34px; border-radius: 7px;
       display: flex; align-items: center; justify-content: center;
-      text-decoration: none; flex-shrink: 0;
-      transition: background 0.2s;
+      text-decoration: none; transition: background 0.2s; flex-shrink: 0;
     }
-    .photo-nav-logo:hover { background: #003db0; }
-    .photo-nav-title {
-      font-family: var(--f-display); font-size: 1.1rem; font-style: italic;
-      color: rgba(255,255,255,0.7); letter-spacing: 0.02em;
+    .nav-logo:hover { background: #003db0; }
+    .nav-title {
+      position: absolute; left: 50%; transform: translateX(-50%);
+      font-family: var(--f-disp); font-size: 1rem; font-style: italic;
+      color: rgba(255,255,255,0.4); letter-spacing: 0.04em; pointer-events: none;
     }
-    .photo-nav-back {
-      font-family: var(--f-body); font-size: 0.7rem; font-weight: 600;
+    .nav-back {
+      font-family: var(--f-body); font-size: 0.68rem; font-weight: 500;
       letter-spacing: 0.1em; text-transform: uppercase;
-      color: rgba(255,255,255,0.4); text-decoration: none;
-      display: flex; align-items: center; gap: 0.4rem;
-      transition: color 0.2s;
+      color: rgba(255,255,255,0.3); text-decoration: none; transition: color 0.2s;
     }
-    .photo-nav-back:hover { color: #fff; }
-    .photo-nav-back::before { content: '←'; font-size: 0.9rem; }
+    .nav-back:hover { color: rgba(255,255,255,0.85); }
+    .nav-back::before { content: '← '; }
 
-    /* ── Outer wrapper: fills viewport, centers the board ── */
-    .board-outer {
-      min-height: 100vh;
-      padding: 90px 20px 60px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    /* ════ PAGE ════ */
+    .page {
+      padding-top: calc(var(--nav-h) + 3.5rem);
+      padding-bottom: 5rem;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding-left: 2rem;
+      padding-right: 2rem;
     }
 
-    /*
-      ── The board canvas ──
-      Fixed width of 1020px — all photo positions are
-      designed within this width.
-      On smaller screens we scale it down with transform.
-      overflow: visible so photos that "lean" out slightly
-      aren't hard-clipped, but the outer wrapper clips them.
-    */
-    .board {
+    .gallery-header {
+      margin-bottom: 2.5rem;
+      display: flex; align-items: baseline; gap: 1rem;
+    }
+    .gallery-header h1 {
+      font-family: var(--f-disp);
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 400; color: rgba(255,255,255,0.9);
+      line-height: 1; letter-spacing: -0.01em;
+    }
+    .photo-count {
+      font-family: var(--f-mono); font-size: 0.62rem;
+      color: rgba(255,255,255,0.2); letter-spacing: 0.12em;
+      text-transform: uppercase; align-self: flex-end; padding-bottom: 0.2rem;
+    }
+
+    /* ════ MASONRY GRID ════ */
+    .gallery {
+      columns: 3;
+      column-gap: var(--gap);
+    }
+    @media (max-width: 900px) { .gallery { columns: 2; } }
+    @media (max-width: 480px) { .gallery { columns: 1; } }
+
+    .gallery-item {
+      break-inside: avoid;
+      margin-bottom: var(--gap);
       position: relative;
-      width: 1020px;
-      /* Height is set by JS to fit all photos */
-      min-height: 820px;
-      flex-shrink: 0;
-
-      /* Dark linen texture */
-      background:
-        repeating-linear-gradient(
-          0deg, transparent, transparent 38px,
-          rgba(255,255,255,0.012) 38px, rgba(255,255,255,0.012) 39px
-        ),
-        repeating-linear-gradient(
-          90deg, transparent, transparent 38px,
-          rgba(255,255,255,0.012) 38px, rgba(255,255,255,0.012) 39px
-        ),
-        #181818;
-      border-radius: 4px;
-      /* scale() is applied by JS based on viewport width */
-      transform-origin: top center;
-    }
-
-    /* ── Each pinned photo ── */
-    /*
-      .photo  = outer clickable container
-      No white frame, no border — just raw image + shadow + pin.
-
-      HOW TO ADD PHOTOS:
-      1. Add files at  Images/photography/photo-N.jpg
-      2. Copy a <figure class="photo p-N"> block
-      3. Add a CSS rule:  .p-N { --rot: Xdeg; --z: Y; top: Zpx; left: Wpx; width: Vpx; }
-         (all positions within 0–1020px width, 0–820px height)
-    */
-    .photo {
-      position: absolute;
-      transform: rotate(var(--rot, 0deg));
-      z-index: var(--z, 1);
+      overflow: hidden;
       cursor: zoom-in;
-      /* No border, no background — minimalist */
-      transition: transform 0.22s cubic-bezier(0.16,1,0.3,1),
-                  box-shadow 0.22s,
-                  z-index 0s;
+      border-radius: 2px;
+      background: #181818;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.55s var(--ease), transform 0.55s var(--ease);
     }
-    .photo:hover {
-      transform: rotate(0deg) scale(1.07) !important;
-      z-index: 50 !important;
-      box-shadow: 0 28px 90px rgba(0,0,0,0.9) !important;
+    .gallery-item.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
-
-    .photo img {
+    .gallery-item img {
       display: block;
-      width: 100%;
-      height: auto;
-      min-height: 60px;
-      background: #222;
-      /* Crisp shadow — makes photos "pop" off the dark board */
-      box-shadow: 3px 7px 32px rgba(0,0,0,0.7), 0 1px 4px rgba(0,0,0,0.5);
-      border-radius: 1px;
+      width: 100%; height: auto;
+      transition: transform 0.55s var(--ease), filter 0.4s;
+      will-change: transform;
     }
-
-    /* Placeholder when image missing */
-    .photo img.missing { display: none !important; }
-    .photo-placeholder {
-      display: none;
-      width: 100%; min-height: 100px;
-      background: linear-gradient(135deg, #252525, #1a1a1a);
-      border-radius: 1px;
-      box-shadow: 3px 7px 32px rgba(0,0,0,0.7);
-      flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem;
+    .gallery-item:hover img {
+      transform: scale(1.03);
+      filter: brightness(1.07);
     }
-    .photo-placeholder .ph-icon { font-size: 1.5rem; opacity: 0.25; }
-    .photo-placeholder .ph-label {
-      font-family: var(--f-mono); font-size: 0.52rem; letter-spacing: 0.1em;
-      text-transform: uppercase; color: rgba(255,255,255,0.18);
-    }
-
-    /* Zoom icon on hover */
-    .photo-overlay {
+    /* Dark tint on hover */
+    .gallery-item::after {
+      content: '';
       position: absolute; inset: 0;
-      background: rgba(0,0,0,0.38);
+      background: rgba(0,0,0,0);
+      transition: background 0.3s;
+      pointer-events: none;
+    }
+    .gallery-item:hover::after { background: rgba(0,0,0,0.06); }
+
+    /* Expand indicator */
+    .item-expand {
+      position: absolute; bottom: 10px; right: 10px;
+      width: 30px; height: 30px; border-radius: 50%;
+      background: rgba(255,255,255,0.88);
       display: flex; align-items: center; justify-content: center;
-      opacity: 0; transition: opacity 0.2s; border-radius: 1px;
+      font-size: 0.7rem; color: #111;
+      opacity: 0; transform: scale(0.6);
+      transition: opacity 0.22s, transform 0.22s var(--ease);
+      pointer-events: none; z-index: 2;
     }
-    .photo:hover .photo-overlay { opacity: 1; }
-    .zoom-icon {
-      width: 42px; height: 42px;
-      background: rgba(255,255,255,0.92); border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1rem; color: #111;
-    }
+    .gallery-item:hover .item-expand { opacity: 1; transform: scale(1); }
 
-    /* Pushpins */
-    .pin {
-      position: absolute; top: -9px; left: 50%;
-      transform: translateX(-50%);
-      width: 13px; height: 13px; border-radius: 50%;
-      box-shadow: 0 2px 7px rgba(0,0,0,0.65), inset 0 -1px 3px rgba(0,0,0,0.3);
-      z-index: 2;
-    }
-    .pin-r { background: radial-gradient(circle at 38% 32%, #ff7a7a, #c0392b); }
-    .pin-b { background: radial-gradient(circle at 38% 32%, #60b0e2, #1a6fa8); }
-    .pin-y { background: radial-gradient(circle at 38% 32%, #ffe066, #c89800); }
-    .pin-g { background: radial-gradient(circle at 38% 32%, #62d88c, #1e7a43); }
-    .pin-w { background: radial-gradient(circle at 38% 32%, #f0f0f0, #9a9a9a); }
-
-    /*
-      ══ PHOTO POSITIONS ══
-      All coordinates designed for 1020px-wide board.
-      Height ~820px. Mix of portrait and landscape.
-      Genuinely scattered — overlapping, not grid-like.
-
-      Positive --rot = tilted clockwise
-      --z controls stacking order
-    */
-
-    /* ─ Upper-left cluster ─ */
-    .p-1  { --rot: -5deg;  --z: 4;  top: 28px;  left: 22px;  width: 230px; }
-    .p-2  { --rot:  9deg;  --z: 6;  top: 14px;  left: 225px; width: 180px; }
-
-    /* ─ Top center (large focal piece) ─ */
-    .p-3  { --rot: -2deg;  --z: 3;  top: 40px;  left: 420px; width: 285px; }
-
-    /* ─ Upper right ─ */
-    .p-4  { --rot:  8deg;  --z: 5;  top: 18px;  left: 724px; width: 200px; }
-    .p-5  { --rot:-11deg;  --z: 2;  top: 155px; left: 850px; width: 155px; }
-
-    /* ─ Middle cluster (densest overlap) ─ */
-    .p-6  { --rot:  6deg;  --z: 8;  top: 280px; left: 45px;  width: 250px; }
-    .p-7  { --rot: -8deg;  --z: 7;  top: 248px; left: 268px; width: 295px; }
-    .p-8  { --rot:  3deg;  --z: 9;  top: 295px; left: 536px; width: 235px; }
-    .p-9  { --rot: -6deg;  --z: 5;  top: 255px; left: 782px; width: 220px; }
-
-    /* ─ Bottom scatter ─ */
-    .p-10 { --rot: 12deg;  --z: 6;  top: 558px; left: 15px;  width: 190px; }
-    .p-11 { --rot: -4deg;  --z: 4;  top: 530px; left: 232px; width: 265px; }
-    .p-12 { --rot:  7deg;  --z: 7;  top: 570px; left: 538px; width: 220px; }
-    .p-13 { --rot: -9deg;  --z: 3;  top: 545px; left: 778px; width: 230px; }
-
-
-    /* ── HINT ── */
-    .photo-hint {
-      margin-top: 2rem;
-      font-family: var(--f-mono); font-size: 0.58rem; letter-spacing: 0.12em;
-      text-transform: uppercase; color: rgba(255,255,255,0.16);
-      text-align: center;
-    }
-
-
-    /* ── LIGHTBOX ── */
+    /* ════ LIGHTBOX ════ */
     .lb {
-      display: none; position: fixed; inset: 0;
-      background: rgba(5,5,5,0.97); z-index: 1000;
-      align-items: center; justify-content: center; padding: 2.5rem;
+      display: none;
+      position: fixed; inset: 0;
+      z-index: 1000;
+      background: #000;
+      cursor: zoom-out;
     }
-    .lb.open { display: flex; }
-    .lb-wrap { max-width: 92vw; max-height: 86vh; display: flex; align-items: center; justify-content: center; }
-    .lb-wrap img { max-width: 100%; max-height: 86vh; border-radius: 2px; box-shadow: 0 30px 100px rgba(0,0,0,0.92); object-fit: contain; }
+    .lb.open {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: lbIn 0.28s var(--ease) forwards;
+    }
+    @keyframes lbIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* The image fills as much of the screen as possible */
+    .lb-img-wrap {
+      width: 100vw; height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .lb-img-wrap img {
+      max-width: 100vw; max-height: 100vh;
+      width: auto; height: auto;
+      object-fit: contain;
+      display: block;
+      cursor: default;
+      /* Slight pop-in */
+      animation: imgIn 0.32s var(--ease) forwards;
+    }
+    @keyframes imgIn {
+      from { transform: scale(0.97); opacity: 0.6; }
+      to   { transform: scale(1);    opacity: 1; }
+    }
+
+    /* Chrome — hidden until hover/move, then auto-hides */
+    .lb-chrome { opacity: 0; transition: opacity 0.22s; }
+    .lb.show-chrome .lb-chrome { opacity: 1; }
+
     .lb-close {
-      position: fixed; top: 1.2rem; right: 1.4rem;
-      background: rgba(255,255,255,0.1); border: none; color: #fff;
-      font-size: 1.2rem; width: 46px; height: 46px; border-radius: 50%;
+      position: fixed; top: 1.4rem; right: 1.6rem;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.9); font-size: 1.05rem;
       cursor: pointer; display: flex; align-items: center; justify-content: center;
       transition: background 0.2s; z-index: 10;
     }
     .lb-close:hover { background: rgba(255,255,255,0.22); }
-    .lb-prev, .lb-next {
+
+    .lb-arrow {
       position: fixed; top: 50%; transform: translateY(-50%);
-      background: rgba(255,255,255,0.09); border: none; color: #fff;
-      font-size: 2rem; padding: 0.75rem 1.1rem; border-radius: 10px;
-      cursor: pointer; transition: background 0.2s; z-index: 10;
+      width: 50px; height: 50px; border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.09);
+      color: rgba(255,255,255,0.85); font-size: 1.6rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, transform 0.18s;
+      z-index: 10;
     }
-    .lb-prev { left: 1.2rem; }
-    .lb-next { right: 1.2rem; }
-    .lb-prev:hover, .lb-next:hover { background: rgba(255,255,255,0.2); }
+    .lb-arrow:hover { background: rgba(255,255,255,0.18); }
+    #lbPrev { left: 1.4rem; }
+    #lbNext { right: 1.4rem; }
+    #lbPrev:hover { transform: translateY(-50%) translateX(-2px); }
+    #lbNext:hover { transform: translateY(-50%) translateX(2px); }
+
     .lb-counter {
       position: fixed; bottom: 1.4rem; left: 50%; transform: translateX(-50%);
-      font-family: var(--f-mono); font-size: 0.62rem; letter-spacing: 0.12em;
-      text-transform: uppercase; color: rgba(255,255,255,0.3);
+      font-family: var(--f-mono); font-size: 0.58rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(255,255,255,0.22); pointer-events: none;
     }
   </style>
 </head>
 <body>
 
-  <nav class="photo-nav">
-    <a href="index.html" class="photo-nav-logo" aria-label="Home">PP</a>
-    <span class="photo-nav-title">Photography</span>
-    <a href="index.html" class="photo-nav-back">Back to Portfolio</a>
+  <nav>
+    <a href="index.html" class="nav-logo" aria-label="Home">PP</a>
+    <span class="nav-title">Photography</span>
+    <a href="index.html" class="nav-back">Back to Portfolio</a>
   </nav>
 
-  <div class="board-outer">
+  <main class="page">
+    <header class="gallery-header">
+      <h1>Photography</h1>
+      <span class="photo-count" id="photoCount"></span>
+    </header>
 
     <!--
-      ════════════════════════════════════════
-      BOARD — how to add your photos:
-      1. Create folder: Images/photography/
-      2. Add photos named photo-1.jpg through photo-13.jpg
-      3. Each <figure class="photo p-N"> is one slot
-      4. Add more slots: copy a <figure>, give it class "p-14" etc.,
-         then add CSS:  .p-14 { --rot: Xdeg; --z:Y; top:Zpx; left:Wpx; width:Vpx; }
-         Keep all positions within the 1020px × 820px board.
-      ════════════════════════════════════════
+      ════ HOW TO ADD PHOTOS ════
+      Add images at Images/photography/photo-1.jpg … photo-13.jpg
+      Any aspect ratio works — the masonry grid handles it.
+      To add more: copy any .gallery-item block and update the src.
     -->
-    <div class="board" id="board">
+    <div class="gallery" id="gallery">
 
-      <figure class="photo p-1" data-idx="0">
-        <div class="pin pin-r"></div>
-        <img src="Images/photography/photo-1.jpg" alt="Photo 1"
-          onerror="this.classList.add('missing');this.nextElementSibling.style.display='flex';" />
-        <div class="photo-placeholder"><div class="ph-icon">📷</div><div class="ph-label">photo-1.jpg</div></div>
-        <div class="photo-overlay"><div class="zoom-icon">⤢</div></div>
-      </figure>
+      <div class="gallery-item" data-idx="0">
+        <img src="Images/photography/photo-1.jpg"  alt="Photo 1"  loading="lazy" />
+        <span class="item-expand">⤢</span>
+      </div>
+      <div class="gallery-item" data-idx="1">
+        <img src="Images/photography/photo-2.jpg"  alt="Photo 2"  loading="lazy" />
+        <span class="item-expand">⤢</span>
+      </div>
+      <div class="gallery-item" data-idx="2">
+        <img src="Images/photography/photo-3.jpg"  alt="Photo 3"  loading="lazy" />
+        <span class="item-expand">⤢</span>
+      </div>
+      <div class="gallery-item" data-idx="3">
+        <img src="Images/photography/photo-4.jpg"  alt="Photo 4"  loading="lazy" />
+        <span class="item-expand">⤢</span>
+      </div>
+      <div class="gallery-item" data-idx="4">
+        <img src="Images/photography/photo-5.jpg"  alt="Photo 5"  loading="lazy" />
+        <span class="item-expand">⤢</span>
+      </div>
+      <div class="gallery-item" data-idx="5">
+        <img src="Images/photography/photo-6.jpg"  alt="Photo 6"  loading="lazy" />
+        <span class="item-expand">⤢</span>
+      </div>
+      <div class="gallery-item" data-idx="6">
+        <img src="Images/photography/photo-7.jpg"  alt="Photo 7"  loading="lazy" />
+        <span class="item-expand">⤢</span>
+      </div>
+      <div class="gallery-item" data-idx="7">
+        <img src="Images/photography/photo-8.jpg"  alt="Photo 8"  loading="lazy" />
+        <span class="item-expand">⤢</span>
+      </div>
+      <div class="gallery-item" data-idx="8">
+        <img src="Images/photography/photo-9.jpg"  alt="Photo 9"  loading="lazy" />
+        <span class="item-expand">⤢</span>
+      </div>
+      <div class="gallery-item" data-idx="9">
+        <img src="Images/photography/photo-10.jpg" alt="Photo 10" loading="lazy" />
+        <span class="item-expand">⤢</span>
+      </div>
+      <div class="gallery-item" data-idx="10">
+        <img src="Images/photography/photo-11.jpg" alt="Photo 11" loading="lazy" />
+        <span class="item-expand">⤢</span>
+      </div>
+      <div class="gallery-item" data-idx="11">
+        <img src="Images/photography/photo-12.jpg" alt="Photo 12" loading="lazy" />
+        <span class="item-expand">⤢</span>
+      </div>
+      <div class="gallery-item" data-idx="12">
+        <img src="Images/photography/photo-13.jpg" alt="Photo 13" loading="lazy" />
+        <span class="item-expand">⤢</span>
+      </div>
 
-      <figure class="photo p-2" data-idx="1">
-        <div class="pin pin-b"></div>
-        <img src="Images/photography/photo-2.jpg" alt="Photo 2"
-          onerror="this.classList.add('missing');this.nextElementSibling.style.display='flex';" />
-        <div class="photo-placeholder"><div class="ph-icon">📷</div><div class="ph-label">photo-2.jpg</div></div>
-        <div class="photo-overlay"><div class="zoom-icon">⤢</div></div>
-      </figure>
+    </div>
+  </main>
 
-      <figure class="photo p-3" data-idx="2">
-        <div class="pin pin-y"></div>
-        <img src="Images/photography/photo-3.jpg" alt="Photo 3"
-          onerror="this.classList.add('missing');this.nextElementSibling.style.display='flex';" />
-        <div class="photo-placeholder"><div class="ph-icon">📷</div><div class="ph-label">photo-3.jpg</div></div>
-        <div class="photo-overlay"><div class="zoom-icon">⤢</div></div>
-      </figure>
-
-      <figure class="photo p-4" data-idx="3">
-        <div class="pin pin-g"></div>
-        <img src="Images/photography/photo-4.jpg" alt="Photo 4"
-          onerror="this.classList.add('missing');this.nextElementSibling.style.display='flex';" />
-        <div class="photo-placeholder"><div class="ph-icon">📷</div><div class="ph-label">photo-4.jpg</div></div>
-        <div class="photo-overlay"><div class="zoom-icon">⤢</div></div>
-      </figure>
-
-      <figure class="photo p-5" data-idx="4">
-        <div class="pin pin-r"></div>
-        <img src="Images/photography/photo-5.jpg" alt="Photo 5"
-          onerror="this.classList.add('missing');this.nextElementSibling.style.display='flex';" />
-        <div class="photo-placeholder"><div class="ph-icon">📷</div><div class="ph-label">photo-5.jpg</div></div>
-        <div class="photo-overlay"><div class="zoom-icon">⤢</div></div>
-      </figure>
-
-      <figure class="photo p-6" data-idx="5">
-        <div class="pin pin-w"></div>
-        <img src="Images/photography/photo-6.jpg" alt="Photo 6"
-          onerror="this.classList.add('missing');this.nextElementSibling.style.display='flex';" />
-        <div class="photo-placeholder"><div class="ph-icon">📷</div><div class="ph-label">photo-6.jpg</div></div>
-        <div class="photo-overlay"><div class="zoom-icon">⤢</div></div>
-      </figure>
-
-      <figure class="photo p-7" data-idx="6">
-        <div class="pin pin-b"></div>
-        <img src="Images/photography/photo-7.jpg" alt="Photo 7"
-          onerror="this.classList.add('missing');this.nextElementSibling.style.display='flex';" />
-        <div class="photo-placeholder"><div class="ph-icon">📷</div><div class="ph-label">photo-7.jpg</div></div>
-        <div class="photo-overlay"><div class="zoom-icon">⤢</div></div>
-      </figure>
-
-      <figure class="photo p-8" data-idx="7">
-        <div class="pin pin-y"></div>
-        <img src="Images/photography/photo-8.jpg" alt="Photo 8"
-          onerror="this.classList.add('missing');this.nextElementSibling.style.display='flex';" />
-        <div class="photo-placeholder"><div class="ph-icon">📷</div><div class="ph-label">photo-8.jpg</div></div>
-        <div class="photo-overlay"><div class="zoom-icon">⤢</div></div>
-      </figure>
-
-      <figure class="photo p-9" data-idx="8">
-        <div class="pin pin-r"></div>
-        <img src="Images/photography/photo-9.jpg" alt="Photo 9"
-          onerror="this.classList.add('missing');this.nextElementSibling.style.display='flex';" />
-        <div class="photo-placeholder"><div class="ph-icon">📷</div><div class="ph-label">photo-9.jpg</div></div>
-        <div class="photo-overlay"><div class="zoom-icon">⤢</div></div>
-      </figure>
-
-      <figure class="photo p-10" data-idx="9">
-        <div class="pin pin-g"></div>
-        <img src="Images/photography/photo-10.jpg" alt="Photo 10"
-          onerror="this.classList.add('missing');this.nextElementSibling.style.display='flex';" />
-        <div class="photo-placeholder"><div class="ph-icon">📷</div><div class="ph-label">photo-10.jpg</div></div>
-        <div class="photo-overlay"><div class="zoom-icon">⤢</div></div>
-      </figure>
-
-      <figure class="photo p-11" data-idx="10">
-        <div class="pin pin-b"></div>
-        <img src="Images/photography/photo-11.jpg" alt="Photo 11"
-          onerror="this.classList.add('missing');this.nextElementSibling.style.display='flex';" />
-        <div class="photo-placeholder"><div class="ph-icon">📷</div><div class="ph-label">photo-11.jpg</div></div>
-        <div class="photo-overlay"><div class="zoom-icon">⤢</div></div>
-      </figure>
-
-      <figure class="photo p-12" data-idx="11">
-        <div class="pin pin-r"></div>
-        <img src="Images/photography/photo-12.jpg" alt="Photo 12"
-          onerror="this.classList.add('missing');this.nextElementSibling.style.display='flex';" />
-        <div class="photo-placeholder"><div class="ph-icon">📷</div><div class="ph-label">photo-12.jpg</div></div>
-        <div class="photo-overlay"><div class="zoom-icon">⤢</div></div>
-      </figure>
-
-      <figure class="photo p-13" data-idx="12">
-        <div class="pin pin-y"></div>
-        <img src="Images/photography/photo-13.jpg" alt="Photo 13"
-          onerror="this.classList.add('missing');this.nextElementSibling.style.display='flex';" />
-        <div class="photo-placeholder"><div class="ph-icon">📷</div><div class="ph-label">photo-13.jpg</div></div>
-        <div class="photo-overlay"><div class="zoom-icon">⤢</div></div>
-      </figure>
-
-    </div><!-- end .board -->
-
-    <p class="photo-hint">Add photos at Images/photography/photo-1.jpg — photo-13.jpg &nbsp;·&nbsp; Click any photo to expand &nbsp;·&nbsp; Esc to close</p>
-
-  </div><!-- end .board-outer -->
-
-
-  <!-- Lightbox -->
-  <div class="lb" id="lb">
-    <button class="lb-close" id="lbClose" aria-label="Close lightbox">✕</button>
-    <button class="lb-prev"  id="lbPrev"  aria-label="Previous photo">‹</button>
-    <div class="lb-wrap"><img src="" alt="" id="lbImg" /></div>
-    <button class="lb-next"  id="lbNext"  aria-label="Next photo">›</button>
-    <p class="lb-counter" id="lbCounter"></p>
+  <!-- FULLSCREEN LIGHTBOX -->
+  <div class="lb" id="lb" role="dialog" aria-modal="true">
+    <button class="lb-chrome lb-close" id="lbClose" aria-label="Close">✕</button>
+    <button class="lb-chrome lb-arrow" id="lbPrev" aria-label="Previous photo">‹</button>
+    <div class="lb-img-wrap" id="lbWrap">
+      <img src="" alt="" id="lbImg" />
+    </div>
+    <button class="lb-chrome lb-arrow" id="lbNext" aria-label="Next photo">›</button>
+    <p class="lb-chrome lb-counter" id="lbCounter"></p>
   </div>
 
   <script>
-    /* ── Scale board to fit viewport ── */
-    var BOARD_W = 1020;
-    var BOARD_PAD = 40; // 20px each side of .board-outer
+    /* ──────────────────────────────────────────
+       Build the list of successfully-loaded items
+    ────────────────────────────────────────── */
+    var allItems = Array.from(document.querySelectorAll('.gallery-item'));
+    var loaded   = []; // items with real images
+    var chromeTimer;
 
-    function scaleBoard() {
-      var board = document.getElementById('board');
-      if (!board) return;
-      var avail = window.innerWidth - BOARD_PAD;
-      if (avail < BOARD_W) {
-        var scale = avail / BOARD_W;
-        board.style.transform = 'scale(' + scale + ')';
-        // Shrink the outer container height to match scaled height
-        var scaledH = board.offsetHeight * scale;
-        board.parentElement.style.alignItems = 'flex-start';
-      } else {
-        board.style.transform = '';
+    allItems.forEach(function(item, i) {
+      var img = item.querySelector('img');
+      if (!img) { item.style.display = 'none'; return; }
+
+      function onLoad() {
+        if (!loaded.includes(item)) loaded.push(item);
+        // Stagger the fade-in slightly
+        setTimeout(function() { item.classList.add('visible'); }, loaded.length * 40);
+        updateCount();
+      }
+
+      img.addEventListener('load',  onLoad);
+      img.addEventListener('error', function() { item.style.display = 'none'; });
+
+      // Already cached
+      if (img.complete && img.naturalWidth > 0) onLoad();
+    });
+
+    function updateCount() {
+      var el = document.getElementById('photoCount');
+      if (el && loaded.length > 0) {
+        el.textContent = loaded.length + (loaded.length === 1 ? ' photo' : ' photos');
       }
     }
 
-    /* ── Auto-size board height to contain all photos ── */
-    function sizeBoard() {
-      var board = document.getElementById('board');
-      if (!board) return;
-      // Reset transform temporarily to measure true positions
-      var prev = board.style.transform;
-      board.style.transform = '';
-
-      var maxBottom = 0;
-      Array.from(board.querySelectorAll('.photo')).forEach(function(p) {
-        var bottom = p.offsetTop + p.offsetHeight + 60;
-        if (bottom > maxBottom) maxBottom = bottom;
-      });
-      if (maxBottom > 820) board.style.minHeight = (maxBottom + 40) + 'px';
-
-      board.style.transform = prev;
-      scaleBoard();
-    }
-
-    window.addEventListener('load', sizeBoard);
-    window.addEventListener('resize', scaleBoard);
-
-
-    /* ── Lightbox ── */
-    var photos  = Array.from(document.querySelectorAll('.photo'));
+    /* ──────────────────────────────────────────
+       Lightbox
+    ────────────────────────────────────────── */
     var lb      = document.getElementById('lb');
     var lbImg   = document.getElementById('lbImg');
+    var lbWrap  = document.getElementById('lbWrap');
     var lbCtr   = document.getElementById('lbCounter');
     var lbClose = document.getElementById('lbClose');
     var lbPrev  = document.getElementById('lbPrev');
     var lbNext  = document.getElementById('lbNext');
     var current = 0;
 
-    function getSrc(p) {
-      var img = p.querySelector('img');
-      return (img && !img.classList.contains('missing')) ? img.src : null;
-    }
-    function getAlt(p) {
-      var img = p.querySelector('img');
-      return img ? (img.alt || '') : '';
-    }
-
-    function openLb(idx) {
-      var src = getSrc(photos[idx]);
-      if (!src) return;
+    function openAt(idx) {
+      if (idx < 0 || idx >= loaded.length) return;
       current = idx;
-      lbImg.src = src;
-      lbImg.alt = getAlt(photos[idx]);
-      if (lbCtr) lbCtr.textContent = (idx + 1) + ' / ' + photos.length;
+      var img = loaded[idx].querySelector('img');
+      lbImg.src = img.src;
+      lbImg.alt = img.alt || '';
+      if (lbCtr) lbCtr.textContent = (idx + 1) + ' / ' + loaded.length;
       lb.classList.add('open');
       document.body.style.overflow = 'hidden';
+      flashChrome();
     }
 
     function closeLb() {
       lb.classList.remove('open');
       document.body.style.overflow = '';
+      clearTimeout(chromeTimer);
       setTimeout(function() { lbImg.src = ''; }, 300);
     }
 
-    function prevLb() { openLb((current - 1 + photos.length) % photos.length); }
-    function nextLb() { openLb((current + 1) % photos.length); }
+    function prev() { openAt((current - 1 + loaded.length) % loaded.length); }
+    function next() { openAt((current + 1) % loaded.length); }
 
-    photos.forEach(function(p) {
-      p.addEventListener('click', function() {
-        openLb(parseInt(p.getAttribute('data-idx')) || 0);
+    function flashChrome() {
+      lb.classList.add('show-chrome');
+      clearTimeout(chromeTimer);
+      chromeTimer = setTimeout(function() {
+        lb.classList.remove('show-chrome');
+      }, 2500);
+    }
+
+    // Click gallery items
+    allItems.forEach(function(item) {
+      item.addEventListener('click', function() {
+        var idx = loaded.indexOf(item);
+        if (idx !== -1) openAt(idx);
       });
     });
 
-    if (lbClose) lbClose.addEventListener('click', closeLb);
-    if (lbPrev)  lbPrev.addEventListener('click', prevLb);
-    if (lbNext)  lbNext.addEventListener('click', nextLb);
-    lb.addEventListener('click', function(e) { if (e.target === lb) closeLb(); });
+    // Lightbox controls
+    lbClose.addEventListener('click', closeLb);
+    lbPrev.addEventListener('click',  prev);
+    lbNext.addEventListener('click',  next);
 
+    // Click the background or image (not buttons) to close
+    lb.addEventListener('click', function(e) {
+      if (e.target === lb || e.target === lbWrap || e.target === lbImg) closeLb();
+    });
+
+    // Show chrome on mouse movement inside lb
+    lb.addEventListener('mousemove', flashChrome);
+
+    // Keyboard
     document.addEventListener('keydown', function(e) {
       if (!lb.classList.contains('open')) return;
-      if (e.key === 'ArrowLeft')  prevLb();
-      if (e.key === 'ArrowRight') nextLb();
-      if (e.key === 'Escape')     closeLb();
+      if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')    prev();
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown')  next();
+      if (e.key === 'Escape')                               closeLb();
     });
   </script>
 </body>
