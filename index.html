@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pradyota Phaneesh — Mechanical Engineer</title>
+  <meta name="description" content="Mechanical Engineering student at UT Austin — product design, aerospace, hardware." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ══ NAVIGATION ══ -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo" aria-label="Back to top">PP</a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Work</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#publications">Research</a></li>
+        <li><a href="photography.html">Photography</a></li>
+        <li><a href="#contact" class="nav-cta">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about"        class="mobile-link">About</a>
+    <a href="#projects"     class="mobile-link">Work</a>
+    <a href="#experience"   class="mobile-link">Experience</a>
+    <a href="#publications" class="mobile-link">Research</a>
+    <a href="photography.html" class="mobile-link">Photography</a>
+    <a href="#contact"      class="mobile-link">Contact</a>
+  </div>
+
+
+  <!-- ══ HERO ══ -->
+  <section class="hero" id="hero">
+    <div class="hero-inner reveal">
+      <p class="hero-eyebrow">Mechanical Engineer · UT Austin</p>
+      <h1 class="hero-name">
+        Pradyota<br /><em>Phaneesh</em>
+      </h1>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-primary">View Work</a>
+        <a href="#contact"  class="btn btn-ghost">Contact Me</a>
+        <a href="assets/resume.pdf" download class="btn btn-outline">Resume ↗</a>
+      </div>
+    </div>
+    <div class="hero-scroll" aria-hidden="true">
+      <span>Scroll</span>
+      <div class="hero-scroll-line"></div>
+    </div>
+  </section>
+
+
+  <!-- ══ ABOUT ══ -->
+  <section class="about-section" id="about">
+    <div class="container">
+      <div class="about-grid reveal">
+
+        <!--
+          ═══════════════════════════════════════
+          CAROUSEL — 7 image slots
+          Slot 1: Images/headshot.jpg  (your existing headshot)
+          Slots 2-7: Images/about/photo-2.jpg … photo-7.jpg
+          Add your photos there — any aspect ratio, all auto-cropped to square.
+          ═══════════════════════════════════════
+        -->
+        <div class="about-carousel" id="aboutCarousel">
+          <!-- Placeholder shown if ALL images fail to load -->
+          <div class="carousel-ph" id="carouselPh" style="display:none;">
+            <span class="carousel-ph-initials">PP</span>
+            <span class="carousel-ph-hint">Add Images/headshot.jpg<br/>+ Images/about/photo-2…7.jpg</span>
+          </div>
+
+          <img class="carousel-slide"
+            src="Images/headshot.jpg"
+            alt="Pradyota Phaneesh"
+            data-slide="0" />
+
+          <img class="carousel-slide"
+            src="Images/about/photo-2.jpg"
+            alt="Photo 2"
+            data-slide="1" />
+
+          <img class="carousel-slide"
+            src="Images/about/photo-3.jpg"
+            alt="Photo 3"
+            data-slide="2" />
+
+          <img class="carousel-slide"
+            src="Images/about/photo-4.jpg"
+            alt="Photo 4"
+            data-slide="3" />
+
+          <img class="carousel-slide"
+            src="Images/about/photo-5.jpg"
+            alt="Photo 5"
+            data-slide="4" />
+
+          <img class="carousel-slide"
+            src="Images/about/photo-6.jpg"
+            alt="Photo 6"
+            data-slide="5" />
+
+          <img class="carousel-slide"
+            src="Images/about/photo-7.jpg"
+            alt="Photo 7"
+            data-slide="6" />
+
+          <div class="carousel-dots" id="carouselDots" aria-hidden="true">
+            <!-- dots injected by JS after images are verified -->
+          </div>
+        </div>
+
+        <div class="about-content">
+          <span class="sh-eyebrow">About</span>
+          <p class="about-lead">
+            I'm a mechanical engineering student at UT Austin who likes
+            building things that work in the real world.
+          </p>
+          <p class="about-body">
+            Mechanical engineering student at UT Austin (GPA 3.93) with Boeing manufacturing experience, published nanomanufacturing research, and hands-on Baja SAE chassis design — building hardware that survives contact with the real world.
+          </p>
+          <blockquote class="about-quote">
+            "The details are not the details. They make the design."
+            <cite>— Charles Eames</cite>
+          </blockquote>
+          <div class="about-stats">
+            <div class="stat-item">
+              <span class="stat-num">3.93</span>
+              <span class="stat-lbl">GPA</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">2</span>
+              <span class="stat-lbl">Papers Published</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">240+</span>
+              <span class="stat-lbl">Students Taught</span>
+            </div>
+          </div>
+          <div>
+            <a href="#contact" class="btn btn-ghost" style="align-self:flex-start;">Get in Touch →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══ WORK / PROJECTS ══ -->
+  <section class="work" id="projects">
+    <div class="container">
+
+      <header class="section-header reveal">
+        <span class="sh-eyebrow">Selected Work</span>
+        <h2 class="sh-title">Projects</h2>
+      </header>
+
+      <div class="proj-groups">
+
+        <!-- ── GROUP 1: Motorsport ── -->
+        <div class="proj-group reveal">
+          <button class="group-toggle" aria-expanded="true">
+            <span class="gt-name">Motorsport Engineering</span>
+            <span class="gt-meta"><span class="gt-count">2 projects</span><span class="gt-arrow">›</span></span>
+          </button>
+          <div class="group-body">
+            <div class="proj-cards">
+
+              <a class="proj-card" href="projects/project-baja.html">
+                <div class="pc-img">
+                  <img src="Images/baja/cover.jpg" alt="Baja SAE Chassis Design" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+                  <div class="pc-fallback"><span>Baja SAE</span><span>Chassis Design</span></div>
+                </div>
+                <div class="pc-overlay">
+                  <span class="pc-cat">Structural Design · FEA · SAE</span>
+                  <h3 class="pc-name">Baja SAE Chassis Design</h3>
+                  <span class="pc-cta">View Project →</span>
+                </div>
+              </a>
+
+              <a class="proj-card" href="projects/project-baja-tube.html">
+                <div class="pc-img">
+                  <img src="Images/baja-tube/cover.jpg" alt="Chassis Tube Optimization" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+                  <div class="pc-fallback"><span>Chassis Tube</span><span>Optimization</span></div>
+                </div>
+                <div class="pc-overlay">
+                  <span class="pc-cat">MATLAB · Structural Optimization</span>
+                  <h3 class="pc-name">Chassis Tube Optimization</h3>
+                  <span class="pc-cta">View Project →</span>
+                </div>
+              </a>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- ── GROUP 2: Research & Science ── -->
+        <div class="proj-group reveal">
+          <button class="group-toggle" aria-expanded="false">
+            <span class="gt-name">Research &amp; Science</span>
+            <span class="gt-meta"><span class="gt-count">3 projects</span><span class="gt-arrow">›</span></span>
+          </button>
+          <div class="group-body">
+            <div class="proj-cards">
+
+              <a class="proj-card" href="projects/project-obel.html">
+                <div class="pc-img">
+                  <img src="Images/obel/cover.jpg" alt="Optothermal Bubble Etch Lithography" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+                  <div class="pc-fallback"><span>OBEL</span><span>Nanofabrication</span></div>
+                </div>
+                <div class="pc-overlay">
+                  <span class="pc-cat">Nanomanufacturing · Published · SPIE</span>
+                  <h3 class="pc-name">Optothermal Bubble Etch Lithography</h3>
+                  <span class="pc-cta">View Project →</span>
+                </div>
+              </a>
+
+              <a class="proj-card" href="projects/project-urban.html">
+                <div class="pc-img">
+                  <img src="Images/urban/cover.jpg" alt="Urban Resilience Model" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+                  <div class="pc-fallback"><span>Urban Resilience</span><span>Model</span></div>
+                </div>
+                <div class="pc-overlay">
+                  <span class="pc-cat">Python · Agent-Based Modeling</span>
+                  <h3 class="pc-name">Urban Resilience Model</h3>
+                  <span class="pc-cta">View Project →</span>
+                </div>
+              </a>
+
+              <a class="proj-card" href="projects/project-nasa.html">
+                <div class="pc-img">
+                  <img src="Images/nasa/cover.jpg" alt="NASA HAS Lunar Surface Ops" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+                  <div class="pc-fallback"><span>NASA HAS</span><span>Lunar Surface Ops</span></div>
+                </div>
+                <div class="pc-overlay">
+                  <span class="pc-cat">Systems Engineering · Aerospace</span>
+                  <h3 class="pc-name">NASA HAS — Lunar Surface Ops</h3>
+                  <span class="pc-cta">View Project →</span>
+                </div>
+              </a>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- ── GROUP 3: Robotics & Competition ── -->
+        <div class="proj-group reveal">
+          <button class="group-toggle" aria-expanded="false">
+            <span class="gt-name">Robotics &amp; Competition</span>
+            <span class="gt-meta"><span class="gt-count">2 projects</span><span class="gt-arrow">›</span></span>
+          </button>
+          <div class="group-body">
+            <div class="proj-cards">
+
+              <a class="proj-card" href="projects/project-eclair.html">
+                <div class="pc-img">
+                  <img src="Images/eclair/cover.jpg" alt="ECLAIR Combat Robot" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+                  <div class="pc-fallback"><span>ECLAIR</span><span>Drum Spinner</span></div>
+                </div>
+                <div class="pc-overlay">
+                  <span class="pc-cat">OnShape · Combat Robotics</span>
+                  <h3 class="pc-name">ECLAIR Drum Spinner</h3>
+                  <span class="pc-cta">View Project →</span>
+                </div>
+              </a>
+
+              <a class="proj-card" href="projects/project-drivepod.html">
+                <div class="pc-img">
+                  <img src="Images/drivepod/cover.jpg" alt="Robot Drivepod Redesign" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+                  <div class="pc-fallback"><span>Robot</span><span>Drivepod Redesign</span></div>
+                </div>
+                <div class="pc-overlay">
+                  <span class="pc-cat">SolidWorks · FEA · Robotics</span>
+                  <h3 class="pc-name">Robot Drivepod Redesign</h3>
+                  <span class="pc-cta">View Project →</span>
+                </div>
+              </a>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- ── GROUP 4: Industry ── -->
+        <div class="proj-group reveal">
+          <button class="group-toggle" aria-expanded="false">
+            <span class="gt-name">Industry</span>
+            <span class="gt-meta"><span class="gt-count">3 projects</span><span class="gt-arrow">›</span></span>
+          </button>
+          <div class="group-body">
+            <div class="proj-cards">
+
+              <!-- Boeing 2026 — upcoming -->
+              <a class="proj-card" href="projects/project-boeing-wings.html">
+                <div class="pc-img">
+                  <img src="Images/boeing/cover.jpg" alt="Boeing Wings Internship 2026" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+                  <div class="pc-fallback"><span>Boeing Wings</span><span>Structures 2026</span></div>
+                </div>
+                <span class="pc-upcoming">Starting May 2026</span>
+                <div class="pc-overlay">
+                  <span class="pc-cat">Structures Engineering · Wings Team · Boeing</span>
+                  <h3 class="pc-name">Boeing 737 Wings — Design Engineering Intern</h3>
+                  <span class="pc-cta">View Project →</span>
+                </div>
+              </a>
+
+              <a class="proj-card" href="projects/project-boeing.html">
+                <div class="pc-img">
+                  <img src="Images/boeing/cover.jpg" alt="Boeing Manufacturing Internship" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+                  <div class="pc-fallback"><span>Boeing</span><span>Manufacturing 2025</span></div>
+                </div>
+                <div class="pc-overlay">
+                  <span class="pc-cat">Manufacturing Engineering · Boeing</span>
+                  <h3 class="pc-name">Boeing Manufacturing Internship</h3>
+                  <span class="pc-cta">View Project →</span>
+                </div>
+              </a>
+
+              <a class="proj-card" href="projects/project-heatsink.html">
+                <div class="pc-img">
+                  <img src="Images/heatsink/cover.jpg" alt="Heat Sink Geometry Optimizer" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+                  <div class="pc-fallback"><span>Heat Sink</span><span>Optimizer</span></div>
+                </div>
+                <div class="pc-overlay">
+                  <span class="pc-cat">Python · Thermal Engineering</span>
+                  <h3 class="pc-name">Heat Sink Geometry Optimizer</h3>
+                  <span class="pc-cta">View Project →</span>
+                </div>
+              </a>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══ SKILLS ══ -->
+  <section class="skills-section" id="skills">
+    <div class="container">
+      <div class="skills-inner reveal">
+        <span class="sh-eyebrow">Capabilities</span>
+        <div class="skills-categories">
+
+          <div class="skill-row">
+            <span class="skill-row-label">CAD</span>
+            <div class="skill-tags">
+              <span class="skill-tag" data-tip="Industry standard for 3D mechanical design & assemblies">SolidWorks</span>
+              <span class="skill-tag" data-tip="Parametric part & assembly modeling">Autodesk Inventor</span>
+              <span class="skill-tag" data-tip="Cloud CAD with generative design & simulation">Fusion 360</span>
+              <span class="skill-tag" data-tip="Aerospace-grade CAD — used in production at Boeing">CATIA</span>
+              <span class="skill-tag" data-tip="Browser-based collaborative parametric CAD">OnShape</span>
+              <span class="skill-tag" data-tip="3D modeling for rendering & visualization">Blender</span>
+            </div>
+          </div>
+
+          <div class="skill-row">
+            <span class="skill-row-label">Simulation</span>
+            <div class="skill-tags">
+              <span class="skill-tag" data-tip="Finite element analysis — stress, deformation, safety factors">ANSYS FEA</span>
+              <span class="skill-tag" data-tip="Numerical computing, parametric sweeps & engineering scripts">MATLAB</span>
+              <span class="skill-tag" data-tip="Data acquisition & instrument control for lab systems">LabVIEW</span>
+              <span class="skill-tag" data-tip="Load path analysis, torsional rigidity, impact cases">Structural Analysis</span>
+            </div>
+          </div>
+
+          <div class="skill-row">
+            <span class="skill-row-label">Programming</span>
+            <div class="skill-tags">
+              <span class="skill-tag" data-tip="NumPy, Pandas, Matplotlib — simulation & data science">Python</span>
+              <span class="skill-tag" data-tip="FEA solvers, parametric optimization & plotting">MATLAB</span>
+              <span class="skill-tag" data-tip="Database queries & structured data analysis">SQL</span>
+              <span class="skill-tag" data-tip="Front-end development — this site is proof">HTML / CSS</span>
+              <span class="skill-tag" data-tip="Technical papers, reports & academic typesetting">LaTeX</span>
+            </div>
+          </div>
+
+          <div class="skill-row">
+            <span class="skill-row-label">Manufacturing</span>
+            <div class="skill-tags">
+              <span class="skill-tag" data-tip="Fused deposition & resin-based additive manufacturing">3D Printing (FDM/SLA)</span>
+              <span class="skill-tag" data-tip="MIG/TIG welding & metal fab for competition hardware">Welding &amp; Fabrication</span>
+              <span class="skill-tag" data-tip="Designing parts that are manufacturable on real equipment">Design for Manufacturing</span>
+              <span class="skill-tag" data-tip="Iterative build-test-refine for physical validation">Prototyping</span>
+            </div>
+          </div>
+
+          <div class="skill-row">
+            <span class="skill-row-label">Methods</span>
+            <div class="skill-tags">
+              <span class="skill-tag" data-tip="Tracing defects to systemic — not surface — causes">Root-Cause Analysis</span>
+              <span class="skill-tag" data-tip="Identifying & mitigating failure modes before they occur">Failure Mode Analysis</span>
+              <span class="skill-tag" data-tip="Structured problem decomposition frameworks">A3 / 5-Why</span>
+              <span class="skill-tag" data-tip="Boeing Production System Methodology">Boeing BPSM</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══ EXPERIENCE ══ -->
+  <section class="experience-section" id="experience">
+    <div class="container">
+      <header class="section-header reveal">
+        <span class="sh-eyebrow">Career</span>
+        <h2 class="sh-title">Experience</h2>
+      </header>
+      <div class="exp-list">
+
+        <!-- Boeing 2026 — upcoming, listed first -->
+        <div class="exp-item reveal">
+          <div class="exp-meta">
+            <span class="exp-co">Boeing</span>
+            <span class="exp-date">May – Aug 2026</span>
+            <span class="exp-upcoming">Upcoming</span>
+          </div>
+          <div class="exp-body">
+            <h3 class="exp-role">Design Engineering Intern — Structures (Wings)</h3>
+            <p class="exp-desc">Joining Boeing's 737 Wings team as a Design Engineering Intern focused on structural components — winglets, trailing edge, and leading edge. Working directly on primary wing structures that define aircraft performance and certification margins.</p>
+            <div class="exp-tags">
+              <span>Structures</span><span>Wings</span><span>Boeing 737</span><span>Aerospace</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-item reveal">
+          <div class="exp-meta">
+            <span class="exp-co">Boeing</span>
+            <span class="exp-date">May – Aug 2025</span>
+          </div>
+          <div class="exp-body">
+            <h3 class="exp-role">Manufacturing Engineering Intern</h3>
+            <p class="exp-desc">Traced defects on Boeing 737 airframe structures using A3, 5-Why, and BPSM. Designed 3 shop-floor tools. Authored 25+ installation plan revisions across all 7 factory flow days.</p>
+            <div class="exp-tags">
+              <span>Manufacturing Engineering</span><span>Root-Cause Analysis</span><span>Boeing 737</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-item reveal">
+          <div class="exp-meta">
+            <span class="exp-co">Longhorn Baja</span>
+            <span class="exp-date">Aug 2025 – Present</span>
+          </div>
+          <div class="exp-body">
+            <h3 class="exp-role">Chassis Design Engineer</h3>
+            <p class="exp-desc">Designed, analyzed, and welded UT Austin's first Baja SAE competition chassis. 12 FEA-driven iterations, ~50% size reduction from initial concept, FoS ≥ 2 throughout.</p>
+            <div class="exp-tags">
+              <span>SolidWorks</span><span>ANSYS FEA</span><span>MATLAB</span><span>Welding</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-item reveal">
+          <div class="exp-meta">
+            <span class="exp-co">UT Austin</span>
+            <span class="exp-date">Aug 2024 – Present</span>
+          </div>
+          <div class="exp-body">
+            <h3 class="exp-role">Undergraduate Researcher — Nanomanufacturing Lab</h3>
+            <p class="exp-desc">200+ experiments on OBEL over 1.5 years. Achieved ~450 nm feature resolution. Co-authored two papers and presented at SPIE international conference.</p>
+            <div class="exp-tags">
+              <span>LabVIEW</span><span>Nanofabrication</span><span>SPIE</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-item reveal">
+          <div class="exp-meta">
+            <span class="exp-co">STEAM Foundation</span>
+            <span class="exp-date">Dec 2020 – Jan 2025</span>
+          </div>
+          <div class="exp-body">
+            <h3 class="exp-role">Director &amp; Instructor — 3D Printing</h3>
+            <p class="exp-desc">Founded and ran 4 national 3D-printing and CAD programs. Taught 240+ students. Grew enrollment 10% year-over-year.</p>
+            <div class="exp-tags">
+              <span>3D Printing</span><span>CAD</span><span>Leadership</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══ PUBLICATIONS ══ -->
+  <section class="publications-section" id="publications">
+    <div class="container">
+      <header class="section-header reveal">
+        <span class="sh-eyebrow">Research</span>
+        <h2 class="sh-title">Publications</h2>
+      </header>
+      <div class="pub-list">
+
+        <div class="pub-item reveal">
+          <span class="pub-num">01</span>
+          <div class="pub-body">
+            <span class="pub-badge pub-done">Published</span>
+            <h3 class="pub-title">Optothermally Driven Bubble Etching for Sustainable and On-Demand Nanomanufacturing</h3>
+            <p class="pub-venue">Optical Trapping and Optical Micromanipulation XXII — SPIE Proceedings</p>
+            <p class="pub-desc">Demonstrates OBEL as a laser-driven, maskless nanofabrication method achieving ~450 nm resolution at ultralow etchant concentrations — a sustainable, on-demand alternative to conventional photolithography. Presented at SPIE Photonics West 2025.</p>
+            <a href="https://doi.org/10.1117/12.3061570" class="pub-doi" target="_blank" rel="noopener">doi.org/10.1117/12.3061570 ↗</a>
+          </div>
+        </div>
+
+        <div class="pub-item reveal">
+          <span class="pub-num">02</span>
+          <div class="pub-body">
+            <span class="pub-badge pub-done">Published</span>
+            <h3 class="pub-title">Mass to Luminosity Ratio and Its Correlation to Dark Matter Distributions Across Galaxy Types</h3>
+            <p class="pub-venue">Journal of Student Research in Astrophysics</p>
+            <p class="pub-desc">Statistical analysis of mass-to-luminosity ratios across spiral, elliptical, and irregular galaxies using SPARC photometric data — correlating luminous and dark matter distributions across galaxy morphologies.</p>
+            <a href="https://doi.org/10.70121/001c.121711" class="pub-doi" target="_blank" rel="noopener">doi.org/10.70121/001c.121711 ↗</a>
+          </div>
+        </div>
+
+        <div class="pub-item reveal">
+          <span class="pub-num">03</span>
+          <div class="pub-body">
+            <span class="pub-badge pub-wip">In Progress</span>
+            <h3 class="pub-title">Optothermal Bubble Etch Lithography (OBEL)</h3>
+            <p class="pub-venue">Manuscript in preparation — University of Texas at Austin</p>
+            <p class="pub-desc">Full characterization of OBEL process parameters, scalability analysis, and head-to-head comparison against conventional photolithography for high-density device patterning.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══ CONTACT ══ -->
+  <section class="contact-section" id="contact">
+    <div class="container">
+      <div class="reveal" style="text-align:center;">
+        <h2 class="contact-headline">
+          Let's build<br /><em>something.</em>
+        </h2>
+        <p class="contact-sub">Open to internships, full-time roles, and interesting conversations.</p>
+        <div class="contact-links">
+          <a href="/cdn-cgi/l/email-protection#69191b080d10061d0847190108070c0c1a01290e04080005470a0604" class="contact-link">
+            <span class="contact-link-icon">✉</span>
+            <span class="__cf_email__" data-cfemail="38484a595c41574c5916485059565d5d4b50785f55595154165b5755">[email&#160;protected]</span>
+          </a>
+          <a href="https://linkedin.com/in/pradyota-phaneesh" class="contact-link" target="_blank" rel="noopener">
+            <span class="contact-link-icon">in</span>
+            LinkedIn
+          </a>
+          <a href="https://github.com/pr-cyber" class="contact-link" target="_blank" rel="noopener">
+            <span class="contact-link-icon">⌥</span>
+            GitHub
+          </a>
+          <a href="tel:+14083006618" class="contact-link">
+            <span class="contact-link-icon">☎</span>
+            +1 (408) 300-6618
+          </a>
+        </div>
+        <a href="assets/resume.pdf" download class="btn btn-outline" style="color:rgba(255,255,255,0.6);border-color:rgba(255,255,255,0.18);">
+          Download Resume ↗
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══ FOOTER ══ -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p class="footer-name">Pradyota Phaneesh</p>
+      <p class="footer-meta">B.S. Mechanical Engineering · Minor: Semiconductor Engineering &amp; Science · UT Austin · Dec 2027</p>
+      <p class="footer-copy">© 2025 · Built with HTML, CSS &amp; JavaScript</p>
+    </div>
+  </footer>
+
+
+  <!-- Lightbox (used by project pages) -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+    <button class="lb-close" id="lbClose" aria-label="Close">✕</button>
+    <button class="lb-prev"  id="lbPrev"  aria-label="Previous">‹</button>
+    <div class="lb-img-wrap"><img src="" alt="" id="lbImg" class="lb-img" /></div>
+    <button class="lb-next"  id="lbNext"  aria-label="Next">›</button>
+    <p class="lb-caption" id="lbCaption"></p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
