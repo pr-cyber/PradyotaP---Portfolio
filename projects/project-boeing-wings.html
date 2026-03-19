@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boeing Wings Internship 2026 — Pradyota Phaneesh</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    /* ── Upcoming banner — specific to this page ── */
+    .upcoming-banner {
+      background: var(--accent-gl);
+      border: 1px solid rgba(10,132,255,0.25);
+      border-radius: var(--r-md);
+      padding: 1rem 1.5rem;
+      margin-bottom: var(--sp-md);
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .upcoming-banner-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent); flex-shrink: 0;
+      box-shadow: 0 0 0 3px rgba(10,132,255,0.2);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 3px rgba(10,132,255,0.2); }
+      50%       { box-shadow: 0 0 0 7px rgba(10,132,255,0.08); }
+    }
+    .upcoming-banner p {
+      font-family: var(--f-mono); font-size: 0.66rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent); margin: 0; line-height: 1.5;
+    }
+
+    /* ── Wing diagram card ── */
+    .wing-zones {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.85rem;
+      margin-top: var(--sp-sm);
+    }
+    .wing-zone {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 1.25rem 1rem;
+      display: flex; flex-direction: column; gap: 0.4rem;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .wing-zone:hover {
+      border-color: rgba(10,132,255,0.4);
+      box-shadow: 0 4px 20px rgba(10,132,255,0.08);
+    }
+    .wz-icon { font-size: 1.2rem; }
+    .wz-name {
+      font-family: var(--f-body); font-size: 0.82rem;
+      font-weight: 600; color: var(--ink);
+    }
+    .wz-desc {
+      font-family: var(--f-body); font-size: 0.76rem;
+      color: var(--ink-3); line-height: 1.5;
+    }
+
+    @media (max-width: 580px) {
+      .wing-zones { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar scrolled" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">PP</a>
+      <ul class="nav-links">
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#projects">Work</a></li>
+        <li><a href="../index.html#experience">Experience</a></li>
+        <li><a href="../index.html#publications">Research</a></li>
+        <li><a href="../index.html#contact" class="nav-cta">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html#about"      class="mobile-link">About</a>
+    <a href="../index.html#projects"   class="mobile-link">Work</a>
+    <a href="../index.html#experience" class="mobile-link">Experience</a>
+    <a href="../index.html#contact"    class="mobile-link">Contact</a>
+  </div>
+
+
+  <!-- ════ HERO ════ -->
+  <div class="proj-page-hero">
+    <div class="container">
+
+      <a href="../index.html#projects" class="proj-hero-back">Back to Projects</a>
+
+      <div class="upcoming-banner">
+        <div class="upcoming-banner-dot"></div>
+        <p>Starting May 2026 &nbsp;·&nbsp; This internship is upcoming — page reflects the role scope and focus areas</p>
+      </div>
+
+      <p class="proj-hero-tag">Structures Engineering · Wings · Boeing 737 · May – Aug 2026</p>
+
+      <h1 class="proj-hero-title">
+        Boeing 737 Wings<br /><em>Design Engineering Intern</em>
+      </h1>
+
+      <p class="proj-hero-summary">
+        Returning to Boeing as a Design Engineering Intern on the 737 Wings Structures team —
+        focusing on primary wing structural components including winglets, trailing edge, and
+        leading edge systems. Moving from manufacturing engineering on the factory floor
+        to design engineering, working on structures that define aircraft performance,
+        aerodynamic efficiency, and airworthiness certification.
+      </p>
+
+      <div class="proj-hero-stats">
+        <div class="proj-stat"><span class="ps-val">Boeing</span><span class="ps-lbl">Employer</span></div>
+        <div class="proj-stat"><span class="ps-val">737</span><span class="ps-lbl">Program</span></div>
+        <div class="proj-stat"><span class="ps-val">Wings</span><span class="ps-lbl">Team</span></div>
+        <div class="proj-stat"><span class="ps-val">Summer</span><span class="ps-lbl">2026</span></div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ════ 01 — ROLE ════ -->
+  <div class="proj-section">
+    <div class="container">
+      <div class="proj-section-head reveal">
+        <span class="psh-num">01</span>
+        <h2 class="psh-title">The Role</h2>
+      </div>
+      <div class="proj-two-col">
+        <div class="proj-text reveal">
+          <p>
+            As a Design Engineering Intern on the 737 Wings Structures team,
+            the focus shifts from the factory floor to the drawing board.
+            Where my 2025 internship was about understanding what happens
+            when design meets production, this role is about shaping the
+            design itself — working on primary structural components that
+            carry flight loads, resist fatigue, and meet FAA certification
+            requirements.
+          </p>
+          <p>
+            The wings team is responsible for one of the most structurally
+            complex and aerodynamically critical systems on the aircraft.
+            Primary structures — spars, ribs, skin panels, winglets, trailing
+            edge assemblies, and leading edge slats — must simultaneously
+            minimize weight, survive the full aircraft design life,
+            and be manufacturable at production scale.
+          </p>
+          <p>
+            This role builds directly on ANSYS FEA, SolidWorks, and CATIA
+            experience from coursework and Baja SAE, applied now to
+            certification-grade structural analysis in an aerospace context.
+          </p>
+        </div>
+        <div class="reveal">
+          <div class="proj-callout">
+            <span class="callout-label">Context</span>
+            <p>"My 2025 internship showed me what happens when design meets
+            production. This role is about being on the design side of that equation —
+            understanding how structural decisions ripple through to the factory floor."</p>
+          </div>
+          <div class="proj-tools-row" style="margin-top:1.5rem;">
+            <span>CATIA</span>
+            <span>ANSYS FEA</span>
+            <span>SolidWorks</span>
+            <span>Structural Analysis</span>
+            <span>DFM</span>
+            <span>Boeing BPSM</span>
+            <span>FAA Certification</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════ 02 — FOCUS AREAS ════ -->
+  <div class="proj-section proj-section-alt">
+    <div class="container">
+      <div class="proj-section-head reveal">
+        <span class="psh-num">02</span>
+        <h2 class="psh-title">Wing Structure Focus Areas</h2>
+      </div>
+      <p class="proj-text reveal" style="margin-bottom: var(--sp-md);">
+        <span style="font-size:0.9rem; color:var(--ink-2); line-height:1.8; display:block;">
+          The 737 wing is a primary load-bearing structure carrying all flight, ground, and
+          gust loads between the fuselage and engines. The Wings Structures team works across
+          several distinct zones, each with its own structural character and design challenges.
+        </span>
+      </p>
+      <div class="wing-zones reveal">
+
+        <div class="wing-zone">
+          <div class="wz-icon">🛩</div>
+          <div class="wz-name">Winglets</div>
+          <div class="wz-desc">Upswept wingtip extensions that reduce induced drag and improve fuel efficiency. Structurally complex — must transfer bending and torsion loads while resisting fatigue at the wing tip attachment.</div>
+        </div>
+
+        <div class="wing-zone">
+          <div class="wz-icon">⬇</div>
+          <div class="wz-name">Trailing Edge</div>
+          <div class="wz-desc">Houses the flap and aileron systems that control lift and roll. Complex multi-element structures must be aerodynamically precise and survive repeated actuation loads across the aircraft's design life.</div>
+        </div>
+
+        <div class="wing-zone">
+          <div class="wz-icon">⬆</div>
+          <div class="wz-name">Leading Edge</div>
+          <div class="wz-desc">Slats, Krueger flaps, and thermal anti-icing structures. Critical for low-speed performance and icing certification. Must be lightweight, reliable, and manufacturable within extremely tight tolerances.</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════ 03 — BACKGROUND ════ -->
+  <div class="proj-section">
+    <div class="container">
+      <div class="proj-section-head reveal">
+        <span class="psh-num">03</span>
+        <h2 class="psh-title">Relevant Background</h2>
+      </div>
+      <div class="proc-steps reveal">
+
+        <div class="proc-step">
+          <div class="proc-num">1</div>
+          <div class="proc-content">
+            <h4>Structural FEA — Baja SAE Chassis</h4>
+            <p>Ran 12 full ANSYS and MATLAB FEA iterations on a competition chassis —
+            covering frontal impact, rollover, side load, torsion, and combined load cases.
+            Developed intuition for where FEA results are trustworthy and where
+            mesh sensitivity, boundary conditions, and material assumptions introduce uncertainty.</p>
+          </div>
+        </div>
+
+        <div class="proc-step">
+          <div class="proc-num">2</div>
+          <div class="proc-content">
+            <h4>Manufacturing Engineering — Boeing 2025</h4>
+            <p>Spent a summer on Boeing's 737 factory floor tracing assembly defects
+            and writing installation plans. Seeing the manufacturing side first gives
+            a concrete mental model for how design decisions translate to buildability —
+            a perspective most design interns don't have from day one.</p>
+          </div>
+        </div>
+
+        <div class="proc-step">
+          <div class="proc-num">3</div>
+          <div class="proc-content">
+            <h4>CATIA &amp; Aerospace-Grade CAD</h4>
+            <p>Coursework and self-directed study in CATIA — the primary CAD tool used
+            in Boeing's design environment. Combined with SolidWorks proficiency from
+            Baja SAE, provides a foundation for working within Boeing's
+            product lifecycle management tools.</p>
+          </div>
+        </div>
+
+        <div class="proc-step">
+          <div class="proc-num">4</div>
+          <div class="proc-content">
+            <h4>Semiconductor &amp; Precision Manufacturing Minor</h4>
+            <p>Minor in Semiconductor Engineering and Science provides exposure to
+            precision manufacturing tolerances at the nanometer scale — a useful
+            frame of reference for understanding why tight dimensional tolerances
+            in aerospace structural components matter and how they are achieved.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════ 04 — GALLERY ════ -->
+  <div class="proj-gallery">
+    <div class="container">
+      <div class="proj-section-head reveal">
+        <span class="psh-num">04</span>
+        <h2 class="psh-title">Gallery</h2>
+      </div>
+      <div class="gallery-grid reveal">
+
+        <figure class="gal-item gal-item-wide">
+          <img src="../Images/boeing-wings/img1.jpg" alt="Boeing 737 Wings" class="gal-img"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="gal-placeholder"><div class="gal-placeholder-icon">✈</div><span>Boeing 737 Wings</span><span>Add: Images/boeing-wings/img1.jpg</span></div>
+          <div class="gal-overlay"><div class="gal-zoom">⤢</div></div>
+          <figcaption class="gal-caption">Boeing 737 wing structure</figcaption>
+        </figure>
+
+        <figure class="gal-item">
+          <img src="../Images/boeing-wings/img2.jpg" alt="Winglet detail" class="gal-img"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="gal-placeholder"><div class="gal-placeholder-icon">◈</div><span>Winglet Detail</span><span>Add: Images/boeing-wings/img2.jpg</span></div>
+          <div class="gal-overlay"><div class="gal-zoom">⤢</div></div>
+          <figcaption class="gal-caption">737 winglet</figcaption>
+        </figure>
+
+        <figure class="gal-item">
+          <img src="../Images/boeing-wings/img3.jpg" alt="Wing leading edge" class="gal-img"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="gal-placeholder"><div class="gal-placeholder-icon">⬡</div><span>Leading Edge</span><span>Add: Images/boeing-wings/img3.jpg</span></div>
+          <div class="gal-overlay"><div class="gal-zoom">⤢</div></div>
+          <figcaption class="gal-caption">Leading edge structure</figcaption>
+        </figure>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════ FOOTER ════ -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p class="footer-name">Pradyota Phaneesh</p>
+      <p class="footer-meta">B.S. Mechanical Engineering · UT Austin · Dec 2027</p>
+      <p class="footer-copy">© 2025 · <a href="../index.html#projects" style="color:rgba(255,255,255,0.3)">← Back to Projects</a></p>
+    </div>
+  </footer>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" id="lbClose" aria-label="Close">✕</button>
+    <button class="lb-prev"  id="lbPrev"  aria-label="Previous">‹</button>
+    <div class="lb-img-wrap"><img src="" alt="" id="lbImg" class="lb-img" /></div>
+    <button class="lb-next"  id="lbNext"  aria-label="Next">›</button>
+    <p class="lb-caption" id="lbCaption"></p>
+  </div>
+
+  <script src="../script.js"></script>
+</body>
+</html>
