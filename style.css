@@ -81,7 +81,7 @@
 
 /* ════ 2. RESET & BASE ════ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html  { scroll-behavior: smooth; font-size: 16px; }
+html  { font-size: 16px; }
 body  {
   background: var(--bg);
   color: var(--ink-2);
@@ -837,7 +837,7 @@ section, [id] {
 .gal-item:hover .gal-overlay { opacity: 1; }
 .gal-zoom { width: 40px; height: 40px; background: rgba(255,255,255,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: #1d1d1f; }
 .gal-caption { padding: 0.6rem 0.75rem; font-size: 0.75rem; color: var(--ink-3); font-style: italic; }
-.gal-placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; background: linear-gradient(135deg, var(--bg-card), var(--bg)); }
+.gal-placeholder { position: absolute; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; background: linear-gradient(135deg, var(--bg-card), var(--bg)); }
 .gal-placeholder span { font-family: var(--f-body); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); }
 .gal-placeholder-icon { font-size: 1.5rem; color: var(--ink-3); opacity: 0.4; }
 .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.97); z-index: 2000; align-items: center; justify-content: center; padding: var(--sp-lg); }
@@ -853,7 +853,133 @@ section, [id] {
 .lb-caption { position: fixed; bottom: var(--sp-md); left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.4); font-size: 0.78rem; font-style: italic; text-align: center; white-space: nowrap; }
 
 
-/* ════ 15. SCROLL REVEAL ════ */
+/* ════ CAD VIEWER ════ */
+/*
+  .cad-viewer-wrap   = outer container  (set data-model="../models/file.glb")
+  .cav-canvas        = Three.js canvas lives here
+  .cav-controls      = toolbar buttons (wireframe / bg toggle)
+  .cav-spinner       = loading indicator
+  .cav-error         = shown if model fails to load
+  .cav-placeholder   = shown when no model file is set yet
+*/
+.cad-viewer-section { padding: var(--sp-xl) 0; background: var(--bg); }
+
+.cad-viewer-wrap {
+  position: relative;
+  width: 100%;
+  height: 520px;
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  background: #0d0d0d;
+  border: 1px solid var(--border);
+  box-shadow: var(--sh-xl);
+}
+
+/* Canvas fills the whole box */
+.cav-canvas {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  background: #0d0d0d;
+}
+.cav-canvas canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Controls toolbar */
+.cav-controls {
+  position: absolute; bottom: 1rem; right: 1rem;
+  display: flex; gap: 0.5rem; z-index: 10;
+}
+.cav-btn {
+  font-family: var(--f-mono); font-size: 0.6rem;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--r-sm);
+  padding: 0.4rem 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.cav-btn:hover { background: rgba(255,255,255,0.14); color: #fff; }
+.cav-btn-active {
+  background: var(--accent-gl) !important;
+  border-color: rgba(10,132,255,0.5) !important;
+  color: var(--accent) !important;
+}
+
+/* Mouse-hint */
+.cav-hint {
+  position: absolute; bottom: 1rem; left: 1rem; z-index: 10;
+  font-family: var(--f-mono); font-size: 0.56rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(255,255,255,0.22);
+  display: flex; align-items: center; gap: 0.5rem;
+  pointer-events: none;
+}
+.cav-hint::before {
+  content: '⟳';
+  font-size: 0.9rem; color: rgba(255,255,255,0.18);
+}
+
+/* Loading spinner */
+.cav-spinner {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 0.75rem;
+  z-index: 5;
+}
+.cav-spinner-ring {
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.08);
+  border-top-color: var(--accent);
+  animation: cavSpin 0.9s linear infinite;
+}
+@keyframes cavSpin { to { transform: rotate(360deg); } }
+.cav-pct {
+  font-family: var(--f-mono); font-size: 0.6rem;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+}
+
+/* Error state */
+.cav-error {
+  position: absolute; inset: 0;
+  display: none; flex-direction: column;
+  align-items: center; justify-content: center; gap: 0.5rem;
+}
+.cav-error p {
+  font-family: var(--f-mono); font-size: 0.62rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(255,255,255,0.25); text-align: center; padding: 0 2rem;
+}
+
+/* Placeholder — shown until a model file is added */
+.cav-placeholder {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 0.75rem;
+  z-index: 4;
+}
+.cav-ph-icon { font-size: 2.5rem; opacity: 0.18; }
+.cav-ph-title {
+  font-family: var(--f-display); font-style: italic;
+  font-size: 1.1rem; color: rgba(255,255,255,0.22); text-align: center;
+}
+.cav-ph-hint {
+  font-family: var(--f-mono); font-size: 0.58rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(255,255,255,0.15); text-align: center; max-width: 300px; line-height: 1.7;
+}
+
+/* Responsive */
+@media (max-width: 960px) { .cad-viewer-wrap { height: 380px; } }
+@media (max-width: 580px) { .cad-viewer-wrap { height: 260px; border-radius: var(--r-md); } }
+
+
+
 .reveal { opacity: 1; transform: none; }
 body.js-reveal-ready .reveal {
   opacity: 0; transform: translateY(22px);
