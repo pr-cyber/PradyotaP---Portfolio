@@ -262,6 +262,62 @@
     </div>
   </div>
 
+
+
+  <!-- ════ 05 — 3D MODEL VIEWER ════ -->
+  <!--
+    HOW TO ADD YOUR MODEL
+    ─────────────────────
+    1. Export your CAD file as .GLB from SolidWorks / Fusion 360 / Blender
+    2. Create the folder:  portfolio/models/
+    3. Drop your file in:  portfolio/models/eclair-drum.glb
+    4. The viewer will load it automatically — no server needed.
+
+    CONTROLS:  Left-drag = Rotate  |  Right-drag = Pan  |  Scroll = Zoom
+  -->
+  <div class="cad-viewer-section">
+    <div class="container">
+      <div class="proj-section-head reveal">
+        <span class="psh-num">05</span>
+        <h2 class="psh-title">3D Model Viewer</h2>
+      </div>
+
+      <div class="cad-viewer-wrap reveal" data-model="../models/eclair-drum.glb">
+
+        <!-- Canvas target — Three.js renders here -->
+        <div class="cav-canvas"></div>
+
+        <!-- Loading spinner -->
+        <div class="cav-spinner" style="display:none;">
+          <div class="cav-spinner-ring"></div>
+          <span class="cav-pct">0%</span>
+        </div>
+
+        <!-- Error message -->
+        <div class="cav-error">
+          <p>⚠ Could not load model<br/>Add models/eclair-drum.glb</p>
+        </div>
+
+        <!-- Placeholder (shown until model file is added) -->
+        <div class="cav-placeholder">
+          <div class="cav-ph-icon">⬡</div>
+          <p class="cav-ph-title">ECLAIR Drum Spinner</p>
+          <p class="cav-ph-hint">Add models/eclair-drum.glb<br/>to see the 3D viewer</p>
+        </div>
+
+        <!-- Mouse hint -->
+        <div class="cav-hint">Drag to rotate &nbsp;·&nbsp; Scroll to zoom</div>
+
+        <!-- Toolbar buttons -->
+        <div class="cav-controls">
+          <button class="cav-btn cav-btn-wireframe">Wireframe</button>
+          <button class="cav-btn cav-btn-bg">Light BG</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
   <footer class="footer">
     <div class="container footer-inner">
       <p class="footer-name">Pradyota Phaneesh</p>
@@ -277,6 +333,13 @@
     <button class="lb-next"  id="lbNext"  aria-label="Next">›</button>
     <p class="lb-caption" id="lbCaption"></p>
   </div>
+
+  <!-- Three.js r134 — last version with UMD examples/js/ builds (no module bundler needed) -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="../cad-viewer.js"></script>
+
   <script src="../script.js"></script>
 </body>
 </html>
