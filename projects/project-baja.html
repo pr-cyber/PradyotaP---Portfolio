@@ -378,16 +378,17 @@
 
 
 
+    </div>
+
+  <!-- FOOTER -->
+
   <!-- ════ 05 — 3D MODEL VIEWER ════ -->
   <!--
-    HOW TO ADD YOUR MODEL
-    ─────────────────────
-    1. Export your CAD file as .GLB from SolidWorks / Fusion 360 / Blender
-    2. Create the folder:  portfolio/models/
-    3. Drop your file in:  portfolio/models/baja-chassis.glb
-    4. The viewer will load it automatically — no server needed.
-
-    CONTROLS:  Left-drag = Rotate  |  Right-drag = Pan  |  Scroll = Zoom
+    MODEL FILE: portfolio/models/baja-chassis.glb
+    Export your CAD as .GLB from SolidWorks / Fusion 360 / Blender
+    then drop the file at that path. The viewer works by opening the
+    HTML file directly — no web server required.
+    Controls: Left-drag = Rotate · Scroll = Zoom · Right-drag = Pan
   -->
   <div class="cad-viewer-section">
     <div class="container">
@@ -395,44 +396,36 @@
         <span class="psh-num">05</span>
         <h2 class="psh-title">3D Model Viewer</h2>
       </div>
-
-      <div class="cad-viewer-wrap reveal" data-model="../models/baja-chassis.glb">
-
-        <!-- Canvas target — Three.js renders here -->
-        <div class="cav-canvas"></div>
-
-        <!-- Loading spinner -->
-        <div class="cav-spinner" style="display:none;">
-          <div class="cav-spinner-ring"></div>
-          <span class="cav-pct">0%</span>
+      <div class="mv-wrap reveal">
+        <model-viewer
+          src="../models/baja-chassis.glb"
+          alt="3D model viewer"
+          camera-controls
+          auto-rotate
+          auto-rotate-delay="1000"
+          rotation-per-second="20deg"
+          tone-mapping="neutral"
+          shadow-intensity="1"
+          shadow-softness="0.8"
+          exposure="1"
+          environment-image="neutral"
+          style="width:100%;height:100%;background:transparent;">
+          <!-- Loading bar -->
+          <div class="mv-progress" slot="progress-bar">
+            <div class="mv-progress-bar"></div>
+          </div>
+        </model-viewer>
+        <div class="mv-hint">
+          <span>⟳ Drag to rotate</span>
+          <span class="mv-sep">·</span>
+          <span>Scroll to zoom</span>
+          <span class="mv-sep">·</span>
+          <span>Right-drag to pan</span>
         </div>
-
-        <!-- Error message -->
-        <div class="cav-error">
-          <p>⚠ Could not load model<br/>Add models/baja-chassis.glb</p>
-        </div>
-
-        <!-- Placeholder (shown until model file is added) -->
-        <div class="cav-placeholder">
-          <div class="cav-ph-icon">⬡</div>
-          <p class="cav-ph-title">Baja SAE Chassis</p>
-          <p class="cav-ph-hint">Add models/baja-chassis.glb<br/>to see the 3D viewer</p>
-        </div>
-
-        <!-- Mouse hint -->
-        <div class="cav-hint">Drag to rotate &nbsp;·&nbsp; Scroll to zoom</div>
-
-        <!-- Toolbar buttons -->
-        <div class="cav-controls">
-          <button class="cav-btn cav-btn-wireframe">Wireframe</button>
-          <button class="cav-btn cav-btn-bg">Light BG</button>
-        </div>
-
       </div>
     </div>
   </div>
 
-  <!-- FOOTER -->
   <footer class="footer">
     <div class="container footer-inner">
       <p class="footer-name">Pradyota Phaneesh</p>
@@ -452,12 +445,8 @@
 
   <!-- Note: "../script.js" goes UP one folder to find the script -->
 
-  <!-- Three.js r134 — last version with UMD examples/js/ builds (no module bundler needed) -->
-  <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/build/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/loaders/GLTFLoader.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
-  <script src="../cad-viewer.js"></script>
-
+  <!-- model-viewer — Google's official 3D web component, works on file:// -->
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
   <script src="../script.js"></script>
 </body>
 </html>
